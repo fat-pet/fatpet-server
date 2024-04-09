@@ -64,6 +64,6 @@ jobs:
             sudo docker stop $(sudo docker ps -aq)
             sudo docker run -d -p 80:8080 ${{ secrets.DOCKERHUB_USERNAME }}/fatpet-server:latest
 
-      - name: Remove Github Actions IP From Security Group
+      - name: Remove Github Actions IP from Security Group
         run: |
           aws ec2 revoke-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
