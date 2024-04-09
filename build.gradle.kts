@@ -22,7 +22,6 @@ dependencies {
     // spring
     implementation("org.springframework.boot:spring-boot-starter-web")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     // kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -30,6 +29,9 @@ dependencies {
 
     // springdoc
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
+
+    // test
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.withType<KotlinCompile> {
