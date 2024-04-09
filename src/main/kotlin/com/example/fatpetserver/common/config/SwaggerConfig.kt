@@ -17,6 +17,6 @@ class SwaggerConfig {
             Info()
                 .title("Fatpet API Documentation")
                 .description("팻펫 API 문서")
-                .version("0.0.1")
+                .version("0.0.0")
         )
 }
