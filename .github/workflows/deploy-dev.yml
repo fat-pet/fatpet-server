@@ -44,7 +44,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: SSH into EC2 Instance and Run Docker Container
-        uses: appleboy/ssh-action@v0.1.4
+        uses: appleboy/ssh-action@v0.1.3
         with:
           host: ${{ secrets.EC2_HOST }}
           key: ${{ secrets.EC2_PRIVATE_KEY }}
