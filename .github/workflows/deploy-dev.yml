@@ -35,7 +35,7 @@ jobs:
           file: ./Dockerfile
           push: true
           build-args: |
-            DB_URL=${{ secrets.DEV_DB_URL }} 
+            DB_URL=jdbc:mysql://${{ secrets.DEV_DB_URL }}/fatpet?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
             DB_USERNAME=${{ secrets.DEV_DB_USERNAME }} 
             DB_PASSWORD=${{ secrets.DEV_DB_PASSWORD }}
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/fatpet-server-dev:latest
