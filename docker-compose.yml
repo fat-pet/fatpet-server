@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  database:
+    image: mysql:latest
+    ports:
+      - "13306:3306"
+    volumes:
+      - mysql:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: fatpet
+      MYSQL_ROOT_PASSWORD: root
+    restart: always
+
+  application:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      DB_URL: jdbc:mysql://localhost:13306/fatpet?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+      DB_USERNAME: root
+      DB_PASSWORD: root
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+
+volumes:
+  mysql:
