@@ -1,6 +1,6 @@
 package com.example.fatpetserver.member.entity
 
-import BaseEntity
+import com.example.fatpetserver.common.entity.BaseEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
