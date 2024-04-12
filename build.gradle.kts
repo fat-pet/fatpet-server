@@ -39,6 +39,9 @@ dependencies {
 
     // database
     runtimeOnly("com.mysql:mysql-connector-j")
+
+    // logger
+    implementation("io.github.oshai:kotlin-logging-jvm:6.0.4")
 }
 
 tasks.withType<KotlinCompile> {
