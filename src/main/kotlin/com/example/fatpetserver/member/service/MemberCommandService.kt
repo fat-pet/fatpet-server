@@ -20,10 +20,10 @@ class MemberCommandService(
 
         return repository.save(
             Member(
-                email = email,
-                loginId = loginId,
+                email = email!!,
+                loginId = loginId!!,
                 password = encodedPassword,
-                nickname = nickname,
+                nickname = nickname!!,
             )
         )
     }

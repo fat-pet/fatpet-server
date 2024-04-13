@@ -3,6 +3,7 @@ package com.example.fatpetserver.common
 import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.persistence.EntityNotFoundException
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -19,6 +20,17 @@ class GlobalExceptionHandler {
         logger.warn { exception.message }
 
         return ApiResponse.error(exception.message)
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun handleMethodArgumentNotValidException(exception: MethodArgumentNotValidException): ApiResponse<Unit> {
+        val message = exception.bindingResult.allErrors.map {
+            it.defaultMessage
+        }.joinToString(" ")
+        logger.warn { message }
+
+        return ApiResponse.error(message)
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
