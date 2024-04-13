@@ -10,14 +10,14 @@ data class CreateMemberCommand(
     val email: String = "",
 
     @field:NotBlank(message = "아이디는 필수 입력값입니다.")
-    @field:Length(min = 4, max = 12, message = "아이디는 4글자 이상 12글자 이하여야 합니다.")
+    @field:Length(min = 4, max = 12, message = "아이디는 4글자, 이상 12글자 이하여야 합니다.")
     val loginId: String = "",
 
     @field:NotBlank(message = "비밀번호는 필수 입력값입니다.")
-    @field:Length(min = 6, max = 16, message = "비밀번호는 6글자 이상 16글자 이하여야 합니다.")
+    @field:Length(min = 6, max = 16, message = "비밀번호는 6글자, 이상 16글자 이하여야 합니다.")
     val password: String = "",
 
     @field:NotBlank(message = "닉네임은 필수 입력값입니다.")
-    @field:Length(min = 2, max = 10, message = "닉네임은 2글자 이상 10글자 이하여야 합니다.")
+    @field:Length(min = 2, max = 10, message = "닉네임은 2글자, 이상 10글자 이하여야 합니다.")
     val nickname: String = "",
 )
