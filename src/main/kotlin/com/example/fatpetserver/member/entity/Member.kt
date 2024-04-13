@@ -8,7 +8,7 @@ import jakarta.persistence.Table
 @Entity
 @Table(name = "member")
 class Member(
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     var email: String,
 
     @Column(nullable = false, unique = true)

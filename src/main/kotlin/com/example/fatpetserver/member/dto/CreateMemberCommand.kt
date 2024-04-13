@@ -7,17 +7,17 @@ import org.hibernate.validator.constraints.Length
 data class CreateMemberCommand(
     @field:NotBlank(message = "이메일은 필수 입력값입니다.")
     @field:Email(message = "이메일 형식이 올바르지 않습니다.")
-    val email: String? = null,
+    val email: String = "",
 
     @field:NotBlank(message = "아이디는 필수 입력값입니다.")
     @field:Length(min = 4, max = 12)
-    val loginId: String? = null,
+    val loginId: String = "",
 
     @field:NotBlank(message = "비밀번호는 필수 입력값입니다.")
     @field:Length(min = 6, max = 16)
-    val password: String? = null,
+    val password: String = "",
 
     @field:NotBlank(message = "닉네임은 필수 입력값입니다.")
     @field:Length(min = 2, max = 10)
-    val nickname: String? = null,
+    val nickname: String = "",
 )
