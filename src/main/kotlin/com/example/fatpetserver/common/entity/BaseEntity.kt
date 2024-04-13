@@ -24,7 +24,7 @@ abstract class BaseEntity(
 
     @LastModifiedDate
     @Column(nullable = false)
-    var modifiedDate: LocalDateTime = LocalDateTime.MIN,
+    var updatedDate: LocalDateTime = LocalDateTime.MIN,
 ) {
 
     override fun equals(other: Any?): Boolean {
