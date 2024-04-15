@@ -12,7 +12,10 @@ import org.springframework.security.web.SecurityFilterChain
 @Configuration
 @EnableWebSecurity
 class SecurityConfig {
-    
+
+    private val allowedRequests =
+        arrayOf("/api/members/signup", "/api/members/signin")
+
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http
@@ -20,8 +23,10 @@ class SecurityConfig {
             .csrf { it.disable() }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .authorizeHttpRequests {
-                it.requestMatchers("/api/members/signup").permitAll()
+                it.requestMatchers(*allowedRequests).permitAll()
+                it.anyRequest().authenticated()
             }
+            .formLogin { it.disable() }
 
         return http.build()
     }

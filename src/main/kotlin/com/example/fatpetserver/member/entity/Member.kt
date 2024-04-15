@@ -3,6 +3,8 @@ package com.example.fatpetserver.member.entity
 import com.example.fatpetserver.common.entity.BaseEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import jakarta.persistence.Table
 
 @Entity
@@ -19,4 +21,8 @@ class Member(
 
     @Column(nullable = false, unique = true)
     var nickname: String,
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    val role: Role = Role.MEMBER,
 ) : BaseEntity()
