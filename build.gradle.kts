@@ -6,6 +6,7 @@ plugins {
     id("com.palantir.docker-compose") version "0.36.0"
     kotlin("jvm") version "1.9.23"
     kotlin("plugin.spring") version "1.9.23"
+    kotlin("plugin.jpa") version "1.9.23"
 }
 
 group = "com.example"
@@ -19,10 +20,14 @@ repositories {
     mavenCentral()
 }
 
+val jwtVersion = "0.12.5"
+
 dependencies {
     // spring
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-security")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
     // kotlin
@@ -34,9 +39,18 @@ dependencies {
 
     // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.security:spring-security-test")
 
     // database
     runtimeOnly("com.mysql:mysql-connector-j")
+
+    // logger
+    implementation("io.github.oshai:kotlin-logging-jvm:6.0.4")
+
+    // jwt
+    implementation("io.jsonwebtoken:jjwt-api:${jwtVersion}")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:${jwtVersion}")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:${jwtVersion}")
 }
 
 tasks.withType<KotlinCompile> {
@@ -48,4 +62,5 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    jvmArgs("-Xshare:off")
 }

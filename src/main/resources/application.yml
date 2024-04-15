@@ -21,7 +21,7 @@ spring:
         format_sql: true
 
 springdoc:
-  packages-to-scan: com.example.fatpet
+  packages-to-scan: com.example.fatpetserver
   default-consumes-media-type: application/json;charset=UTF-8
   default-produces-media-type: application/json;charset=UTF-8
   swagger-ui:
@@ -29,3 +29,6 @@ springdoc:
     display-request-duration: true
     operations-sorter: alpha
     path: /swagger-ui
+
+jwt:
+  secret: ${JWT_SECRET}
