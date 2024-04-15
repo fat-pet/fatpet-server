@@ -14,7 +14,12 @@ import org.springframework.security.web.SecurityFilterChain
 class SecurityConfig {
 
     private val allowedRequests =
-        arrayOf("/api/members/signup", "/api/members/signin")
+        arrayOf(
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/api/members/signup",
+            "/api/members/signin"
+        )
 
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
