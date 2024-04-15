@@ -13,7 +13,6 @@ interface MemberApiPresentation {
     @Operation(summary = "회원가입")
     fun signup(command: SignupCommand)
 
-
     @Operation(summary = "로그인")
     fun signin(query: SigninQuery): ApiResponse<SigninResponse>
 }
