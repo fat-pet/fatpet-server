@@ -42,6 +42,7 @@ class MemberController(
     @ResponseStatus(value = HttpStatus.OK)
     fun test(@AuthenticationPrincipal userDetails: UserDetails): ApiResponse<String> {
         println(userDetails.toString())
+
         return ApiResponse.success("test")
     }
 }

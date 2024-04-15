@@ -9,7 +9,6 @@ data class UserDetails(
 ) : UserDetails {
 
     val id = _id
-
     val role = _authorities.joinToString("")
 
     override fun getAuthorities() = _authorities

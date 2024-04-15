@@ -41,13 +41,14 @@ class MemberAuthService(
     fun signin(query: SigninQuery): SigninResponse {
         val (loginId, password) = query
 
-        val member =
-            repository.findByLoginId(loginId)?.takeIf {
-                passwordEncoder.matches(password, it.password)
-            } ?: throw BadRequestException("로그인 실패")
+        val member = repository.findByLoginId(loginId)?.takeIf {
+            passwordEncoder.matches(password, it.password)
+        } ?: throw BadRequestException("로그인 실패")
 
-        val token =
-            jwtTokenProvider.createToken(id = member.id.toString(), role = member.role.toString())
+        val token = jwtTokenProvider.createToken(
+            id = member.id.toString(),
+            role = member.role.toString()
+        )
 
         return SigninResponse(
             role = member.role,
