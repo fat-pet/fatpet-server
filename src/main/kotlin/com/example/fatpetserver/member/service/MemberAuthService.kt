@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-@Transactional(readOnly = true)
 class MemberAuthService(
     private val repository: MemberRepository,
     private val passwordEncoder: PasswordEncoder,
     private val jwtTokenProvider: JwtTokenProvider,
 ) {
 
+    @Transactional
     fun signup(command: SignupCommand): Member {
         val (email, loginId, password, nickname) = command.apply {
             checkLoginId(loginId)
@@ -37,6 +37,7 @@ class MemberAuthService(
         )
     }
 
+    @Transactional(readOnly = true)
     fun signin(query: SigninQuery): SigninResponse {
         val (loginId, password) = query
 
@@ -45,7 +46,8 @@ class MemberAuthService(
                 passwordEncoder.matches(password, it.password)
             } ?: throw BadRequestException("로그인 실패")
 
-        val token = jwtTokenProvider.createToken(member.id.toString())
+        val token =
+            jwtTokenProvider.createToken(id = member.id.toString(), role = member.role.toString())
 
         return SigninResponse(
             role = member.role,
