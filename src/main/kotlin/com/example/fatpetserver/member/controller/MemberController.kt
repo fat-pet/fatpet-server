@@ -28,10 +28,8 @@ class MemberController(
 
     @PostMapping("/signup")
     @ResponseStatus(value = HttpStatus.CREATED)
-    override fun signup(@Valid @RequestBody command: SignupCommand): ApiResponse<String> {
+    override fun signup(@Valid @RequestBody command: SignupCommand) {
         memberAuthService.signup(command)
-
-        return ApiResponse.success("회원가입 완료")
     }
 
     @PostMapping("/signin")
