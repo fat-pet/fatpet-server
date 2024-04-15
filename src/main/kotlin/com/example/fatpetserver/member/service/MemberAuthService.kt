@@ -24,7 +24,7 @@ class MemberAuthService(
             checkLoginId(loginId)
             checkNickname(nickname)
         }
-
+        
         val encodedPassword = passwordEncoder.encode(password)
 
         return repository.save(

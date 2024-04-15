@@ -47,7 +47,10 @@ class JwtTokenProvider {
         val id = claims.subject
         val role = claims["role"] as String
         val authorities = listOf(SimpleGrantedAuthority(role))
-        val principal = UserDetails(id, authorities)
+        val principal = UserDetails(
+            _id = id,
+            _authorities = authorities
+        )
 
         return UsernamePasswordAuthenticationToken(principal, "", authorities)
     }
@@ -58,7 +61,6 @@ class JwtTokenProvider {
             .build()
             .parseSignedClaims(token)
             .payload
-
 
     companion object {
         private const val EXPIRATION_MILLISECONDS = 1000L * 60 * 60 * 24 * 30
