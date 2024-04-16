@@ -15,8 +15,12 @@ import java.util.*
 @Service
 class JwtTokenProvider {
 
+    @Value("\${jwt.issuer}")
+    lateinit var issuer: String
+
     @Value("\${jwt.secret}")
     lateinit var secret: String
+
     private val key by lazy {
         Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret))
     }
@@ -30,17 +34,15 @@ class JwtTokenProvider {
             .subject(id)
             .claims(claims)
             .issuedAt(now)
+            .issuer(issuer)
             .expiration(expirationDate)
             .signWith(key)
             .compact()
     }
 
-    fun validateToken(token: String): Boolean = try {
+    fun validateToken(token: String): Boolean = kotlin.runCatching {
         getClaims(token)
-        true
-    } catch (exception: Exception) {
-        false
-    }
+    }.isSuccess
 
     fun getAuthentication(token: String): Authentication {
         val claims: Claims = getClaims(token)

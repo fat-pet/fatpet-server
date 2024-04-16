@@ -10,12 +10,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 @EnableWebMvc
 class WebConfig : WebMvcConfigurer {
 
-    val allowedMethods = listOf("GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS")
+    val allowedMethods = arrayOf("GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS")
 
     override fun addCorsMappings(registry: CorsRegistry) {
         registry.addMapping("/api/**")
             .allowedOriginPatterns("*")
-            .allowedMethods(*allowedMethods.toTypedArray())
+            .allowedMethods(*allowedMethods)
             .allowedHeaders("*")
             .allowCredentials(true)
             .maxAge(3600)

@@ -38,6 +38,7 @@ jobs:
             DB_URL=${{ secrets.DEV_DB_URL }}
             DB_USERNAME=${{ secrets.DEV_DB_USERNAME }} 
             DB_PASSWORD=${{ secrets.DEV_DB_PASSWORD }}
+            JWT_SECRET=${{ secrets.JWT_ISSUER }}
             JWT_SECRET=${{ secrets.JWT_SECRET }}
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/fatpet-server-dev:latest
 
