@@ -8,7 +8,6 @@ import com.example.fatpetserver.member.dto.SignupRequest
 import com.example.fatpetserver.member.dto.UpdateMemberCommand
 import com.example.fatpetserver.member.service.MemberAuthService
 import com.example.fatpetserver.member.service.MemberCommandService
-import com.example.fatpetserver.member.service.MemberQueryService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -27,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController
 class MemberController(
     private val memberAuthService: MemberAuthService,
     private val memberCommandService: MemberCommandService,
-    private val memberQueryService: MemberQueryService,
 ) : MemberApiPresentation {
 
     @PostMapping("/signup")
