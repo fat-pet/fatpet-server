@@ -28,6 +28,7 @@ class GlobalExceptionHandler {
         val message = exception.bindingResult.allErrors.map {
             it.defaultMessage
         }.joinToString(" ")
+        
         logger.warn { message }
 
         return ApiResponse.error(message)

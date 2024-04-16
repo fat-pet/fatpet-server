@@ -27,12 +27,8 @@ class JwtAuthFilter(
     }
 
     private fun resolveToken(request: HttpServletRequest): String? {
-        return request.getHeader("Authorization")?.let { header ->
-            if (header.startsWith("Bearer ")) {
-                header.replace("Bearer ", "")
-            } else {
-                null
-            }
-        }
+        return request.getHeader("Authorization")?.takeIf {
+            it.startsWith("Bearer ")
+        }?.replace("Bearer ", "")
     }
 }
