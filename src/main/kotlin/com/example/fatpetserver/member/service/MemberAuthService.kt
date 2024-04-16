@@ -20,8 +20,8 @@ class MemberAuthService(
 ) {
 
     @Transactional
-    fun signup(command: SignupRequest): Member {
-        val (email, loginId, password, nickname) = command.apply {
+    fun signup(request: SignupRequest): Member {
+        val (email, loginId, password, nickname) = request.apply {
             memberQueryService.checkLoginId(loginId)
             memberQueryService.checkNickname(nickname)
         }
@@ -39,8 +39,8 @@ class MemberAuthService(
     }
 
     @Transactional(readOnly = true)
-    fun signin(query: SigninRequest): SigninResponse {
-        val (loginId, password) = query
+    fun signin(request: SigninRequest): SigninResponse {
+        val (loginId, password) = request
 
         val member = repository.findByLoginId(loginId)?.takeIf { member ->
             passwordEncoder.matches(password, member.password)
