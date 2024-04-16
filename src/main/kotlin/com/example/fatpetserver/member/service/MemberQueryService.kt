@@ -10,6 +10,21 @@ class MemberQueryService(
     private val repository: MemberRepository,
 ) {
     
+    fun checkDuplicate(
+        loginId: String?,
+        nickname: String?,
+    ): Boolean {
+        loginId?.let {
+            return runCatching { checkLoginId(loginId) }.isFailure
+        }
+
+        nickname?.let {
+            return runCatching { checkNickname(nickname) }.isFailure
+        }
+
+        throw IllegalArgumentException("쿼리 파라미터 값을 입력해 주세요.")
+    }
+
     fun checkLoginId(loginId: String) {
         require(repository.existsByLoginId(loginId).not()) { "이미 사용 중인 아이디입니다." }
     }

@@ -27,8 +27,9 @@ springdoc:
   swagger-ui:
     disable-swagger-default-url: true
     display-request-duration: true
-    operations-sorter: alpha
+    operations-sorter: method
     path: /swagger-ui
 
 jwt:
+  issuer: ${JWT_ISSUER}
   secret: ${JWT_SECRET}

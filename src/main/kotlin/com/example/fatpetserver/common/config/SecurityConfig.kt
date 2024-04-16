@@ -24,7 +24,8 @@ class SecurityConfig(
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/api/members/signup",
-            "/api/members/signin"
+            "/api/members/signin",
+            "/api/members/check"
         )
 
     @Bean
@@ -41,7 +42,7 @@ class SecurityConfig(
             .formLogin { it.disable() }
             .addFilterBefore(
                 JwtAuthFilter(jwtTokenProvider),
-                UsernamePasswordAuthenticationFilter::class.java
+                UsernamePasswordAuthenticationFilter::class.java,
             )
 
         return http.build()

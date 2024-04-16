@@ -8,14 +8,17 @@ import com.example.fatpetserver.member.dto.SignupRequest
 import com.example.fatpetserver.member.dto.UpdateMemberCommand
 import com.example.fatpetserver.member.service.MemberAuthService
 import com.example.fatpetserver.member.service.MemberCommandService
+import com.example.fatpetserver.member.service.MemberQueryService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
@@ -24,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController
 class MemberController(
     private val memberAuthService: MemberAuthService,
     private val memberCommandService: MemberCommandService,
+    private val memberQueryService: MemberQueryService,
 ) : MemberApiPresentation {
 
     @PostMapping("/signup")
@@ -53,6 +57,20 @@ class MemberController(
         memberCommandService.update(
             id = userDetails.id.toLong(),
             command = command
+        )
+    }
+
+    @GetMapping("/check")
+    @ResponseStatus(value = HttpStatus.OK)
+    override fun checkDuplicate(
+        @RequestParam(required = false) loginId: String?,
+        @RequestParam(required = false) nickname: String?,
+    ): ApiResponse<Boolean> {
+        return ApiResponse.success(
+            memberQueryService.checkDuplicate(
+                loginId = loginId,
+                nickname = nickname,
+            )
         )
     }
 }

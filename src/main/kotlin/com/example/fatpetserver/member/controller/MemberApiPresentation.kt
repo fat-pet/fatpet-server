@@ -23,4 +23,7 @@ interface MemberApiPresentation {
 
     @Operation(summary = "회원 정보 수정")
     fun update(userDetails: UserDetails, command: UpdateMemberCommand)
+
+    @Operation(summary = "아이디/닉네임 중복 확인")
+    fun checkDuplicate(loginId: String?, nickname: String?): ApiResponse<Boolean>
 }
