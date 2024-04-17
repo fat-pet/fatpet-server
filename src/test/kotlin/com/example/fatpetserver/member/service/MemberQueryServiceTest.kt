@@ -4,13 +4,17 @@ import org.junit.jupiter.api.Assertions.*
 
 import org.junit.jupiter.api.Test
 
-class MemberCommandServiceTest {
+class MemberQueryServiceTest {
 
     @Test
-    fun delete() {
+    fun checkDuplicate() {
     }
 
     @Test
-    fun update() {
+    fun checkLoginId() {
+    }
+
+    @Test
+    fun checkNickname() {
     }
 }

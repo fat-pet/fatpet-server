@@ -11,7 +11,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Service
 import java.util.*
 
-
 @Service
 class JwtTokenProvider {
 
