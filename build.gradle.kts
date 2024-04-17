@@ -21,7 +21,6 @@ repositories {
 }
 
 val jwtVersion = "0.12.5"
-val mockkVersion = "1.13.10"
 val junitVersion = "5.10.2"
 
 dependencies {
@@ -42,7 +41,6 @@ dependencies {
     // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
-    testImplementation("io.mockk:mockk:${mockkVersion}")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     runtimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
     testRuntimeOnly("com.h2database:h2")
