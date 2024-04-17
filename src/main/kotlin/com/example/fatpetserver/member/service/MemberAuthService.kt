@@ -14,9 +14,9 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class MemberAuthService(
     private val repository: MemberRepository,
-    private val memberQueryService: MemberQueryService,
     private val passwordEncoder: PasswordEncoder,
     private val jwtTokenProvider: JwtTokenProvider,
+    private val memberQueryService: MemberQueryService,
 ) {
 
     @Transactional

@@ -1,3 +1,14 @@
 package com.example.fatpetserver.member.service
 
-class MemberCommandServiceTest
+import org.junit.jupiter.api.Test
+
+class MemberCommandServiceTest {
+
+    @Test
+    fun delete() {
+    }
+
+    @Test
+    fun update() {
+    }
+}
