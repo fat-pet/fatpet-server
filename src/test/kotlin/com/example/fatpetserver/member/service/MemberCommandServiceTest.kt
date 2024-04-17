@@ -1,7 +1,5 @@
 package com.example.fatpetserver.member.service
 
-import org.junit.jupiter.api.Assertions.*
-
 import org.junit.jupiter.api.Test
 
 class MemberCommandServiceTest {

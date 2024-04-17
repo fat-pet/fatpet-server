@@ -5,6 +5,7 @@ import com.example.fatpetserver.member.dto.SigninResponse
 import com.example.fatpetserver.member.dto.SignupRequest
 import com.example.fatpetserver.member.entity.Member
 import com.example.fatpetserver.member.repository.MemberRepository
+import org.apache.coyote.BadRequestException
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.catchThrowable
 import org.junit.jupiter.api.BeforeAll
@@ -77,8 +78,40 @@ class MemberAuthServiceTest @Autowired constructor(
     }
 
     @Test
-    @DisplayName("로그인: 성공")
+    @DisplayName("로그인: 아이디 불일치")
+    fun signinTest1() {
+        //given
+        val request = SigninRequest(
+            loginId = "wrong_loginId",
+            password = PASSWORD,
+        )
+
+        // when
+        val throwable = catchThrowable { memberAuthService.signin(request) }
+
+        // then
+        assertThat(throwable).isInstanceOf(BadRequestException::class.java)
+    }
+
+    @Test
+    @DisplayName("로그인: 비밀번호 불일치")
     fun signinTest2() {
+        //given
+        val request = SigninRequest(
+            loginId = LOGIN_ID,
+            password = "wrong_password",
+        )
+
+        // when
+        val throwable = catchThrowable { memberAuthService.signin(request) }
+
+        // then
+        assertThat(throwable).isInstanceOf(BadRequestException::class.java)
+    }
+
+    @Test
+    @DisplayName("로그인: 성공")
+    fun signinTest3() {
         //given
         val request = SigninRequest(
             loginId = LOGIN_ID,

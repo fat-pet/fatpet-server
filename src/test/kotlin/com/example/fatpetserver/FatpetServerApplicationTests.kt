@@ -9,5 +9,4 @@ class FatpetServerApplicationTests {
     @Test
     fun contextLoads() {
     }
-
 }
