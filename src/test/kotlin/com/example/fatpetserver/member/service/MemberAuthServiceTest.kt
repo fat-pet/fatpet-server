@@ -1,5 +1,6 @@
 package com.example.fatpetserver.member.service
 
+import com.example.fatpetserver.member.TestMember
 import com.example.fatpetserver.member.dto.SigninRequest
 import com.example.fatpetserver.member.dto.SigninResponse
 import com.example.fatpetserver.member.dto.SignupRequest
@@ -8,6 +9,7 @@ import com.example.fatpetserver.member.repository.MemberRepository
 import org.apache.coyote.BadRequestException
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.catchThrowable
+import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -23,12 +25,12 @@ class MemberAuthServiceTest @Autowired constructor(
 ) {
 
     @Test
-    @DisplayName("회웝가입: 이미 사용 중인 아이디")
+    @DisplayName("회원가입 - 이미 사용 중인 아이디")
     fun signupTest1() {
         // given
         val request = SignupRequest(
             email = "new_email@email.com",
-            loginId = LOGIN_ID,
+            loginId = TestMember.LOGIN_ID,
             password = "new_password",
             nickname = "new_nickname",
         )
@@ -41,14 +43,14 @@ class MemberAuthServiceTest @Autowired constructor(
     }
 
     @Test
-    @DisplayName("회원가입: 이미 사용 중인 닉네임")
+    @DisplayName("회원가입 - 이미 사용 중인 닉네임")
     fun signupTest2() {
         // given
         val request = SignupRequest(
             email = "new_email@email.com",
             loginId = "new_loginId",
             password = "new_password",
-            nickname = NICKNAME,
+            nickname = TestMember.NICKNAME,
         )
 
         // when
@@ -59,7 +61,7 @@ class MemberAuthServiceTest @Autowired constructor(
     }
 
     @Test
-    @DisplayName("회원가입: 성공")
+    @DisplayName("회원가입 - 정상적인 입력")
     fun signupTest3() {
         // given
         val request = SignupRequest(
@@ -78,12 +80,12 @@ class MemberAuthServiceTest @Autowired constructor(
     }
 
     @Test
-    @DisplayName("로그인: 아이디 불일치")
+    @DisplayName("로그인 - 아이디 불일치")
     fun signinTest1() {
         //given
         val request = SigninRequest(
             loginId = "wrong_loginId",
-            password = PASSWORD,
+            password = TestMember.PASSWORD,
         )
 
         // when
@@ -94,11 +96,11 @@ class MemberAuthServiceTest @Autowired constructor(
     }
 
     @Test
-    @DisplayName("로그인: 비밀번호 불일치")
+    @DisplayName("로그인 - 비밀번호 불일치")
     fun signinTest2() {
         //given
         val request = SigninRequest(
-            loginId = LOGIN_ID,
+            loginId = TestMember.LOGIN_ID,
             password = "wrong_password",
         )
 
@@ -110,12 +112,12 @@ class MemberAuthServiceTest @Autowired constructor(
     }
 
     @Test
-    @DisplayName("로그인: 성공")
+    @DisplayName("로그인 - 정상적인 입력")
     fun signinTest3() {
         //given
         val request = SigninRequest(
-            loginId = LOGIN_ID,
-            password = PASSWORD,
+            loginId = TestMember.LOGIN_ID,
+            password = TestMember.PASSWORD,
         )
 
         // when
@@ -127,11 +129,6 @@ class MemberAuthServiceTest @Autowired constructor(
     }
 
     companion object {
-        private const val EMAIL = "email@email.com"
-        private const val LOGIN_ID = "loginId"
-        private const val PASSWORD = "password"
-        private const val NICKNAME = "nickname"
-
         @JvmStatic
         @BeforeAll
         fun setup(
@@ -139,13 +136,19 @@ class MemberAuthServiceTest @Autowired constructor(
             @Autowired passwordEncoder: PasswordEncoder,
         ) {
             val member = Member(
-                email = EMAIL,
-                loginId = LOGIN_ID,
-                password = passwordEncoder.encode(PASSWORD),
-                nickname = NICKNAME,
+                email = TestMember.EMAIL,
+                loginId = TestMember.LOGIN_ID,
+                password = passwordEncoder.encode(TestMember.PASSWORD),
+                nickname = TestMember.NICKNAME,
             )
 
             repository.save(member)
+        }
+
+        @JvmStatic
+        @AfterAll
+        fun cleanup(@Autowired repository: MemberRepository) {
+            repository.deleteAll()
         }
     }
 }
