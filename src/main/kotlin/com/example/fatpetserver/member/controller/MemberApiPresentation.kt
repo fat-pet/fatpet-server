@@ -18,7 +18,7 @@ interface MemberApiPresentation {
     @Operation(summary = "로그인")
     fun signin(query: SigninRequest): ApiResponse<SigninResponse>
 
-    @Operation(summary = "회원탈퇴")
+    @Operation(summary = "회원 삭제")
     fun delete(userDetails: UserDetails)
 
     @Operation(summary = "회원 정보 수정")

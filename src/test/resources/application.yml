@@ -19,3 +19,7 @@ logging:
     org:
       hibernate:
         SQL: debug
+
+jwt:
+  issuer: isssuer
+  secret: qgucFMsHimRmRO2CI5go7f0lolTXS1KIoV5z8OS20K4=
