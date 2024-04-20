@@ -28,10 +28,7 @@ class Pet(
     @Column(nullable = false)
     val feedAmount: Int,
 
-    @Column(nullable = false)
-    val feedCount: Int,
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "breed_id", nullable = false)
-    val breed: Breed,
+    @JoinColumn(name = "breeds_id", nullable = false)
+    val breeds: Breeds,
 ) : BaseEntity()

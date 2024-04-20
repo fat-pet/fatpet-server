@@ -13,6 +13,6 @@ data class UpdateMemberCommand(
 
     @Schema(example = "nickname")
     @field:NotBlank(message = "닉네임은 필수 입력값입니다.")
-    @field:Length(min = 2, max = 10, message = "닉네임은 2글자, 이상 10글자 이하여야 합니다.")
+    @field:Length(min = 2, max = 10, message = "닉네임은 2글자 이상, 10글자 이하여야 합니다.")
     val nickname: String = "",
 )

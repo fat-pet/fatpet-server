@@ -2,7 +2,7 @@ package com.example.fatpetserver.common.config
 
 import com.example.fatpetserver.common.auth.JwtAuthFilter
 import com.example.fatpetserver.common.auth.JwtTokenProvider
-import com.example.fatpetserver.member.entity.Role
+import com.example.fatpetserver.member.enums.Role
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity

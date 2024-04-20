@@ -1,6 +1,8 @@
 package com.example.fatpetserver.pet.entity
 
 import com.example.fatpetserver.common.entity.BaseEntity
+import com.example.fatpetserver.pet.enums.Sex
+import com.example.fatpetserver.pet.enums.Species
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
@@ -9,8 +11,8 @@ import jakarta.persistence.Table
 
 
 @Entity
-@Table(name = "breed")
-class Breed(
+@Table(name = "breeds")
+class Breeds(
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     val species: Species,
