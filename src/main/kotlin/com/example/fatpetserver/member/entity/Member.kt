@@ -1,10 +1,14 @@
 package com.example.fatpetserver.member.entity
 
 import com.example.fatpetserver.common.entity.BaseEntity
+import com.example.fatpetserver.pet.entity.Pet
+import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 
 @Entity
@@ -25,4 +29,8 @@ class Member(
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     val role: Role = Role.MEMBER,
+
+    @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true)
+    @JoinColumn(name = "member_id")
+    val pets: MutableList<Pet> = mutableListOf(),
 ) : BaseEntity()
