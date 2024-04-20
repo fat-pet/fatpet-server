@@ -1,4 +1,4 @@
-package com.example.fatpetserver.common
+package com.example.fatpetserver.common.entity
 
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
