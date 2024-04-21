@@ -1,6 +1,6 @@
 package com.example.fatpetserver.member.dto
 
-import com.example.fatpetserver.member.entity.Role
+import com.example.fatpetserver.member.enums.Role
 import io.swagger.v3.oas.annotations.media.Schema
 
 data class SigninResponse(

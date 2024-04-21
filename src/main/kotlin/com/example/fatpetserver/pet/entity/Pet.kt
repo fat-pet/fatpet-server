@@ -1,7 +1,7 @@
 package com.example.fatpetserver.pet.entity
 
-import com.example.fatpetserver.common.YearMonthConverter
 import com.example.fatpetserver.common.entity.BaseEntity
+import com.example.fatpetserver.common.entity.YearMonthConverter
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
@@ -28,10 +28,7 @@ class Pet(
     @Column(nullable = false)
     val feedAmount: Int,
 
-    @Column(nullable = false)
-    val feedCount: Int,
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "breed_id", nullable = false)
-    val breed: Breed,
+    @JoinColumn(name = "breeds_id", nullable = false)
+    val breeds: Breeds,
 ) : BaseEntity()
