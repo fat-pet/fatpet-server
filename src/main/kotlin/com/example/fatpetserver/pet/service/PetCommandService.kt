@@ -19,7 +19,7 @@ class PetCommandService(
 
         val breeds = breedsRepository.findBySpeciesAndNameAndSex(
             species = species!!,
-            name = breedsName,
+            name = breedsName!!,
             sex = sex!!,
         ) ?: throw IllegalArgumentException("존재하지 않는 품종입니다.")
 
