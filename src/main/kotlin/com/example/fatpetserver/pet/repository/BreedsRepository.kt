@@ -8,9 +8,9 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface BreedsRepository : JpaRepository<Breeds, Long> {
 
-    fun findBySpeciesAndNameAndSex(
-        species: Species,
-        name: BreedsName,
+    fun findBySexAndSpeciesAndName(
         sex: Sex,
+        species: Species,
+        name: String,
     ): Breeds?
 }

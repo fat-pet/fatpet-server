@@ -9,13 +9,13 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 class MemberCommandService(
-    private val repository: MemberRepository,
+    private val memberRepository: MemberRepository,
     private val memberQueryService: MemberQueryService,
 ) {
 
     fun delete(id: Long) {
-        repository.findByIdOrNull(id)?.let { member ->
-            repository.delete(member)
+        memberRepository.findByIdOrNull(id)?.let { member ->
+            memberRepository.delete(member)
         } ?: throw IllegalArgumentException("존재하지 않는 사용자입니다.")
     }
 
@@ -24,11 +24,11 @@ class MemberCommandService(
             memberQueryService.checkNickname(nickname)
         }
 
-        val updatedMember = repository.findByIdOrNull(id)?.apply {
+        val updatedMember = memberRepository.findByIdOrNull(id)?.apply {
             email = newEmail
             nickname = newNickname
         } ?: throw IllegalArgumentException("존재하지 않는 사용자입니다.")
 
-        repository.save(updatedMember)
+        memberRepository.save(updatedMember)
     }
 }

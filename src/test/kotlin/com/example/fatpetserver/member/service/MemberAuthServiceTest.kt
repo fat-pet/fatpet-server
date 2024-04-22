@@ -132,7 +132,7 @@ class MemberAuthServiceTest @Autowired constructor(
         @JvmStatic
         @BeforeAll
         fun setup(
-            @Autowired repository: MemberRepository,
+            @Autowired memberRepository: MemberRepository,
             @Autowired passwordEncoder: PasswordEncoder,
         ) {
             val member = Member(
@@ -142,13 +142,13 @@ class MemberAuthServiceTest @Autowired constructor(
                 nickname = TestMember.NICKNAME,
             )
 
-            repository.save(member)
+            memberRepository.save(member)
         }
 
         @JvmStatic
         @AfterAll
-        fun cleanup(@Autowired repository: MemberRepository) {
-            repository.deleteAll()
+        fun cleanup(@Autowired memberRepository: MemberRepository) {
+            memberRepository.deleteAll()
         }
     }
 }

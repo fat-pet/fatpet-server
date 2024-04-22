@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class MemberAuthService(
-    private val repository: MemberRepository,
+    private val memberRepository: MemberRepository,
     private val passwordEncoder: PasswordEncoder,
     private val jwtTokenProvider: JwtTokenProvider,
     private val memberQueryService: MemberQueryService,
@@ -28,7 +28,7 @@ class MemberAuthService(
 
         val encodedPassword = passwordEncoder.encode(password)
 
-        return repository.save(
+        return memberRepository.save(
             Member(
                 email = email,
                 loginId = loginId,
@@ -42,7 +42,7 @@ class MemberAuthService(
     fun signin(request: SigninRequest): SigninResponse {
         val (loginId, password) = request
 
-        val member = repository.findByLoginId(loginId)?.takeIf { member ->
+        val member = memberRepository.findByLoginId(loginId)?.takeIf { member ->
             passwordEncoder.matches(password, member.password)
         } ?: throw BadRequestException("로그인 실패")
 

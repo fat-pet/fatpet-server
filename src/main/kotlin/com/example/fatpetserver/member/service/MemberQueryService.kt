@@ -7,9 +7,9 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional(readOnly = true)
 class MemberQueryService(
-    private val repository: MemberRepository,
+    private val memberRepository: MemberRepository,
 ) {
-    
+
     fun checkDuplicate(
         loginId: String?,
         nickname: String?,
@@ -26,10 +26,10 @@ class MemberQueryService(
     }
 
     fun checkLoginId(loginId: String) {
-        require(repository.existsByLoginId(loginId).not()) { "이미 사용 중인 아이디입니다." }
+        require(memberRepository.existsByLoginId(loginId).not()) { "이미 사용 중인 아이디입니다." }
     }
 
     fun checkNickname(nickname: String) {
-        require(repository.existsByNickname(nickname).not()) { "이미 사용 중인 닉네임입니다." }
+        require(memberRepository.existsByNickname(nickname).not()) { "이미 사용 중인 닉네임입니다." }
     }
 }

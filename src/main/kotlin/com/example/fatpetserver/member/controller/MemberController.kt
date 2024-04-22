@@ -45,17 +45,17 @@ class MemberController(
     @DeleteMapping
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     override fun delete(@AuthenticationPrincipal userDetails: UserDetails) {
-        memberCommandService.delete(userDetails.id.toLong())
+        memberCommandService.delete(userDetails.id)
     }
 
     @PutMapping
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     override fun update(
         @AuthenticationPrincipal userDetails: UserDetails,
-        @RequestBody command: UpdateMemberCommand,
+        @Valid @RequestBody command: UpdateMemberCommand,
     ) {
         memberCommandService.update(
-            id = userDetails.id.toLong(),
+            id = userDetails.id,
             command = command
         )
     }
