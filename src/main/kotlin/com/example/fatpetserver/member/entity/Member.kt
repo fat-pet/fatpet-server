@@ -8,7 +8,6 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
-import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 
@@ -31,7 +30,6 @@ class Member(
     @Enumerated(EnumType.STRING)
     val role: Role = Role.MEMBER,
 
-    @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true)
-    @JoinColumn(name = "member_id")
+    @OneToMany(mappedBy = "member", cascade = [CascadeType.ALL], orphanRemoval = true)
     val pets: MutableList<Pet> = mutableListOf(),
 ) : BaseEntity()

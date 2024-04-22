@@ -19,6 +19,12 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      data-locations: classpath*:db/breeds_data.sql
+      mode: always
 
 springdoc:
   packages-to-scan: com.example.fatpetserver

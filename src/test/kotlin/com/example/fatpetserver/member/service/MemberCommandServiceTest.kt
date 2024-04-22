@@ -12,32 +12,31 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.security.crypto.password.PasswordEncoder
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class MemberCommandServiceTest @Autowired constructor(
-    private val repository: MemberRepository,
-    private val passwordEncoder: PasswordEncoder,
+    private val memberRepository: MemberRepository,
     private val memberCommandService: MemberCommandService,
 ) {
 
     @AfterEach
     fun cleanup() {
-        repository.deleteAll()
+        memberRepository.deleteAll()
     }
 
     @Test
     @DisplayName("회원 삭제 - 존재하지 않는 사용자")
     fun deleteTest1() {
         // given
-        val id = 1L
+        val id = 0L
 
         // when
         val throwable = catchThrowable { memberCommandService.delete(id) }
 
         // then
         assertThat(throwable).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(throwable.message).isEqualTo("존재하지 않는 사용자입니다.")
     }
 
     @Test
@@ -47,14 +46,14 @@ class MemberCommandServiceTest @Autowired constructor(
         val member = Member(
             email = TestMember.EMAIL,
             loginId = TestMember.LOGIN_ID,
-            password = passwordEncoder.encode(TestMember.PASSWORD),
+            password = TestMember.PASSWORD,
             nickname = TestMember.NICKNAME,
         )
 
-        repository.save(member)
+        val memberId = memberRepository.save(member).id
 
         // when
-        val result = runCatching { memberCommandService.delete(member.id) }.isSuccess
+        val result = runCatching { memberCommandService.delete(memberId) }.isSuccess
 
         // then
         assertThat(result).isTrue()
@@ -64,7 +63,7 @@ class MemberCommandServiceTest @Autowired constructor(
     @DisplayName("회원 정보 수정 - 존재하지 않는 사용자")
     fun updateTest1() {
         // given
-        val id = 1L
+        val id = 0L
         val command = UpdateMemberCommand(
             email = "new_email@email.com",
             nickname = "new_nickname"
@@ -75,6 +74,7 @@ class MemberCommandServiceTest @Autowired constructor(
 
         // then
         assertThat(throwable).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(throwable.message).isEqualTo("존재하지 않는 사용자입니다.")
     }
 
     @Test
@@ -84,11 +84,11 @@ class MemberCommandServiceTest @Autowired constructor(
         val member = Member(
             email = TestMember.EMAIL,
             loginId = TestMember.LOGIN_ID,
-            password = passwordEncoder.encode(TestMember.PASSWORD),
+            password = TestMember.PASSWORD,
             nickname = TestMember.NICKNAME,
         )
 
-        repository.save(member)
+        val memberId = memberRepository.save(member).id
 
         val command = UpdateMemberCommand(
             email = "new_email@email.com",
@@ -96,10 +96,11 @@ class MemberCommandServiceTest @Autowired constructor(
         )
 
         // when
-        val throwable = catchThrowable { memberCommandService.update(member.id, command) }
+        val throwable = catchThrowable { memberCommandService.update(memberId, command) }
 
         // then
         assertThat(throwable).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(throwable.message).isEqualTo("이미 사용 중인 닉네임입니다.")
     }
 
 
@@ -110,11 +111,11 @@ class MemberCommandServiceTest @Autowired constructor(
         val member = Member(
             email = TestMember.EMAIL,
             loginId = TestMember.LOGIN_ID,
-            password = passwordEncoder.encode(TestMember.PASSWORD),
+            password = TestMember.PASSWORD,
             nickname = TestMember.NICKNAME,
         )
 
-        repository.save(member)
+        val memberId = memberRepository.save(member).id
 
         val command = UpdateMemberCommand(
             email = "new_email@email.com",
@@ -122,7 +123,7 @@ class MemberCommandServiceTest @Autowired constructor(
         )
 
         // when
-        val result = runCatching { memberCommandService.update(member.id, command) }.isSuccess
+        val result = runCatching { memberCommandService.update(memberId, command) }.isSuccess
 
         // then
         assertThat(result).isTrue()
