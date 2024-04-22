@@ -1,5 +1,6 @@
 package com.example.fatpetserver.pet.dto
 
+import com.example.fatpetserver.pet.enums.BreedsName
 import com.example.fatpetserver.pet.enums.Sex
 import com.example.fatpetserver.pet.enums.Species
 import io.swagger.v3.oas.annotations.media.Schema

@@ -26,7 +26,7 @@ class MemberCommandServiceTest @Autowired constructor(
     }
 
     @Test
-    @DisplayName("회원 삭제 - 존재하지 않는 사용자")
+    @DisplayName("회원 탈퇴 - 존재하지 않는 사용자")
     fun deleteTest1() {
         // given
         val id = 0L
@@ -40,7 +40,7 @@ class MemberCommandServiceTest @Autowired constructor(
     }
 
     @Test
-    @DisplayName("회원 삭제 - 정상적인 입력")
+    @DisplayName("회원 탈퇴 - 정상적인 입력")
     fun deleteTest2() {
         // given
         val member = Member(

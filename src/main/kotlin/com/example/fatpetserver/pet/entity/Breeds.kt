@@ -17,7 +17,8 @@ class Breeds(
     val species: Species,
 
     @Column(nullable = false)
-    val name: String,
+    @Enumerated(EnumType.STRING)
+    val name: BreedsName,
 
     @Column(nullable = false)
     val code: Int,
