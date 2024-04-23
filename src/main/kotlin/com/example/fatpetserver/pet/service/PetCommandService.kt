@@ -2,6 +2,7 @@ package com.example.fatpetserver.pet.service
 
 import com.example.fatpetserver.member.repository.MemberRepository
 import com.example.fatpetserver.pet.dto.CreatePetCommand
+import com.example.fatpetserver.pet.dto.UpdatePetCommand
 import com.example.fatpetserver.pet.entity.Pet
 import com.example.fatpetserver.pet.repository.BreedsRepository
 import com.example.fatpetserver.pet.repository.PetRepository
@@ -18,7 +19,7 @@ class PetCommandService(
 ) {
 
     fun create(memberId: Long, command: CreatePetCommand): Pet {
-        val (sex, name, species, breedsName, birthDate, isNeutered, feedAmount) = command
+        val (sex, name, species, breedsName, birthDate, isNeutered, feedCalories) = command
 
         val member = memberRepository.findByIdOrNull(memberId)
             ?: throw IllegalArgumentException("존재하지 않는 사용자입니다.")
@@ -34,11 +35,23 @@ class PetCommandService(
                 name = name,
                 birthDate = birthDate!!,
                 isNeutered = isNeutered!!,
-                feedAmount = feedAmount,
+                feedCalories = feedCalories,
                 member = member,
                 breeds = breeds,
             )
         )
+    }
+
+    fun update(id: Long, command: UpdatePetCommand) {
+        val (newName, newIsNeutered, newFeedCalories) = command
+
+        val updatedPet = petRepository.findByIdOrNull(id)?.apply {
+            name = newName
+            isNeutered = newIsNeutered!!
+            feedCalories = newFeedCalories
+        } ?: throw IllegalArgumentException("존재하지 않는 펫입니다.")
+
+        petRepository.save(updatedPet)
     }
 
     fun delete(id: Long) {
