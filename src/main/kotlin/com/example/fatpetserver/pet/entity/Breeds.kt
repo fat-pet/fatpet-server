@@ -27,8 +27,8 @@ class Breeds(
     val sex: Sex,
 
     @Column
-    val avgWeightLow: Float,
+    val avgWeightLow: Int,
 
     @Column
-    val avgWeightHigh: Float,
+    val avgWeightHigh: Int,
 ) : IdEntity()
