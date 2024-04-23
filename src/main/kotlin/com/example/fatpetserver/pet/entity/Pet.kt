@@ -2,12 +2,15 @@ package com.example.fatpetserver.pet.entity
 
 import com.example.fatpetserver.common.entity.BaseEntity
 import com.example.fatpetserver.common.entity.YearMonthConverter
+import com.example.fatpetserver.diagnosis.entity.Diagnosis
 import com.example.fatpetserver.member.entity.Member
+import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
+import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 import java.time.YearMonth
 
@@ -28,10 +31,13 @@ class Pet(
     var feedCalories: Int,
 
     @ManyToOne
-    @JoinColumn(name = "member_id", nullable = false)
+    @JoinColumn(name = "member_id", nullable = false, updatable = false)
     val member: Member,
 
     @ManyToOne
-    @JoinColumn(name = "breeds_id", nullable = true)
+    @JoinColumn(name = "breeds_id", nullable = true, updatable = false)
     val breeds: Breeds,
+
+    @OneToMany(mappedBy = "pet", cascade = [CascadeType.ALL], orphanRemoval = true)
+    val diagnosises: MutableList<Diagnosis> = mutableListOf(),
 ) : BaseEntity()
