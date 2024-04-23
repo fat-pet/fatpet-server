@@ -1,9 +1,8 @@
 package com.example.fatpetserver.member.service
 
 import com.example.fatpetserver.member.TestMember
-import com.example.fatpetserver.member.dto.SigninRequest
+import com.example.fatpetserver.member.dto.SigninQuery
 import com.example.fatpetserver.member.dto.SigninResponse
-import com.example.fatpetserver.member.dto.SignupRequest
 import com.example.fatpetserver.member.entity.Member
 import com.example.fatpetserver.member.repository.MemberRepository
 import org.apache.coyote.BadRequestException
@@ -20,76 +19,21 @@ import org.springframework.security.crypto.password.PasswordEncoder
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class MemberAuthServiceTest @Autowired constructor(
-    private val memberAuthService: MemberAuthService,
+class MemberQueryServiceTest @Autowired constructor(
+    private val memberQueryService: MemberQueryService,
 ) {
-
-    @Test
-    @DisplayName("회원가입 - 이미 사용 중인 아이디")
-    fun signupTest1() {
-        // given
-        val request = SignupRequest(
-            email = "new_email@email.com",
-            loginId = TestMember.LOGIN_ID,
-            password = "new_password",
-            nickname = "new_nickname",
-        )
-
-        // when
-        val throwable = catchThrowable { memberAuthService.signup(request) }
-
-        // then
-        assertThat(throwable).isInstanceOf(IllegalArgumentException::class.java)
-    }
-
-    @Test
-    @DisplayName("회원가입 - 이미 사용 중인 닉네임")
-    fun signupTest2() {
-        // given
-        val request = SignupRequest(
-            email = "new_email@email.com",
-            loginId = "new_loginId",
-            password = "new_password",
-            nickname = TestMember.NICKNAME,
-        )
-
-        // when
-        val throwable = catchThrowable { memberAuthService.signup(request) }
-
-        // then
-        assertThat(throwable).isInstanceOf(IllegalArgumentException::class.java)
-    }
-
-    @Test
-    @DisplayName("회원가입 - 정상적인 입력")
-    fun signupTest3() {
-        // given
-        val request = SignupRequest(
-            email = "new_email@email.com",
-            loginId = "new_loginId",
-            password = "new_password",
-            nickname = "new_nickname",
-        )
-
-        // when
-        val result = memberAuthService.signup(request)
-
-        // then
-        assertThat(result).isInstanceOf(Member::class.java)
-        assertThat(result.email).isEqualTo(request.email)
-    }
 
     @Test
     @DisplayName("로그인 - 아이디 불일치")
     fun signinTest1() {
         //given
-        val request = SigninRequest(
+        val query = SigninQuery(
             loginId = "wrong_loginId",
             password = TestMember.PASSWORD,
         )
 
         // when
-        val throwable = catchThrowable { memberAuthService.signin(request) }
+        val throwable = catchThrowable { memberQueryService.signin(query) }
 
         // then
         assertThat(throwable).isInstanceOf(BadRequestException::class.java)
@@ -99,13 +43,13 @@ class MemberAuthServiceTest @Autowired constructor(
     @DisplayName("로그인 - 비밀번호 불일치")
     fun signinTest2() {
         //given
-        val request = SigninRequest(
+        val query = SigninQuery(
             loginId = TestMember.LOGIN_ID,
             password = "wrong_password",
         )
 
         // when
-        val throwable = catchThrowable { memberAuthService.signin(request) }
+        val throwable = catchThrowable { memberQueryService.signin(query) }
 
         // then
         assertThat(throwable).isInstanceOf(BadRequestException::class.java)
@@ -115,13 +59,13 @@ class MemberAuthServiceTest @Autowired constructor(
     @DisplayName("로그인 - 정상적인 입력")
     fun signinTest3() {
         //given
-        val request = SigninRequest(
+        val query = SigninQuery(
             loginId = TestMember.LOGIN_ID,
             password = TestMember.PASSWORD,
         )
 
         // when
-        val result = memberAuthService.signin(request)
+        val result = memberQueryService.signin(query)
 
         // then
         assertThat(result).isInstanceOf(SigninResponse::class.java)

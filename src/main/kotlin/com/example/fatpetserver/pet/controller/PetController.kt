@@ -39,10 +39,16 @@ class PetController(
         @AuthenticationPrincipal userDetails: UserDetails,
         @Valid @RequestBody command: CreatePetCommand,
     ) {
-        petCommandService.create(
-            memberId = userDetails.id,
-            command = command
-        )
+        petCommandService.create(userDetails.id, command)
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    override fun update(
+        @PathVariable id: Long,
+        @Valid @RequestBody command: UpdatePetCommand,
+    ) {
+        petCommandService.update(id, command)
     }
 
     @PutMapping("/{id}")

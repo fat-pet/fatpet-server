@@ -24,11 +24,8 @@ class PetCommandService(
         val member = memberRepository.findByIdOrNull(memberId)
             ?: throw IllegalArgumentException("존재하지 않는 사용자입니다.")
 
-        val breeds = breedsRepository.findBySexAndSpeciesAndName(
-            sex = sex!!,
-            species = species!!,
-            name = breedsName,
-        ) ?: throw IllegalArgumentException("존재하지 않는 품종입니다.")
+        val breeds = breedsRepository.findBySexAndSpeciesAndName(sex!!, species!!, breedsName)
+            ?: throw IllegalArgumentException("존재하지 않는 품종입니다.")
 
         return petRepository.save(
             Pet(
