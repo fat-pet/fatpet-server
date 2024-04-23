@@ -50,7 +50,7 @@ class PetCommandServiceTest @Autowired constructor(
             birthDate = TestPet.BIRTH_DATE,
             sex = TestPet.SEX,
             isNeutered = TestPet.IS_NEUTERED,
-            feedAmount = TestPet.FEED_AMOUNT
+            feedCalories = TestPet.FEED_CALORIES
         )
 
         // when
@@ -81,7 +81,7 @@ class PetCommandServiceTest @Autowired constructor(
             breedsName = TestPet.BREEDS_NAME,
             birthDate = TestPet.BIRTH_DATE,
             isNeutered = TestPet.IS_NEUTERED,
-            feedAmount = TestPet.FEED_AMOUNT,
+            feedCalories = TestPet.FEED_CALORIES,
         )
 
         // when
@@ -129,7 +129,7 @@ class PetCommandServiceTest @Autowired constructor(
             name = TestPet.NAME,
             birthDate = TestPet.BIRTH_DATE,
             isNeutered = TestPet.IS_NEUTERED,
-            feedAmount = TestPet.FEED_AMOUNT,
+            feedCalories = TestPet.FEED_CALORIES,
             member = member,
             breeds = breeds!!,
         )

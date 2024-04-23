@@ -11,5 +11,5 @@ object TestPet {
     val BIRTH_DATE = YearMonth.now()!!
     val SEX = Sex.MALE
     const val IS_NEUTERED = false
-    const val FEED_AMOUNT = 150
+    const val FEED_CALORIES = 450
 }

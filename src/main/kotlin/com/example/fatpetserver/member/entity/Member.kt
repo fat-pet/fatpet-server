@@ -18,10 +18,10 @@ class Member(
     var email: String,
 
     @Column(nullable = false, unique = true)
-    var loginId: String,
+    val loginId: String,
 
     @Column(nullable = false)
-    var password: String,
+    val password: String,
 
     @Column(nullable = false, unique = true)
     var nickname: String,

@@ -15,17 +15,17 @@ import java.time.YearMonth
 @Table(name = "Pet")
 class Pet(
     @Column(nullable = false)
-    val name: String,
+    var name: String,
 
     @Column(nullable = false)
     @Convert(converter = YearMonthConverter::class)
     val birthDate: YearMonth,
 
     @Column(nullable = false)
-    val isNeutered: Boolean,
+    var isNeutered: Boolean,
 
     @Column(nullable = false)
-    val feedAmount: Int,
+    var feedCalories: Int,
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
