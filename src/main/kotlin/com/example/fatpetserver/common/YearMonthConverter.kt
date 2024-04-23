@@ -6,11 +6,8 @@ import java.time.YearMonth
 
 @Converter(autoApply = true)
 class YearMonthConverter : AttributeConverter<YearMonth, String> {
-    override fun convertToDatabaseColumn(attribute: YearMonth): String {
-        return attribute.toString()
-    }
+    
+    override fun convertToDatabaseColumn(attribute: YearMonth): String = attribute.toString()
 
-    override fun convertToEntityAttribute(dbData: String): YearMonth {
-        return YearMonth.parse(dbData)
-    }
+    override fun convertToEntityAttribute(dbData: String): YearMonth = YearMonth.parse(dbData)
 }

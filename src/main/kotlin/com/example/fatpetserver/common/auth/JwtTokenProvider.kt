@@ -28,19 +28,11 @@ class JwtTokenProvider {
         val expirationDate = Date(now.time + EXPIRATION_MILLISECONDS)
         val claims = mapOf("role" to role)
 
-        return Jwts.builder()
-            .subject(id)
-            .claims(claims)
-            .issuedAt(now)
-            .issuer(issuer)
-            .expiration(expirationDate)
-            .signWith(key)
-            .compact()
+        return Jwts.builder().subject(id).claims(claims).issuedAt(now).issuer(issuer)
+            .expiration(expirationDate).signWith(key).compact()
     }
 
-    fun validateToken(token: String): Boolean = kotlin.runCatching {
-        getClaims(token)
-    }.isSuccess
+    fun validateToken(token: String): Boolean = kotlin.runCatching { getClaims(token) }.isSuccess
 
     fun getAuthentication(token: String): Authentication {
         val claims: Claims = getClaims(token)
@@ -48,8 +40,7 @@ class JwtTokenProvider {
         val role = claims["role"] as String
         val authorities = listOf(SimpleGrantedAuthority(role))
         val principal = UserDetails(
-            _id = id,
-            _authorities = authorities
+            _id = id, _authorities = authorities
         )
 
         return AuthenticationToken(
@@ -59,11 +50,7 @@ class JwtTokenProvider {
     }
 
     private fun getClaims(token: String): Claims =
-        Jwts.parser()
-            .verifyWith(key)
-            .build()
-            .parseSignedClaims(token)
-            .payload
+        Jwts.parser().verifyWith(key).build().parseSignedClaims(token).payload
 
     companion object {
         private const val EXPIRATION_MILLISECONDS = 1000L * 60 * 60 * 24 * 30

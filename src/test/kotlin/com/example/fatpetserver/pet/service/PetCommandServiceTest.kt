@@ -54,13 +54,13 @@ class PetCommandServiceTest @Autowired constructor(
         val memberId = MEMBER.id
 
         val command = CreatePetCommand(
+            sex = TestPet.SEX,
             name = TestPet.NAME,
             species = TestPet.SPECIES,
             breedsName = "wrong_breeds",
             birthDate = TestPet.BIRTH_DATE,
-            sex = TestPet.SEX,
             isNeutered = TestPet.IS_NEUTERED,
-            feedCalories = TestPet.FEED_CALORIES
+            feedCalories = TestPet.FEED_CALORIES,
         )
 
         // when
@@ -84,7 +84,7 @@ class PetCommandServiceTest @Autowired constructor(
             breedsName = TestPet.BREEDS_NAME,
             birthDate = TestPet.BIRTH_DATE,
             isNeutered = TestPet.IS_NEUTERED,
-            feedCalories = TestPet.FEED_CALORIES,
+            feedCalories = TestPet.FEED_CALORIES
         )
 
         // when
@@ -163,9 +163,7 @@ class PetCommandServiceTest @Autowired constructor(
 
     companion object {
         private lateinit var MEMBER: Member
-
         private lateinit var BREEDS: Breeds
-
         private var PET_ID = 0L
 
         @JvmStatic
