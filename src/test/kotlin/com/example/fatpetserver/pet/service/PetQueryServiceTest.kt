@@ -18,9 +18,6 @@ import org.springframework.boot.test.context.SpringBootTest
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class PetQueryServiceTest @Autowired constructor(
-    private val memberRepository: MemberRepository,
-    private val breedsRepository: BreedsRepository,
-    private val petRepository: PetRepository,
     private val petQueryService: PetQueryService,
 ) {
 
@@ -40,7 +37,6 @@ class PetQueryServiceTest @Autowired constructor(
 
     companion object {
         private lateinit var MEMBER: Member
-
         private var PET_ID = 0L
 
         @JvmStatic
