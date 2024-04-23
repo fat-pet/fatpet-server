@@ -79,14 +79,14 @@ class MemberQueryServiceTest @Autowired constructor(
             @Autowired memberRepository: MemberRepository,
             @Autowired passwordEncoder: PasswordEncoder,
         ) {
-            val member = Member(
+            val memberEntity = Member(
                 email = TestMember.EMAIL,
                 loginId = TestMember.LOGIN_ID,
                 password = passwordEncoder.encode(TestMember.PASSWORD),
                 nickname = TestMember.NICKNAME,
             )
 
-            memberRepository.save(member)
+            memberRepository.save(memberEntity)
         }
 
         @JvmStatic

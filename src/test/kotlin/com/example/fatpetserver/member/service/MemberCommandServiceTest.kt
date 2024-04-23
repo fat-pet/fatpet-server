@@ -22,18 +22,16 @@ class MemberCommandServiceTest @Autowired constructor(
     private val memberCommandService: MemberCommandService,
 ) {
 
-    private var id = 0L
-
     @BeforeEach
     fun setup() {
-        val member = Member(
+        val memberEntity = Member(
             email = TestMember.EMAIL,
             loginId = TestMember.LOGIN_ID,
             password = TestMember.PASSWORD,
             nickname = TestMember.NICKNAME,
         )
 
-        id = memberRepository.save(member).id
+        MEMBER_ID = memberRepository.save(memberEntity).id
     }
 
     @AfterEach
@@ -114,6 +112,7 @@ class MemberCommandServiceTest @Autowired constructor(
     @DisplayName("회원 탈퇴 - 정상적인 입력")
     fun deleteTest2() {
         // given
+        val id = MEMBER_ID
 
         // when
         val result = runCatching { memberCommandService.delete(id) }.isSuccess
@@ -127,6 +126,7 @@ class MemberCommandServiceTest @Autowired constructor(
     fun updateTest1() {
         // given
         val id = 0L
+
         val command = UpdateMemberCommand(
             email = "new_email@email.com",
             nickname = "new_nickname"
@@ -144,6 +144,8 @@ class MemberCommandServiceTest @Autowired constructor(
     @DisplayName("회원 정보 수정 - 이미 사용 중인 닉네임")
     fun updateTest2() {
         // given
+        val id = MEMBER_ID
+
         val command = UpdateMemberCommand(
             email = "new_email@email.com",
             nickname = TestMember.NICKNAME
@@ -162,6 +164,8 @@ class MemberCommandServiceTest @Autowired constructor(
     @DisplayName("회원 정보 수정 - 정상적인 입력")
     fun updateTest3() {
         // given
+        val id = MEMBER_ID
+
         val command = UpdateMemberCommand(
             email = "new_email@email.com",
             nickname = "new_nickname"
@@ -172,5 +176,9 @@ class MemberCommandServiceTest @Autowired constructor(
 
         // then
         assertThat(result).isTrue()
+    }
+
+    companion object {
+        private var MEMBER_ID = 0L
     }
 }
