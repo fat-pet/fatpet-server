@@ -51,18 +51,6 @@ class PetController(
         petCommandService.update(id, command)
     }
 
-    @PutMapping("/{id}")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    override fun update(
-        @PathVariable id: Long,
-        @Valid @RequestBody command: UpdatePetCommand,
-    ) {
-        petCommandService.update(
-            id = id,
-            command = command
-        )
-    }
-
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     override fun delete(@PathVariable id: Long) {
