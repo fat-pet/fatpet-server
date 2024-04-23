@@ -2,11 +2,10 @@ package com.example.fatpetserver.member.controller
 
 import com.example.fatpetserver.common.ApiResponse
 import com.example.fatpetserver.common.auth.UserDetails
-import com.example.fatpetserver.member.dto.SigninRequest
+import com.example.fatpetserver.member.dto.SigninQuery
 import com.example.fatpetserver.member.dto.SigninResponse
-import com.example.fatpetserver.member.dto.SignupRequest
+import com.example.fatpetserver.member.dto.SignupCommand
 import com.example.fatpetserver.member.dto.UpdateMemberCommand
-import com.example.fatpetserver.member.service.MemberAuthService
 import com.example.fatpetserver.member.service.MemberCommandService
 import com.example.fatpetserver.member.service.MemberQueryService
 import jakarta.validation.Valid
@@ -25,21 +24,20 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/members")
 class MemberController(
-    private val memberAuthService: MemberAuthService,
     private val memberCommandService: MemberCommandService,
     private val memberQueryService: MemberQueryService,
 ) : MemberApiPresentation {
 
     @PostMapping("/signup")
     @ResponseStatus(value = HttpStatus.CREATED)
-    override fun signup(@Valid @RequestBody command: SignupRequest) {
-        memberAuthService.signup(command)
+    override fun signup(@Valid @RequestBody command: SignupCommand) {
+        memberCommandService.signup(command)
     }
 
     @PostMapping("/signin")
     @ResponseStatus(value = HttpStatus.OK)
-    override fun signin(@Valid @RequestBody query: SigninRequest): ApiResponse<SigninResponse> {
-        return ApiResponse.success(memberAuthService.signin(query))
+    override fun signin(@Valid @RequestBody query: SigninQuery): ApiResponse<SigninResponse> {
+        return ApiResponse.success(memberQueryService.signin(query))
     }
 
     @DeleteMapping
@@ -54,10 +52,7 @@ class MemberController(
         @AuthenticationPrincipal userDetails: UserDetails,
         @Valid @RequestBody command: UpdateMemberCommand,
     ) {
-        memberCommandService.update(
-            id = userDetails.id,
-            command = command
-        )
+        memberCommandService.update(userDetails.id, command)
     }
 
     @GetMapping("/check")
@@ -67,10 +62,7 @@ class MemberController(
         @RequestParam(required = false) nickname: String?,
     ): ApiResponse<Boolean> {
         return ApiResponse.success(
-            memberQueryService.checkDuplicate(
-                loginId = loginId,
-                nickname = nickname,
-            )
+            memberQueryService.checkDuplicate(loginId, nickname)
         )
     }
 }

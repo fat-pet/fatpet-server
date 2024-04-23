@@ -1,6 +1,7 @@
 package com.example.fatpetserver.member.service
 
 import com.example.fatpetserver.member.TestMember
+import com.example.fatpetserver.member.dto.SignupCommand
 import com.example.fatpetserver.member.dto.UpdateMemberCommand
 import com.example.fatpetserver.member.entity.Member
 import com.example.fatpetserver.member.repository.MemberRepository
@@ -23,6 +24,79 @@ class MemberCommandServiceTest @Autowired constructor(
     @AfterEach
     fun cleanup() {
         memberRepository.deleteAll()
+    }
+
+    @Test
+    @DisplayName("회원가입 - 이미 사용 중인 아이디")
+    fun signupTest1() {
+        // given
+        val member = Member(
+            email = TestMember.EMAIL,
+            loginId = TestMember.LOGIN_ID,
+            password = TestMember.PASSWORD,
+            nickname = TestMember.NICKNAME,
+        )
+
+        memberRepository.save(member)
+
+        val command = SignupCommand(
+            email = "new_email@email.com",
+            loginId = TestMember.LOGIN_ID,
+            password = "new_password",
+            nickname = "new_nickname",
+        )
+
+        // when
+        val throwable = catchThrowable { memberCommandService.signup(command) }
+
+        // then
+        assertThat(throwable).isInstanceOf(IllegalArgumentException::class.java)
+    }
+
+    @Test
+    @DisplayName("회원가입 - 이미 사용 중인 닉네임")
+    fun signupTest2() {
+        // given
+        val member = Member(
+            email = TestMember.EMAIL,
+            loginId = TestMember.LOGIN_ID,
+            password = TestMember.PASSWORD,
+            nickname = TestMember.NICKNAME,
+        )
+
+        memberRepository.save(member)
+        
+        val command = SignupCommand(
+            email = "new_email@email.com",
+            loginId = "new_loginId",
+            password = "new_password",
+            nickname = TestMember.NICKNAME,
+        )
+
+        // when
+        val throwable = catchThrowable { memberCommandService.signup(command) }
+
+        // then
+        assertThat(throwable).isInstanceOf(IllegalArgumentException::class.java)
+    }
+
+    @Test
+    @DisplayName("회원가입 - 정상적인 입력")
+    fun signupTest3() {
+        // given
+        val command = SignupCommand(
+            email = "new_email@email.com",
+            loginId = "new_loginId",
+            password = "new_password",
+            nickname = "new_nickname",
+        )
+
+        // when
+        val result = memberCommandService.signup(command)
+
+        // then
+        assertThat(result).isInstanceOf(Member::class.java)
+        assertThat(result.email).isEqualTo(command.email)
     }
 
     @Test
@@ -50,10 +124,10 @@ class MemberCommandServiceTest @Autowired constructor(
             nickname = TestMember.NICKNAME,
         )
 
-        val memberId = memberRepository.save(member).id
+        val id = memberRepository.save(member).id
 
         // when
-        val result = runCatching { memberCommandService.delete(memberId) }.isSuccess
+        val result = runCatching { memberCommandService.delete(id) }.isSuccess
 
         // then
         assertThat(result).isTrue()
@@ -88,7 +162,7 @@ class MemberCommandServiceTest @Autowired constructor(
             nickname = TestMember.NICKNAME,
         )
 
-        val memberId = memberRepository.save(member).id
+        val id = memberRepository.save(member).id
 
         val command = UpdateMemberCommand(
             email = "new_email@email.com",
@@ -96,7 +170,7 @@ class MemberCommandServiceTest @Autowired constructor(
         )
 
         // when
-        val throwable = catchThrowable { memberCommandService.update(memberId, command) }
+        val throwable = catchThrowable { memberCommandService.update(id, command) }
 
         // then
         assertThat(throwable).isInstanceOf(IllegalArgumentException::class.java)
@@ -115,7 +189,7 @@ class MemberCommandServiceTest @Autowired constructor(
             nickname = TestMember.NICKNAME,
         )
 
-        val memberId = memberRepository.save(member).id
+        val id = memberRepository.save(member).id
 
         val command = UpdateMemberCommand(
             email = "new_email@email.com",
@@ -123,7 +197,7 @@ class MemberCommandServiceTest @Autowired constructor(
         )
 
         // when
-        val result = runCatching { memberCommandService.update(memberId, command) }.isSuccess
+        val result = runCatching { memberCommandService.update(id, command) }.isSuccess
 
         // then
         assertThat(result).isTrue()

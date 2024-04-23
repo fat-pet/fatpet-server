@@ -41,17 +41,19 @@ class PetQueryServiceTest @Autowired constructor(
 
         val member = memberRepository.save(memberEntity)
 
+        val memberId = member.id
+
         val breeds = breedsRepository.findBySexAndSpeciesAndName(
-            species = TestPet.SPECIES,
-            name = TestPet.BREEDS_NAME,
-            sex = TestPet.SEX,
+            TestPet.SEX,
+            TestPet.SPECIES,
+            TestPet.BREEDS_NAME,
         )
 
         val pet = Pet(
             name = TestPet.NAME,
             birthDate = TestPet.BIRTH_DATE,
             isNeutered = TestPet.IS_NEUTERED,
-            feedAmount = TestPet.FEED_AMOUNT,
+            feedCalories = TestPet.FEED_CALORIES,
             member = member,
             breeds = breeds!!,
         )
@@ -59,7 +61,7 @@ class PetQueryServiceTest @Autowired constructor(
         petRepository.save(pet)
 
         // when
-        val result = petQueryService.getAll(member.id)
+        val result = petQueryService.getAll(memberId)
 
         // then
         assertThat(result.size).isEqualTo(1)

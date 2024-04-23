@@ -39,10 +39,7 @@ class PetController(
         @AuthenticationPrincipal userDetails: UserDetails,
         @Valid @RequestBody command: CreatePetCommand,
     ) {
-        petCommandService.create(
-            memberId = userDetails.id,
-            command = command
-        )
+        petCommandService.create(userDetails.id, command)
     }
 
     @PutMapping("/{id}")
@@ -51,10 +48,7 @@ class PetController(
         @PathVariable id: Long,
         @Valid @RequestBody command: UpdatePetCommand,
     ) {
-        petCommandService.update(
-            id = id,
-            command = command
-        )
+        petCommandService.update(id, command)
     }
 
     @DeleteMapping("/{id}")
