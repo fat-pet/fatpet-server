@@ -4,6 +4,7 @@ import com.example.fatpetserver.member.TestMember
 import com.example.fatpetserver.member.entity.Member
 import com.example.fatpetserver.member.repository.MemberRepository
 import com.example.fatpetserver.pet.dto.CreatePetCommand
+import com.example.fatpetserver.pet.dto.UpdatePetCommand
 import com.example.fatpetserver.pet.entity.Pet
 import com.example.fatpetserver.pet.repository.BreedsRepository
 import com.example.fatpetserver.pet.repository.PetRepository
@@ -93,6 +94,69 @@ class PetCommandServiceTest @Autowired constructor(
     }
 
     @Test
+    @DisplayName("펫 정보 수정 - 존재하지 않는 펫")
+    fun updateTest1() {
+        // given
+        val id = 0L
+
+        val command = UpdatePetCommand(
+            name = TestPet.NAME,
+            isNeutered = TestPet.IS_NEUTERED,
+            feedCalories = TestPet.FEED_CALORIES
+        )
+
+        // when
+        val throwable = catchThrowable { petCommandService.update(id, command) }
+
+        // then
+        assertThat(throwable).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(throwable.message).isEqualTo("존재하지 않는 펫입니다.")
+    }
+
+    @Test
+    @DisplayName("펫 정보 수정 - 정상적인 입력")
+    fun updateTest2() {
+        // given
+        val memberEntity = Member(
+            email = TestMember.EMAIL,
+            loginId = TestMember.LOGIN_ID,
+            password = TestMember.PASSWORD,
+            nickname = TestMember.NICKNAME,
+        )
+
+        val member = memberRepository.save(memberEntity)
+
+        val breeds = breedsRepository.findBySexAndSpeciesAndName(
+            TestPet.SEX,
+            TestPet.SPECIES,
+            TestPet.BREEDS_NAME,
+        )
+
+        val pet = Pet(
+            name = TestPet.NAME,
+            birthDate = TestPet.BIRTH_DATE,
+            isNeutered = TestPet.IS_NEUTERED,
+            feedCalories = TestPet.FEED_CALORIES,
+            member = member,
+            breeds = breeds!!,
+        )
+
+        val id = petRepository.save(pet).id
+
+        val command = UpdatePetCommand(
+            name = TestPet.NAME,
+            isNeutered = TestPet.IS_NEUTERED,
+            feedCalories = TestPet.FEED_CALORIES
+        )
+
+        // when
+        val result = runCatching { petCommandService.delete(id) }.isSuccess
+
+        // then
+        assertThat(result).isTrue()
+    }
+
+    @Test
     @DisplayName("펫 삭제 - 존재하지 않는 펫")
     fun deleteTest1() {
         // given
@@ -120,9 +184,9 @@ class PetCommandServiceTest @Autowired constructor(
         val member = memberRepository.save(memberEntity)
 
         val breeds = breedsRepository.findBySexAndSpeciesAndName(
-            species = TestPet.SPECIES,
-            name = TestPet.BREEDS_NAME,
-            sex = TestPet.SEX,
+            TestPet.SEX,
+            TestPet.SPECIES,
+            TestPet.BREEDS_NAME,
         )
 
         val pet = Pet(
@@ -134,10 +198,10 @@ class PetCommandServiceTest @Autowired constructor(
             breeds = breeds!!,
         )
 
-        val petId = petRepository.save(pet).id
+        val id = petRepository.save(pet).id
 
         // when
-        val result = runCatching { petCommandService.delete(petId) }.isSuccess
+        val result = runCatching { petCommandService.delete(id) }.isSuccess
 
         // then
         assertThat(result).isTrue()
