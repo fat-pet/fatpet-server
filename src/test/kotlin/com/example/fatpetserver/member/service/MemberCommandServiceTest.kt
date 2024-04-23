@@ -8,6 +8,7 @@ import com.example.fatpetserver.member.repository.MemberRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.catchThrowable
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -21,6 +22,20 @@ class MemberCommandServiceTest @Autowired constructor(
     private val memberCommandService: MemberCommandService,
 ) {
 
+    private var id = 0L
+
+    @BeforeEach
+    fun setup() {
+        val member = Member(
+            email = TestMember.EMAIL,
+            loginId = TestMember.LOGIN_ID,
+            password = TestMember.PASSWORD,
+            nickname = TestMember.NICKNAME,
+        )
+
+        id = memberRepository.save(member).id
+    }
+
     @AfterEach
     fun cleanup() {
         memberRepository.deleteAll()
@@ -30,15 +45,6 @@ class MemberCommandServiceTest @Autowired constructor(
     @DisplayName("회원가입 - 이미 사용 중인 아이디")
     fun signupTest1() {
         // given
-        val member = Member(
-            email = TestMember.EMAIL,
-            loginId = TestMember.LOGIN_ID,
-            password = TestMember.PASSWORD,
-            nickname = TestMember.NICKNAME,
-        )
-
-        memberRepository.save(member)
-
         val command = SignupCommand(
             email = "new_email@email.com",
             loginId = TestMember.LOGIN_ID,
@@ -57,15 +63,6 @@ class MemberCommandServiceTest @Autowired constructor(
     @DisplayName("회원가입 - 이미 사용 중인 닉네임")
     fun signupTest2() {
         // given
-        val member = Member(
-            email = TestMember.EMAIL,
-            loginId = TestMember.LOGIN_ID,
-            password = TestMember.PASSWORD,
-            nickname = TestMember.NICKNAME,
-        )
-
-        memberRepository.save(member)
-        
         val command = SignupCommand(
             email = "new_email@email.com",
             loginId = "new_loginId",
@@ -117,14 +114,6 @@ class MemberCommandServiceTest @Autowired constructor(
     @DisplayName("회원 탈퇴 - 정상적인 입력")
     fun deleteTest2() {
         // given
-        val member = Member(
-            email = TestMember.EMAIL,
-            loginId = TestMember.LOGIN_ID,
-            password = TestMember.PASSWORD,
-            nickname = TestMember.NICKNAME,
-        )
-
-        val id = memberRepository.save(member).id
 
         // when
         val result = runCatching { memberCommandService.delete(id) }.isSuccess
@@ -155,15 +144,6 @@ class MemberCommandServiceTest @Autowired constructor(
     @DisplayName("회원 정보 수정 - 이미 사용 중인 닉네임")
     fun updateTest2() {
         // given
-        val member = Member(
-            email = TestMember.EMAIL,
-            loginId = TestMember.LOGIN_ID,
-            password = TestMember.PASSWORD,
-            nickname = TestMember.NICKNAME,
-        )
-
-        val id = memberRepository.save(member).id
-
         val command = UpdateMemberCommand(
             email = "new_email@email.com",
             nickname = TestMember.NICKNAME
@@ -182,15 +162,6 @@ class MemberCommandServiceTest @Autowired constructor(
     @DisplayName("회원 정보 수정 - 정상적인 입력")
     fun updateTest3() {
         // given
-        val member = Member(
-            email = TestMember.EMAIL,
-            loginId = TestMember.LOGIN_ID,
-            password = TestMember.PASSWORD,
-            nickname = TestMember.NICKNAME,
-        )
-
-        val id = memberRepository.save(member).id
-
         val command = UpdateMemberCommand(
             email = "new_email@email.com",
             nickname = "new_nickname"
