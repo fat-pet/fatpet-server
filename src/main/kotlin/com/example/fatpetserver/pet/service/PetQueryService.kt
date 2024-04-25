@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional(readOnly = true)
 class PetQueryService(
-    private val repository: PetRepository,
+    private val petRepository: PetRepository,
 ) {
 
-    fun getAll(memberId: Long): List<Pet> = repository.findAllByMemberId(memberId)
+    fun getAll(memberId: Long): List<Pet> = petRepository.findAllByMemberId(memberId)
 }

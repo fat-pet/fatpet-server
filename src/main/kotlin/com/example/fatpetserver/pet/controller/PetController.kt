@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/pets")
 class PetController(
-    private val petQueryService: PetQueryService,
     private val petCommandService: PetCommandService,
+    private val petQueryService: PetQueryService,
 ) : PetApi {
 
     @GetMapping

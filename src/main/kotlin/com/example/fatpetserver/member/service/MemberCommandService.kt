@@ -12,9 +12,9 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 class MemberCommandService(
-    private val passwordEncoder: PasswordEncoder,
-    private val memberRepository: MemberRepository,
     private val memberQueryService: MemberQueryService,
+    private val memberRepository: MemberRepository,
+    private val passwordEncoder: PasswordEncoder,
 ) {
 
     fun signup(command: SignupCommand): Member {

@@ -13,9 +13,9 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 class PetCommandService(
+    private val petRepository: PetRepository,
     private val memberRepository: MemberRepository,
     private val breedsRepository: BreedsRepository,
-    private val petRepository: PetRepository,
 ) {
 
     fun create(memberId: Long, command: CreatePetCommand): Pet {
