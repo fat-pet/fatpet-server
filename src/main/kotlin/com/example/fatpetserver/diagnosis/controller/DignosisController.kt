@@ -8,4 +8,4 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/diagnoses")
 class DignosisController(
     private val diagnosisCommandService: DiagnosisCommandService,
-)
+) : DiagnosisApi
