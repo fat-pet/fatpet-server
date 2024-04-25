@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController
 class MemberController(
     private val memberCommandService: MemberCommandService,
     private val memberQueryService: MemberQueryService,
-) : MemberApiPresentation {
+) : MemberApi {
 
     @PostMapping("/signup")
     @ResponseStatus(value = HttpStatus.CREATED)

@@ -12,9 +12,9 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional(readOnly = true)
 class MemberQueryService(
+    private val memberRepository: MemberRepository,
     private val passwordEncoder: PasswordEncoder,
     private val jwtTokenProvider: JwtTokenProvider,
-    private val memberRepository: MemberRepository,
 ) {
 
     fun signin(query: SigninQuery): SigninResponse {
