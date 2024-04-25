@@ -10,7 +10,7 @@ import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 
 @Tag(name = "Member API")
-interface MemberApiPresentation {
+interface MemberApi {
 
     @Operation(summary = "회원가입")
     fun signup(command: SignupCommand)

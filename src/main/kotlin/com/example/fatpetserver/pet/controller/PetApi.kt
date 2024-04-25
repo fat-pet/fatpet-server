@@ -9,7 +9,7 @@ import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 
 @Tag(name = "Pet API")
-interface PetApiPresentation {
+interface PetApi {
 
     @Operation(summary = "내 펫 목록 조회")
     fun getAll(userDetails: UserDetails): ApiResponse<List<Pet>>

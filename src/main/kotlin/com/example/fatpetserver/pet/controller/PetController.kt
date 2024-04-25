@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController
 class PetController(
     private val petQueryService: PetQueryService,
     private val petCommandService: PetCommandService,
-) : PetApiPresentation {
+) : PetApi {
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
