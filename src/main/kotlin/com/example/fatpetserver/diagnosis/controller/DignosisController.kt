@@ -1,7 +1,7 @@
 package com.example.fatpetserver.diagnosis.controller
 
 import com.example.fatpetserver.common.ApiResponse
-import com.example.fatpetserver.diagnosis.dto.CreateDiagnosisCommand
+import com.example.fatpetserver.diagnosis.dto.DiagnoseCommand
 import com.example.fatpetserver.diagnosis.entity.Diagnosis
 import com.example.fatpetserver.diagnosis.service.DiagnosisCommandService
 import com.example.fatpetserver.diagnosis.service.DiagnosisQueryService
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
@@ -23,19 +24,19 @@ class DignosisController(
     private val diagnosisQueryService: DiagnosisQueryService,
 ) : DiagnosisApi {
 
-    @GetMapping("/{petId}")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    override fun getAll(@PathVariable petId: Long): ApiResponse<List<Diagnosis>> {
-        return ApiResponse.success(diagnosisQueryService.getAll(petId))
+    override fun getAllByPet(@RequestParam petId: Long): ApiResponse<List<Diagnosis>> {
+        return ApiResponse.success(diagnosisQueryService.getAllByPet(petId))
     }
 
     @PostMapping("/{petId}")
     @ResponseStatus(HttpStatus.CREATED)
-    override fun create(
+    override fun diagnose(
         @PathVariable petId: Long,
-        @Valid @RequestBody command: CreateDiagnosisCommand,
+        @Valid @RequestBody command: DiagnoseCommand,
     ) {
-        diagnosisCommandService.create(petId, command)
+        diagnosisCommandService.diagnose(petId, command)
     }
 
     @DeleteMapping("/{id}")

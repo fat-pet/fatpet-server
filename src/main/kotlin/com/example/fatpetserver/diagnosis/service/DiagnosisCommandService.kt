@@ -1,6 +1,6 @@
 package com.example.fatpetserver.diagnosis.service
 
-import com.example.fatpetserver.diagnosis.dto.CreateDiagnosisCommand
+import com.example.fatpetserver.diagnosis.dto.DiagnoseCommand
 import com.example.fatpetserver.diagnosis.entity.Diagnosis
 import com.example.fatpetserver.diagnosis.enums.Bcs
 import com.example.fatpetserver.diagnosis.repository.DiagnosisRepository
@@ -16,7 +16,7 @@ class DiagnosisCommandService(
     private val petQueryService: PetQueryService,
 ) {
 
-    fun create(petId: Long, command: CreateDiagnosisCommand) {
+    fun diagnose(petId: Long, command: DiagnoseCommand) {
         val (weight, neckCirc, chestCirc, feedAmount) = command
 
         val pet = petQueryService.getPetByIdOrThrow(petId)

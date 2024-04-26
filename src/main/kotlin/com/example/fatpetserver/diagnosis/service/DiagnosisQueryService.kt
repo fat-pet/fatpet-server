@@ -12,7 +12,7 @@ class DiagnosisQueryService(
     private val diagnosisRepository: DiagnosisRepository,
 ) {
 
-    fun getAll(petId: Long): List<Diagnosis> = diagnosisRepository.findAllByPetId(petId)
+    fun getAllByPet(petId: Long): List<Diagnosis> = diagnosisRepository.findAllByPetId(petId)
 
     fun getDiagnosisByIdOrThrow(id: Long): Diagnosis =
         diagnosisRepository.findByIdOrNull(id)

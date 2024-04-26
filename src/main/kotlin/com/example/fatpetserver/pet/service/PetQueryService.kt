@@ -12,7 +12,7 @@ class PetQueryService(
     private val petRepository: PetRepository,
 ) {
 
-    fun getAll(memberId: Long): List<Pet> = petRepository.findAllByMemberId(memberId)
+    fun getAllByMember(memberId: Long): List<Pet> = petRepository.findAllByMemberId(memberId)
 
     fun getPetByIdOrThrow(id: Long): Pet =
         petRepository.findByIdOrNull(id)
