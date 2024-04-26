@@ -2,6 +2,8 @@ package com.example.fatpetserver.pet.controller
 
 import com.example.fatpetserver.common.ApiResponse
 import com.example.fatpetserver.common.auth.UserDetails
+import com.example.fatpetserver.diagnosis.service.DiagnosisCommandService
+import com.example.fatpetserver.diagnosis.service.DiagnosisQueryService
 import com.example.fatpetserver.pet.dto.CreatePetCommand
 import com.example.fatpetserver.pet.dto.UpdatePetCommand
 import com.example.fatpetserver.pet.entity.Pet
@@ -25,12 +27,14 @@ import org.springframework.web.bind.annotation.RestController
 class PetController(
     private val petCommandService: PetCommandService,
     private val petQueryService: PetQueryService,
+    private val diagnosisCommandService: DiagnosisCommandService,
+    private val diagnosisQueryService: DiagnosisQueryService,
 ) : PetApi {
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    override fun getAll(@AuthenticationPrincipal userDetails: UserDetails): ApiResponse<List<Pet>> {
-        return ApiResponse.success(petQueryService.getAll(userDetails.id))
+    override fun getAllByMember(@AuthenticationPrincipal userDetails: UserDetails): ApiResponse<List<Pet>> {
+        return ApiResponse.success(petQueryService.getAllByMember(userDetails.id))
     }
 
     @PostMapping

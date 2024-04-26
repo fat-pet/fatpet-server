@@ -3,8 +3,10 @@ package com.example.fatpetserver.member.service
 import com.example.fatpetserver.common.auth.JwtTokenProvider
 import com.example.fatpetserver.member.dto.SigninQuery
 import com.example.fatpetserver.member.dto.SigninResponse
+import com.example.fatpetserver.member.entity.Member
 import com.example.fatpetserver.member.repository.MemberRepository
 import org.apache.coyote.BadRequestException
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -32,6 +34,10 @@ class MemberQueryService(
         return SigninResponse(member.role, token)
     }
 
+    fun getMemberByIdOrThrow(id: Long): Member =
+        memberRepository.findByIdOrNull(id)
+            ?: throw IllegalArgumentException("존재하지 않는 사용자입니다.")
+
     fun checkDuplicate(loginId: String?, nickname: String?): Boolean {
         loginId?.let {
             return runCatching { checkLoginId(loginId) }.isFailure
@@ -44,11 +50,9 @@ class MemberQueryService(
         throw IllegalArgumentException("쿼리 파라미터 값을 입력해 주세요.")
     }
 
-    fun checkLoginId(loginId: String) {
+    fun checkLoginId(loginId: String) =
         require(memberRepository.existsByLoginId(loginId).not()) { "이미 사용 중인 아이디입니다." }
-    }
 
-    fun checkNickname(nickname: String) {
+    fun checkNickname(nickname: String) =
         require(memberRepository.existsByNickname(nickname).not()) { "이미 사용 중인 닉네임입니다." }
-    }
 }

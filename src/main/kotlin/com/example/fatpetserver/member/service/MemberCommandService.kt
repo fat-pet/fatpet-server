@@ -4,7 +4,6 @@ import com.example.fatpetserver.member.dto.SignupCommand
 import com.example.fatpetserver.member.dto.UpdateMemberCommand
 import com.example.fatpetserver.member.entity.Member
 import com.example.fatpetserver.member.repository.MemberRepository
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -12,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 class MemberCommandService(
-    private val memberQueryService: MemberQueryService,
     private val memberRepository: MemberRepository,
+    private val memberQueryService: MemberQueryService,
     private val passwordEncoder: PasswordEncoder,
 ) {
 
@@ -35,21 +34,20 @@ class MemberCommandService(
         )
     }
 
-    fun delete(id: Long) {
-        memberRepository.findByIdOrNull(id)?.let { member ->
+    fun delete(id: Long) =
+        memberQueryService.getMemberByIdOrThrow(id).let { member ->
             memberRepository.delete(member)
-        } ?: throw IllegalArgumentException("존재하지 않는 사용자입니다.")
-    }
+        }
 
     fun update(id: Long, command: UpdateMemberCommand) {
         val (newEmail, newNickname) = command.apply {
             memberQueryService.checkNickname(nickname)
         }
 
-        val updatedMember = memberRepository.findByIdOrNull(id)?.apply {
+        val updatedMember = memberQueryService.getMemberByIdOrThrow(id).apply {
             email = newEmail
             nickname = newNickname
-        } ?: throw IllegalArgumentException("존재하지 않는 사용자입니다.")
+        }
 
         memberRepository.save(updatedMember)
     }

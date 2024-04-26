@@ -12,7 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tag
 interface PetApi {
 
     @Operation(summary = "내 펫 목록 조회")
-    fun getAll(userDetails: UserDetails): ApiResponse<List<Pet>>
+    fun getAllByMember(userDetails: UserDetails): ApiResponse<List<Pet>>
 
     @Operation(summary = "펫 생성")
     fun create(userDetails: UserDetails, command: CreatePetCommand)

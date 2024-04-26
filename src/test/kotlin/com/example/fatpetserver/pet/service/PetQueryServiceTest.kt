@@ -28,7 +28,7 @@ class PetQueryServiceTest @Autowired constructor(
         val memberId = MEMBER.id
 
         // when
-        val result = petQueryService.getAll(memberId)
+        val result = petQueryService.getAllByMember(memberId)
 
         // then
         assertThat(result.size).isEqualTo(1)
