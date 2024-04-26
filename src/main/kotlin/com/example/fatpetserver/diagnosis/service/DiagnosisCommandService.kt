@@ -4,8 +4,7 @@ import com.example.fatpetserver.diagnosis.dto.CreateDiagnosisCommand
 import com.example.fatpetserver.diagnosis.entity.Diagnosis
 import com.example.fatpetserver.diagnosis.enums.Bcs
 import com.example.fatpetserver.diagnosis.repository.DiagnosisRepository
-import com.example.fatpetserver.pet.repository.PetRepository
-import org.springframework.data.repository.findByIdOrNull
+import com.example.fatpetserver.pet.service.PetQueryService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -13,14 +12,13 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 class DiagnosisCommandService(
     private val diagnosisRepository: DiagnosisRepository,
-    private val petRepository: PetRepository,
+    private val petQueryService: PetQueryService,
 ) {
 
     fun create(petId: Long, command: CreateDiagnosisCommand) {
         val (weight, neckCirc, chestCirc, feedAmount) = command
 
-        val pet = petRepository.findByIdOrNull(petId)
-            ?: throw IllegalArgumentException("존재하지 않는 펫입니다.")
+        val pet = petQueryService.getPetByIdOrThrow(petId)
 
         val result = diagnoseObsity()
 
