@@ -16,5 +16,5 @@ interface DiagnosisApi {
     fun create(petId: Long, command: CreateDiagnosisCommand)
 
     @Operation(summary = "진단 삭제")
-    fun delete(petId: Long)
+    fun delete(id: Long)
 }

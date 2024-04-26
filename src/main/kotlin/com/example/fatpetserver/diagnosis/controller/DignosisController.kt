@@ -38,9 +38,9 @@ class DignosisController(
         diagnosisCommandService.create(petId, command)
     }
 
-    @DeleteMapping("/{petId}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    override fun delete(@PathVariable petId: Long) {
-        TODO("Not yet implemented")
+    override fun delete(@PathVariable id: Long) {
+        diagnosisCommandService.delete(id)
     }
 }

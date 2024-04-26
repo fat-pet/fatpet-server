@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 class DiagnosisCommandService(
     private val diagnosisRepository: DiagnosisRepository,
+    private val diagnosisQueryService: DiagnosisQueryService,
     private val petQueryService: PetQueryService,
 ) {
 
@@ -39,6 +40,11 @@ class DiagnosisCommandService(
     }
 
     fun diagnoseObsity() {
-        // TODO: BCS 진단
+        // TODO
     }
+
+    fun delete(id: Long) =
+        diagnosisQueryService.getDiagnosisByIdOrThrow(id).let { diagnosis ->
+            diagnosisRepository.delete(diagnosis)
+        }
 }
