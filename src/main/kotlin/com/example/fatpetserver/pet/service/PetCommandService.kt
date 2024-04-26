@@ -1,12 +1,10 @@
 package com.example.fatpetserver.pet.service
 
-import com.example.fatpetserver.member.repository.MemberRepository
+import com.example.fatpetserver.member.service.MemberQueryService
 import com.example.fatpetserver.pet.dto.CreatePetCommand
 import com.example.fatpetserver.pet.dto.UpdatePetCommand
 import com.example.fatpetserver.pet.entity.Pet
-import com.example.fatpetserver.pet.repository.BreedsRepository
 import com.example.fatpetserver.pet.repository.PetRepository
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -14,18 +12,17 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 class PetCommandService(
     private val petRepository: PetRepository,
-    private val memberRepository: MemberRepository,
-    private val breedsRepository: BreedsRepository,
+    private val petQueryService: PetQueryService,
+    private val memberQueryService: MemberQueryService,
+    private val breedsQueryService: BreedsQueryService,
 ) {
 
     fun create(memberId: Long, command: CreatePetCommand): Pet {
         val (sex, name, species, breedsName, birthDate, isNeutered, feedCalories) = command
 
-        val member = memberRepository.findByIdOrNull(memberId)
-            ?: throw IllegalArgumentException("존재하지 않는 사용자입니다.")
+        val member = memberQueryService.getMemberByIdOrThrow(memberId)
 
-        val breeds = breedsRepository.findBySexAndSpeciesAndName(sex!!, species!!, breedsName)
-            ?: throw IllegalArgumentException("존재하지 않는 품종입니다.")
+        val breeds = breedsQueryService.getBreedsOrThrow(sex!!, species!!, breedsName)
 
         return petRepository.save(
             Pet(
@@ -42,18 +39,17 @@ class PetCommandService(
     fun update(id: Long, command: UpdatePetCommand) {
         val (newName, newIsNeutered, newFeedCalories) = command
 
-        val updatedPet = petRepository.findByIdOrNull(id)?.apply {
+        val updatedPet = petQueryService.getPetByIdOrThrow(id).apply {
             name = newName
             isNeutered = newIsNeutered!!
             feedCalories = newFeedCalories
-        } ?: throw IllegalArgumentException("존재하지 않는 펫입니다.")
+        }
 
         petRepository.save(updatedPet)
     }
 
-    fun delete(id: Long) {
-        petRepository.findByIdOrNull(id)?.let { pet ->
+    fun delete(id: Long) =
+        petQueryService.getPetByIdOrThrow(id).let { pet ->
             petRepository.delete(pet)
-        } ?: throw IllegalArgumentException("존재하지 않는 펫입니다.")
-    }
+        }
 }
