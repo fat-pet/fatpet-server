@@ -2,11 +2,9 @@ package com.example.fatpetserver.pet.controller
 
 import com.example.fatpetserver.common.ApiResponse
 import com.example.fatpetserver.common.auth.UserDetails
-import com.example.fatpetserver.diagnosis.service.DiagnosisCommandService
-import com.example.fatpetserver.diagnosis.service.DiagnosisQueryService
 import com.example.fatpetserver.pet.dto.CreatePetCommand
+import com.example.fatpetserver.pet.dto.PetInfo
 import com.example.fatpetserver.pet.dto.UpdatePetCommand
-import com.example.fatpetserver.pet.entity.Pet
 import com.example.fatpetserver.pet.service.PetCommandService
 import com.example.fatpetserver.pet.service.PetQueryService
 import jakarta.validation.Valid
@@ -27,13 +25,11 @@ import org.springframework.web.bind.annotation.RestController
 class PetController(
     private val petCommandService: PetCommandService,
     private val petQueryService: PetQueryService,
-    private val diagnosisCommandService: DiagnosisCommandService,
-    private val diagnosisQueryService: DiagnosisQueryService,
 ) : PetApi {
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    override fun getAllByMember(@AuthenticationPrincipal userDetails: UserDetails): ApiResponse<List<Pet>> {
+    override fun getAllByMember(@AuthenticationPrincipal userDetails: UserDetails): ApiResponse<List<PetInfo>> {
         return ApiResponse.success(petQueryService.getAllByMember(userDetails.id))
     }
 

@@ -1,5 +1,6 @@
 package com.example.fatpetserver.diagnosis.service
 
+import com.example.fatpetserver.diagnosis.dto.DiagnosisInfo
 import com.example.fatpetserver.diagnosis.entity.Diagnosis
 import com.example.fatpetserver.diagnosis.repository.DiagnosisRepository
 import org.springframework.data.repository.findByIdOrNull
@@ -12,7 +13,7 @@ class DiagnosisQueryService(
     private val diagnosisRepository: DiagnosisRepository,
 ) {
 
-    fun getAllByPet(petId: Long): List<Diagnosis> = diagnosisRepository.findAllByPetId(petId)
+    fun getAllByPet(petId: Long): List<DiagnosisInfo> = diagnosisRepository.findAllByPetId(petId)
 
     fun getDiagnosisByIdOrThrow(id: Long): Diagnosis =
         diagnosisRepository.findByIdOrNull(id)

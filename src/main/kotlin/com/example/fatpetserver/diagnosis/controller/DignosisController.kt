@@ -2,7 +2,7 @@ package com.example.fatpetserver.diagnosis.controller
 
 import com.example.fatpetserver.common.ApiResponse
 import com.example.fatpetserver.diagnosis.dto.DiagnoseCommand
-import com.example.fatpetserver.diagnosis.entity.Diagnosis
+import com.example.fatpetserver.diagnosis.dto.DiagnosisInfo
 import com.example.fatpetserver.diagnosis.service.DiagnosisCommandService
 import com.example.fatpetserver.diagnosis.service.DiagnosisQueryService
 import jakarta.validation.Valid
@@ -26,7 +26,7 @@ class DignosisController(
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    override fun getAllByPet(@RequestParam petId: Long): ApiResponse<List<Diagnosis>> {
+    override fun getAllByPet(@RequestParam petId: Long): ApiResponse<List<DiagnosisInfo>> {
         return ApiResponse.success(diagnosisQueryService.getAllByPet(petId))
     }
 
