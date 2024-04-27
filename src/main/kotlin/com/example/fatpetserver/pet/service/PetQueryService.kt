@@ -1,7 +1,7 @@
 package com.example.fatpetserver.pet.service
 
-import com.example.fatpetserver.pet.dto.PetInfo
 import com.example.fatpetserver.pet.entity.Pet
+import com.example.fatpetserver.pet.repository.PetInfo
 import com.example.fatpetserver.pet.repository.PetRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service

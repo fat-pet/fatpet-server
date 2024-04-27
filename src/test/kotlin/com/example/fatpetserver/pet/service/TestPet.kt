@@ -10,6 +10,6 @@ object TestPet {
     val SPECIES = Species.DOG
     const val BREEDS_NAME = "BEA"
     val BIRTH_DATE = YearMonth.now()!!
-    const val IS_NEUTERED = false
+    const val NEUTERED = false
     const val FEED_CALORIES = 450
 }

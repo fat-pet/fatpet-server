@@ -3,8 +3,8 @@ package com.example.fatpetserver.pet.controller
 import com.example.fatpetserver.common.ApiResponse
 import com.example.fatpetserver.common.auth.UserDetails
 import com.example.fatpetserver.pet.dto.CreatePetCommand
-import com.example.fatpetserver.pet.dto.PetInfo
 import com.example.fatpetserver.pet.dto.UpdatePetCommand
+import com.example.fatpetserver.pet.repository.PetInfo
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 

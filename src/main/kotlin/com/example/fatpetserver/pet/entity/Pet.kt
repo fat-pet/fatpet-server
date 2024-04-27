@@ -26,7 +26,7 @@ class Pet(
     val birthDate: YearMonth,
 
     @Column(nullable = false)
-    var isNeutered: Boolean,
+    var neutered: Boolean,
 
     @Column(nullable = false)
     var feedCalories: Int,

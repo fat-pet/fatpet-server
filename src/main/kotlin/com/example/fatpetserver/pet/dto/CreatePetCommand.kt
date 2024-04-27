@@ -32,7 +32,7 @@ data class CreatePetCommand(
 
     @Schema(example = "true")
     @field:NotBlank(message = "중성화 여부는 필수 입력값입니다.")
-    val isNeutered: Boolean? = null,
+    val neutered: Boolean? = null,
 
     @Schema(example = "300")
     @field:Min(value = 1, message = "사료 열량은 0보다 커야 합니다.")
