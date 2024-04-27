@@ -1,6 +1,5 @@
 package com.example.fatpetserver.diagnosis.service
 
-import com.example.fatpetserver.diagnosis.dto.DiagnosisInfo
 import com.example.fatpetserver.diagnosis.entity.Diagnosis
 import com.example.fatpetserver.diagnosis.repository.DiagnosisInfo
 import com.example.fatpetserver.diagnosis.repository.DiagnosisRepository
