@@ -1,4 +1,4 @@
-package com.example.fatpetserver.diagnosis.dto
+package com.example.fatpetserver.diagnosis.repository
 
 import com.example.fatpetserver.diagnosis.enums.Bcs
 import java.time.LocalDateTime
