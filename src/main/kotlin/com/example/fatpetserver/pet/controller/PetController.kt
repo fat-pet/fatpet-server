@@ -6,7 +6,7 @@ import com.example.fatpetserver.diagnosis.service.DiagnosisCommandService
 import com.example.fatpetserver.diagnosis.service.DiagnosisQueryService
 import com.example.fatpetserver.pet.dto.CreatePetCommand
 import com.example.fatpetserver.pet.dto.UpdatePetCommand
-import com.example.fatpetserver.pet.entity.Pet
+import com.example.fatpetserver.pet.repository.PetInfo
 import com.example.fatpetserver.pet.service.PetCommandService
 import com.example.fatpetserver.pet.service.PetQueryService
 import jakarta.validation.Valid
@@ -33,7 +33,7 @@ class PetController(
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    override fun getAllByMember(@AuthenticationPrincipal userDetails: UserDetails): ApiResponse<List<Pet>> {
+    override fun getAllByMember(@AuthenticationPrincipal userDetails: UserDetails): ApiResponse<List<PetInfo>> {
         return ApiResponse.success(petQueryService.getAllByMember(userDetails.id))
     }
 

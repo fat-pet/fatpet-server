@@ -2,7 +2,7 @@ package com.example.fatpetserver.diagnosis.controller
 
 import com.example.fatpetserver.common.ApiResponse
 import com.example.fatpetserver.diagnosis.dto.DiagnoseCommand
-import com.example.fatpetserver.diagnosis.entity.Diagnosis
+import com.example.fatpetserver.diagnosis.dto.DiagnosisInfo
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 
@@ -10,7 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag
 interface DiagnosisApi {
 
     @Operation(summary = "펫 진단 목록 조회")
-    fun getAllByPet(petId: Long): ApiResponse<List<Diagnosis>>
+    fun getAllByPet(petId: Long): ApiResponse<List<DiagnosisInfo>>
 
     @Operation(summary = "비만도 진단")
     fun diagnose(petId: Long, command: DiagnoseCommand)

@@ -33,7 +33,7 @@ class PetCommandServiceTest @Autowired constructor(
         val petEntity = Pet(
             name = TestPet.NAME,
             birthDate = TestPet.BIRTH_DATE,
-            isNeutered = TestPet.IS_NEUTERED,
+            neutered = TestPet.NEUTERED,
             feedCalories = TestPet.FEED_CALORIES,
             member = MEMBER,
             breeds = BREEDS,
@@ -59,7 +59,7 @@ class PetCommandServiceTest @Autowired constructor(
             species = TestPet.SPECIES,
             breedsName = "wrong_breeds",
             birthDate = TestPet.BIRTH_DATE,
-            isNeutered = TestPet.IS_NEUTERED,
+            neutered = TestPet.NEUTERED,
             feedCalories = TestPet.FEED_CALORIES,
         )
 
@@ -83,7 +83,7 @@ class PetCommandServiceTest @Autowired constructor(
             species = TestPet.SPECIES,
             breedsName = TestPet.BREEDS_NAME,
             birthDate = TestPet.BIRTH_DATE,
-            isNeutered = TestPet.IS_NEUTERED,
+            neutered = TestPet.NEUTERED,
             feedCalories = TestPet.FEED_CALORIES
         )
 
@@ -103,7 +103,7 @@ class PetCommandServiceTest @Autowired constructor(
 
         val command = UpdatePetCommand(
             name = TestPet.NAME,
-            isNeutered = TestPet.IS_NEUTERED,
+            neutered = TestPet.NEUTERED,
             feedCalories = TestPet.FEED_CALORIES
         )
 
@@ -123,7 +123,7 @@ class PetCommandServiceTest @Autowired constructor(
 
         val command = UpdatePetCommand(
             name = TestPet.NAME,
-            isNeutered = TestPet.IS_NEUTERED,
+            neutered = TestPet.NEUTERED,
             feedCalories = TestPet.FEED_CALORIES
         )
 

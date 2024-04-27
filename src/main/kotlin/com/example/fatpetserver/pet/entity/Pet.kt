@@ -8,6 +8,7 @@ import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
 import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToMany
@@ -25,12 +26,12 @@ class Pet(
     val birthDate: YearMonth,
 
     @Column(nullable = false)
-    var isNeutered: Boolean,
+    var neutered: Boolean,
 
     @Column(nullable = false)
     var feedCalories: Int,
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false, updatable = false)
     val member: Member,
 
@@ -38,6 +39,11 @@ class Pet(
     @JoinColumn(name = "breeds_id", nullable = true, updatable = false)
     val breeds: Breeds,
 
-    @OneToMany(mappedBy = "pet", cascade = [CascadeType.ALL], orphanRemoval = true)
-    val diagnosises: MutableList<Diagnosis> = mutableListOf(),
+    @OneToMany(
+        mappedBy = "pet",
+        cascade = [CascadeType.ALL],
+        orphanRemoval = true,
+        fetch = FetchType.LAZY,
+    )
+    val diagnosises: List<Diagnosis> = listOf(),
 ) : BaseEntity()

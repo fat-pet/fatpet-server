@@ -18,7 +18,7 @@ class PetCommandService(
 ) {
 
     fun create(memberId: Long, command: CreatePetCommand): Pet {
-        val (sex, name, species, breedsName, birthDate, isNeutered, feedCalories) = command
+        val (sex, name, species, breedsName, birthDate, neutered, feedCalories) = command
 
         val member = memberQueryService.getMemberByIdOrThrow(memberId)
 
@@ -28,7 +28,7 @@ class PetCommandService(
             Pet(
                 name = name,
                 birthDate = birthDate!!,
-                isNeutered = isNeutered!!,
+                neutered = neutered!!,
                 feedCalories = feedCalories,
                 member = member,
                 breeds = breeds,
@@ -37,11 +37,11 @@ class PetCommandService(
     }
 
     fun update(id: Long, command: UpdatePetCommand) {
-        val (newName, newIsNeutered, newFeedCalories) = command
+        val (newName, newNeutered, newFeedCalories) = command
 
         val updatedPet = petQueryService.getPetByIdOrThrow(id).apply {
             name = newName
-            isNeutered = newIsNeutered!!
+            neutered = newNeutered!!
             feedCalories = newFeedCalories
         }
 

@@ -64,7 +64,7 @@ class PetQueryServiceTest @Autowired constructor(
             val petEntity = Pet(
                 name = TestPet.NAME,
                 birthDate = TestPet.BIRTH_DATE,
-                isNeutered = TestPet.IS_NEUTERED,
+                neutered = TestPet.NEUTERED,
                 feedCalories = TestPet.FEED_CALORIES,
                 member = MEMBER,
                 breeds = breeds!!,
