@@ -16,8 +16,8 @@ class DiagnosisCommandService(
     private val petQueryService: PetQueryService,
 ) {
 
-    fun diagnose(petId: Long, command: DiagnoseCommand) {
-        val (weight, neckCirc, chestCirc, feedAmount) = command
+    fun diagnose(command: DiagnoseCommand) {
+        val (petId, weight, neckCirc, chestCirc, feedAmount) = command
 
         val pet = petQueryService.getPetByIdOrThrow(petId)
 

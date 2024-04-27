@@ -13,7 +13,7 @@ interface DiagnosisApi {
     fun getAllByPet(petId: Long): ApiResponse<List<DiagnosisInfo>>
 
     @Operation(summary = "비만도 진단")
-    fun diagnose(petId: Long, command: DiagnoseCommand)
+    fun diagnose(command: DiagnoseCommand)
 
     @Operation(summary = "진단 삭제")
     fun delete(id: Long)

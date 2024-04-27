@@ -30,13 +30,12 @@ class DignosisController(
         return ApiResponse.success(diagnosisQueryService.getAllByPet(petId))
     }
 
-    @PostMapping("/{petId}")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     override fun diagnose(
-        @PathVariable petId: Long,
         @Valid @RequestBody command: DiagnoseCommand,
     ) {
-        diagnosisCommandService.diagnose(petId, command)
+        diagnosisCommandService.diagnose(command)
     }
 
     @DeleteMapping("/{id}")

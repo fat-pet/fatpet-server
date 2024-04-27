@@ -2,8 +2,13 @@ package com.example.fatpetserver.diagnosis.dto
 
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.validation.constraints.Min
+import jakarta.validation.constraints.NotBlank
 
 data class DiagnoseCommand(
+    @Schema(example = "3")
+    @field:NotBlank(message = "펫 식별자는 필수 입력값입니다.")
+    val petId: Long = 0L,
+
     @Schema(example = "5.5")
     @field:Min(value = 1, message = "체중은 0보다 커야 합니다.")
     val weight: Float = 0F,
