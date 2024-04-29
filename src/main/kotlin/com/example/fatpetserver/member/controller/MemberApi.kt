@@ -6,11 +6,15 @@ import com.example.fatpetserver.member.dto.SigninQuery
 import com.example.fatpetserver.member.dto.SigninResponse
 import com.example.fatpetserver.member.dto.SignupCommand
 import com.example.fatpetserver.member.dto.UpdateMemberCommand
+import com.example.fatpetserver.member.repository.MemberInfo
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 
 @Tag(name = "Member API")
 interface MemberApi {
+
+    @Operation(summary = "회원 정보 조회")
+    fun getMemberInfo(userDetails: UserDetails): ApiResponse<MemberInfo>
 
     @Operation(summary = "회원가입")
     fun signup(command: SignupCommand)

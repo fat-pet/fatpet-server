@@ -6,6 +6,7 @@ import com.example.fatpetserver.member.dto.SigninQuery
 import com.example.fatpetserver.member.dto.SigninResponse
 import com.example.fatpetserver.member.dto.SignupCommand
 import com.example.fatpetserver.member.dto.UpdateMemberCommand
+import com.example.fatpetserver.member.repository.MemberInfo
 import com.example.fatpetserver.member.service.MemberCommandService
 import com.example.fatpetserver.member.service.MemberQueryService
 import jakarta.validation.Valid
@@ -27,6 +28,12 @@ class MemberController(
     private val memberCommandService: MemberCommandService,
     private val memberQueryService: MemberQueryService,
 ) : MemberApi {
+
+    @GetMapping
+    @ResponseStatus(value = HttpStatus.OK)
+    override fun getMemberInfo(@AuthenticationPrincipal userDetails: UserDetails): ApiResponse<MemberInfo> {
+        return ApiResponse.success(memberQueryService.getMemberInfo(userDetails.id))
+    }
 
     @PostMapping("/signup")
     @ResponseStatus(value = HttpStatus.CREATED)

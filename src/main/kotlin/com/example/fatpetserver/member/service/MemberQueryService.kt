@@ -19,6 +19,10 @@ class MemberQueryService(
     private val jwtTokenProvider: JwtTokenProvider,
 ) {
 
+    fun getMemberInfo(id: Long) =
+        memberRepository.findMemberById(id)
+            ?: throw IllegalArgumentException("존재하지 않는 사용자입니다.")
+
     fun signin(query: SigninQuery): SigninResponse {
         val (loginId, password) = query
 
