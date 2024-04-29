@@ -32,7 +32,7 @@ data class CreatePetCommand(
     val birthDate: YearMonth? = null,
 
     @Schema(example = "true")
-    @field:NotBlank(message = "중성화 여부는 필수 입력값입니다.")
+    @field:NotNull(message = "중성화 여부는 필수 입력값입니다.")
     val neutered: Boolean? = null,
 
     @Schema(example = "300")

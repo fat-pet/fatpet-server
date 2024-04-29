@@ -3,6 +3,7 @@ package com.example.fatpetserver.pet.dto
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
 import org.hibernate.validator.constraints.Length
 
 data class UpdatePetCommand(
@@ -12,7 +13,7 @@ data class UpdatePetCommand(
     val name: String = "",
 
     @Schema(example = "true")
-    @field:NotBlank(message = "중성화 여부는 필수 입력값입니다.")
+    @field:NotNull(message = "중성화 여부는 필수 입력값입니다.")
     val neutered: Boolean? = null,
 
     @Schema(example = "300")
