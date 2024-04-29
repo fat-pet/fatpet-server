@@ -5,12 +5,13 @@ import com.example.fatpetserver.pet.enums.Species
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
 import org.hibernate.validator.constraints.Length
 import java.time.YearMonth
 
 data class CreatePetCommand(
     @Schema(example = "MALE")
-    @field:NotBlank(message = "성별은 필수 입력값입니다.")
+    @field:NotNull(message = "성별은 필수 입력값입니다.")
     val sex: Sex? = null,
 
     @Schema(example = "name")
@@ -19,7 +20,7 @@ data class CreatePetCommand(
     val name: String = "",
 
     @Schema(example = "DOG")
-    @field:NotBlank(message = "종은 필수 입력값입니다.")
+    @field:NotNull(message = "종은 필수 입력값입니다.")
     val species: Species? = null,
 
     @Schema(example = "BEA")
@@ -27,7 +28,7 @@ data class CreatePetCommand(
     val breedsName: String = "",
 
     @Schema(example = "2024-04")
-    @field:NotBlank(message = "출생일은 필수 입력값입니다.")
+    @field:NotNull(message = "출생일은 필수 입력값입니다.")
     val birthDate: YearMonth? = null,
 
     @Schema(example = "true")
