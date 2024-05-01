@@ -3,6 +3,7 @@ package com.example.fatpetserver.member.entity
 import com.example.fatpetserver.common.entity.BaseEntity
 import com.example.fatpetserver.member.enums.Role
 import com.example.fatpetserver.pet.entity.Pet
+import com.example.fatpetserver.post.entity.Post
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -38,4 +39,12 @@ class Member(
         fetch = FetchType.LAZY
     )
     val pets: List<Pet> = listOf(),
+
+    @OneToMany(
+        mappedBy = "member",
+        cascade = [CascadeType.ALL],
+        orphanRemoval = true,
+        fetch = FetchType.LAZY
+    )
+    val posts: List<Post> = listOf(),
 ) : BaseEntity()

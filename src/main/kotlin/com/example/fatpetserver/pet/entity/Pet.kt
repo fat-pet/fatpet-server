@@ -16,7 +16,7 @@ import jakarta.persistence.Table
 import java.time.YearMonth
 
 @Entity
-@Table(name = "Pet")
+@Table(name = "pet")
 class Pet(
     @Column(nullable = false)
     var name: String,
