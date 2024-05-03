@@ -3,15 +3,20 @@ package com.example.fatpetserver.post.controller
 import com.example.fatpetserver.common.ApiResponse
 import com.example.fatpetserver.common.auth.UserDetails
 import com.example.fatpetserver.post.repository.PostInfo
+import com.example.fatpetserver.post.service.PostCommandService
+import com.example.fatpetserver.post.service.PostQueryService
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/posts")
-class PostController : PostApi {
+class PostController(
+    private val postCommandService: PostCommandService,
+    private val postQueryService: PostQueryService,
+) : PostApi {
 
     override fun getAll(userDetails: UserDetails): ApiResponse<List<PostInfo>> {
-        TODO("Not yet implemented")
+        return ApiResponse.success(postQueryService.getAll())
     }
 
     override fun create(userDetails: UserDetails) {
