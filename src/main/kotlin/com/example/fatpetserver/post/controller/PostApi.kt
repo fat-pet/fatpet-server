@@ -11,7 +11,7 @@ import io.swagger.v3.oas.annotations.tags.Tag
 interface PostApi {
 
     @Operation(summary = "전체 게시글 목록 조회")
-    fun getAll(userDetails: UserDetails): ApiResponse<List<PostInfo>>
+    fun getAll(): ApiResponse<List<PostInfo>>
 
     @Operation(summary = "게시글 생성")
     fun create(userDetails: UserDetails, command: CreatePostCommand)
