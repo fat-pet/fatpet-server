@@ -28,7 +28,7 @@ class PostController(
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    override fun getAll(userDetails: UserDetails): ApiResponse<List<PostInfo>> {
+    override fun getAll(): ApiResponse<List<PostInfo>> {
         return ApiResponse.success(postQueryService.getAll())
     }
 
