@@ -3,6 +3,7 @@ package com.example.fatpetserver.post.controller
 import com.example.fatpetserver.common.ApiResponse
 import com.example.fatpetserver.common.auth.UserDetails
 import com.example.fatpetserver.post.dto.CreatePostCommand
+import com.example.fatpetserver.post.dto.UpdatePostCommand
 import com.example.fatpetserver.post.repository.PostInfo
 import com.example.fatpetserver.post.service.PostCommandService
 import com.example.fatpetserver.post.service.PostQueryService
@@ -43,13 +44,17 @@ class PostController(
 
     @PutMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    override fun update(@PathVariable id: Long) {
-        TODO("Not yet implemented")
+    override fun update(
+        @PathVariable id: Long,
+        @Valid @RequestBody command: UpdatePostCommand,
+    ) {
+        postCommandService.update(id, command)
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     override fun delete(@PathVariable id: Long) {
-        TODO("Not yet implemented")
+        postCommandService.delete(id)
+
     }
 }
