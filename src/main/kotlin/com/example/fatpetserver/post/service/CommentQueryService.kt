@@ -10,8 +10,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional(readOnly = true)
 class CommentQueryService(
     private val commentRepository: CommentRepository,
-
-    ) {
+) {
 
     fun getCommentByIdOrThrow(id: Long): Comment =
         commentRepository.findByIdOrNull(id)

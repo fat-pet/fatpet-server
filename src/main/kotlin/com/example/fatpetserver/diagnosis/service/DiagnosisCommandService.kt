@@ -43,8 +43,8 @@ class DiagnosisCommandService(
         // TODO
     }
 
-    fun delete(id: Long) =
-        diagnosisQueryService.getDiagnosisByIdOrThrow(id).let { diagnosis ->
+    fun delete(diagnosisId: Long) =
+        diagnosisQueryService.getDiagnosisByIdOrThrow(diagnosisId).let { diagnosis ->
             diagnosisRepository.delete(diagnosis)
         }
 }

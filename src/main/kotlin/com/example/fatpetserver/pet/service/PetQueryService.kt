@@ -16,7 +16,7 @@ class PetQueryService(
     fun getAllByMember(memberId: Long): List<PetInfo> =
         petRepository.findAllByMemberId(memberId)
 
-    fun getPetByIdOrThrow(id: Long): Pet =
-        petRepository.findByIdOrNull(id)
+    fun getPetByIdOrThrow(petId: Long): Pet =
+        petRepository.findByIdOrNull(petId)
             ?: throw IllegalArgumentException("존재하지 않는 펫입니다.")
 }

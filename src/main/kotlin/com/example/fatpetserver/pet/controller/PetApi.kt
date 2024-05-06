@@ -18,8 +18,8 @@ interface PetApi {
     fun create(userDetails: UserDetails, command: CreatePetCommand)
 
     @Operation(summary = "펫 정보 수정")
-    fun update(id: Long, command: UpdatePetCommand)
+    fun update(petId: Long, command: UpdatePetCommand)
 
     @Operation(summary = "펫 삭제")
-    fun delete(id: Long)
+    fun delete(petId: Long)
 }

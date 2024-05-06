@@ -19,8 +19,8 @@ class MemberQueryService(
     private val jwtTokenProvider: JwtTokenProvider,
 ) {
 
-    fun getMemberInfo(id: Long) =
-        memberRepository.findMemberById(id)
+    fun getMemberInfo(memberId: Long) =
+        memberRepository.findMemberById(memberId)
             ?: throw IllegalArgumentException("존재하지 않는 사용자입니다.")
 
     fun signin(query: SigninQuery): SigninResponse {
@@ -38,8 +38,8 @@ class MemberQueryService(
         return SigninResponse(member.role, token)
     }
 
-    fun getMemberByIdOrThrow(id: Long): Member =
-        memberRepository.findByIdOrNull(id)
+    fun getMemberByIdOrThrow(memberId: Long): Member =
+        memberRepository.findByIdOrNull(memberId)
             ?: throw IllegalArgumentException("존재하지 않는 사용자입니다.")
 
     fun checkDuplicate(loginId: String?, nickname: String?): Boolean {

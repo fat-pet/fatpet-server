@@ -36,10 +36,10 @@ class PetCommandService(
         )
     }
 
-    fun update(id: Long, command: UpdatePetCommand) {
+    fun update(petId: Long, command: UpdatePetCommand) {
         val (newName, newNeutered, newFeedCalories) = command
 
-        val updatedPet = petQueryService.getPetByIdOrThrow(id).apply {
+        val updatedPet = petQueryService.getPetByIdOrThrow(petId).apply {
             name = newName
             neutered = newNeutered!!
             feedCalories = newFeedCalories
@@ -48,8 +48,8 @@ class PetCommandService(
         petRepository.save(updatedPet)
     }
 
-    fun delete(id: Long) =
-        petQueryService.getPetByIdOrThrow(id).let { pet ->
+    fun delete(petId: Long) =
+        petQueryService.getPetByIdOrThrow(petId).let { pet ->
             petRepository.delete(pet)
         }
 }

@@ -15,7 +15,7 @@ class DiagnosisQueryService(
 
     fun getAllByPet(petId: Long): List<DiagnosisInfo> = diagnosisRepository.findAllByPetId(petId)
 
-    fun getDiagnosisByIdOrThrow(id: Long): Diagnosis =
-        diagnosisRepository.findByIdOrNull(id)
+    fun getDiagnosisByIdOrThrow(diagnosisId: Long): Diagnosis =
+        diagnosisRepository.findByIdOrNull(diagnosisId)
             ?: throw IllegalArgumentException("존재하지 않는 진단입니다.")
 }
