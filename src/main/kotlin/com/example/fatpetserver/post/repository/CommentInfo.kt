@@ -8,5 +8,5 @@ interface CommentInfo {
     val createdDate: LocalDateTime
     val content: String
     val member: MemberInfo
-    val children: List<CommentInfo>
+    val children: List<ReplyInfo>
 }

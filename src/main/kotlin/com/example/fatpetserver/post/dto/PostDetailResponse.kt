@@ -5,6 +5,9 @@ import io.swagger.v3.oas.annotations.media.Schema
 import java.time.LocalDateTime
 
 data class PostDetailResponse(
+    @Schema(example = "1")
+    val id: Long,
+
     @Schema(example = "2024-05-03T10:15:30")
     val createdDate: LocalDateTime,
 

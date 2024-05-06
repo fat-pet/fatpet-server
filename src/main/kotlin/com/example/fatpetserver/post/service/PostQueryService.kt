@@ -24,6 +24,7 @@ class PostQueryService(
 
         return with(post) {
             PostDetailResponse(
+                id = id,
                 createdDate = createdDate,
                 nickname = member.nickname,
                 title = title,

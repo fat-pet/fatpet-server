@@ -5,7 +5,6 @@ import com.example.fatpetserver.member.dto.SigninQuery
 import com.example.fatpetserver.member.dto.SigninResponse
 import com.example.fatpetserver.member.entity.Member
 import com.example.fatpetserver.member.repository.MemberRepository
-import org.apache.coyote.BadRequestException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -28,7 +27,7 @@ class MemberQueryService(
 
         val member = memberRepository.findByLoginId(loginId)?.takeIf { member ->
             passwordEncoder.matches(password, member.password)
-        } ?: throw BadRequestException("로그인 실패")
+        } ?: throw IllegalArgumentException("아이디 또는 비밀번호를 다시 확인해 주세요.")
 
         val token = jwtTokenProvider.createToken(
             id = member.id.toString(),
