@@ -16,7 +16,7 @@ interface PostApi {
     @Operation(summary = "전체 게시글 목록 조회")
     fun getAll(): ApiResponse<List<PostInfo>>
 
-    @Operation(summary = "게시물 상세 조회")
+    @Operation(summary = "게시글 상세 조회")
     fun getPostDetail(postId: Long): ApiResponse<PostDetailResponse>
 
     @Operation(summary = "게시글 생성")
