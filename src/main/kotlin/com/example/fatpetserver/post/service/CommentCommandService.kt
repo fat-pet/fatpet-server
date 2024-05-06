@@ -37,6 +37,7 @@ class CommentCommandService(
 
     fun delete(commentId: Long) =
         commentQueryService.getCommentByIdOrThrow(commentId).let { comment ->
+            comment.delete()
             commentRepository.delete(comment)
         }
 }

@@ -34,5 +34,14 @@ class Comment(
         orphanRemoval = true,
         fetch = FetchType.EAGER
     )
-    val children: List<Comment> = listOf(),
-) : BaseEntity()
+    val children: MutableList<Comment> = mutableListOf(),
+) : BaseEntity() {
+
+    fun delete() {
+        parent?.children.let { child ->
+            child?.removeIf { it == this }
+        }
+
+        children.clear()
+    }
+}
