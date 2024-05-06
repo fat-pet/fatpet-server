@@ -27,7 +27,7 @@ class Post(
     @OneToMany(
         cascade = [CascadeType.ALL],
         orphanRemoval = true,
-        fetch = FetchType.LAZY
+        fetch = FetchType.EAGER
     )
     @JoinColumn(name = "post_id")
     val comments: List<Comment> = listOf(),

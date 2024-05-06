@@ -30,8 +30,9 @@ class Comment(
 
     @OneToMany(
         mappedBy = "parent",
-        orphanRemoval = true,
         cascade = [CascadeType.ALL],
+        orphanRemoval = true,
+        fetch = FetchType.EAGER
     )
     val children: List<Comment> = listOf(),
 ) : BaseEntity()

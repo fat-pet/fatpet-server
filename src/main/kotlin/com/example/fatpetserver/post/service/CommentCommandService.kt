@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional
 class CommentCommandService(
     private val commentRepository: CommentRepository,
     private val commentQueryService: CommentQueryService,
-    private val postQueryService: PostQueryService,
     private val memberQueryService: MemberQueryService,
+    private val postQueryService: PostQueryService,
 ) {
 
     fun create(memberId: Long, postId: Long, command: CreateCommentCommand): Comment {

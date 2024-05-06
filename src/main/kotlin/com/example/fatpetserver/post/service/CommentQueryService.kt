@@ -12,7 +12,7 @@ class CommentQueryService(
     private val commentRepository: CommentRepository,
 ) {
 
-    fun getCommentByIdOrThrow(id: Long): Comment =
-        commentRepository.findByIdOrNull(id)
+    fun getCommentByIdOrThrow(commentId: Long): Comment =
+        commentRepository.findByIdOrNull(commentId)
             ?: throw IllegalArgumentException("존재하지 않는 댓글입니다.")
 }
