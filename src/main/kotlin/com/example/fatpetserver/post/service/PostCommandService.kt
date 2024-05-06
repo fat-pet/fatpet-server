@@ -30,10 +30,10 @@ class PostCommandService(
         )
     }
 
-    fun update(id: Long, command: UpdatePostCommand) {
+    fun update(postId: Long, command: UpdatePostCommand) {
         val (newTitle, newContent) = command
 
-        val updatedPost = postQueryService.getPostByIdOrThrow(id).apply {
+        val updatedPost = postQueryService.getPostByIdOrThrow(postId).apply {
             title = newTitle
             content = newContent
         }
@@ -41,8 +41,8 @@ class PostCommandService(
         postRepository.save(updatedPost)
     }
 
-    fun delete(id: Long) =
-        postQueryService.getPostByIdOrThrow(id).let { post ->
+    fun delete(postId: Long) =
+        postQueryService.getPostByIdOrThrow(postId).let { post ->
             postRepository.delete(post)
         }
 }

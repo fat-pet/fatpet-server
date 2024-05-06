@@ -32,11 +32,10 @@ class Pet(
     var feedCalories: Int,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", nullable = false, updatable = false)
     val member: Member,
 
     @ManyToOne
-    @JoinColumn(name = "breeds_id", nullable = true, updatable = false)
+    @JoinColumn(name = "breeds_id", nullable = false, updatable = false)
     val breeds: Breeds,
 
     @OneToMany(

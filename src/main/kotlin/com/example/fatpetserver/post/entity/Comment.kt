@@ -12,23 +12,26 @@ import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 
 @Entity
-@Table(name = "post")
-class Post(
+@Table(name = "comment")
+class Comment(
     @Column(nullable = false)
-    var title: String,
-
-    @Column(nullable = false, columnDefinition = "VARCHAR(1023)")
     var content: String,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", nullable = false, updatable = false)
+    val post: Post,
+
+    @ManyToOne
+    @JoinColumn(name = "member_id", nullable = true, updatable = false)
     val member: Member,
 
+    @ManyToOne
+    @JoinColumn(name = "parent_id", nullable = true, updatable = false)
+    val parent: Comment?,
+
     @OneToMany(
-        cascade = [CascadeType.ALL],
+        mappedBy = "parent",
         orphanRemoval = true,
-        fetch = FetchType.LAZY
+        cascade = [CascadeType.ALL],
     )
-    @JoinColumn(name = "post_id")
-    val comments: List<Comment> = listOf(),
+    val children: List<Comment> = listOf(),
 ) : BaseEntity()

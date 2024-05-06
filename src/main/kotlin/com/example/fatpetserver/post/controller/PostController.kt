@@ -2,9 +2,12 @@ package com.example.fatpetserver.post.controller
 
 import com.example.fatpetserver.common.ApiResponse
 import com.example.fatpetserver.common.auth.UserDetails
+import com.example.fatpetserver.post.dto.CreateCommentCommand
 import com.example.fatpetserver.post.dto.CreatePostCommand
+import com.example.fatpetserver.post.dto.PostDetailResponse
 import com.example.fatpetserver.post.dto.UpdatePostCommand
 import com.example.fatpetserver.post.repository.PostInfo
+import com.example.fatpetserver.post.service.CommentCommandService
 import com.example.fatpetserver.post.service.PostCommandService
 import com.example.fatpetserver.post.service.PostQueryService
 import jakarta.validation.Valid
@@ -25,12 +28,19 @@ import org.springframework.web.bind.annotation.RestController
 class PostController(
     private val postCommandService: PostCommandService,
     private val postQueryService: PostQueryService,
+    private val commentCommandService: CommentCommandService,
 ) : PostApi {
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     override fun getAll(): ApiResponse<List<PostInfo>> {
         return ApiResponse.success(postQueryService.getAll())
+    }
+
+    @GetMapping("/{postId}")
+    @ResponseStatus(value = HttpStatus.OK)
+    override fun getPostDetail(@PathVariable postId: Long): ApiResponse<PostDetailResponse> {
+        return ApiResponse.success(postQueryService.getPostDetail(postId))
     }
 
     @PostMapping
@@ -42,19 +52,34 @@ class PostController(
         postCommandService.create(userDetails.id, command)
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{postId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     override fun update(
-        @PathVariable id: Long,
+        @PathVariable postId: Long,
         @Valid @RequestBody command: UpdatePostCommand,
     ) {
-        postCommandService.update(id, command)
+        postCommandService.update(postId, command)
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{postId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    override fun delete(@PathVariable id: Long) {
-        postCommandService.delete(id)
+    override fun delete(@PathVariable postId: Long) {
+        postCommandService.delete(postId)
+    }
 
+    @PostMapping("/{postId}/comments")
+    @ResponseStatus(value = HttpStatus.CREATED)
+    override fun createComment(
+        @AuthenticationPrincipal userDetails: UserDetails,
+        @PathVariable postId: Long,
+        @Valid @RequestBody command: CreateCommentCommand,
+    ) {
+        commentCommandService.create(userDetails.id, postId, command)
+    }
+
+    @DeleteMapping("/comments/{commentId}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    override fun deleteComment(@PathVariable commentId: Long) {
+        commentCommandService.delete(commentId)
     }
 }
