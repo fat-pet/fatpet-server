@@ -34,17 +34,17 @@ class MemberCommandService(
         )
     }
 
-    fun delete(id: Long) =
-        memberQueryService.getMemberByIdOrThrow(id).let { member ->
+    fun delete(memberId: Long) =
+        memberQueryService.getMemberByIdOrThrow(memberId).let { member ->
             memberRepository.delete(member)
         }
 
-    fun update(id: Long, command: UpdateMemberCommand) {
+    fun update(memberId: Long, command: UpdateMemberCommand) {
         val (newEmail, newNickname) = command.apply {
             memberQueryService.checkNickname(nickname)
         }
 
-        val updatedMember = memberQueryService.getMemberByIdOrThrow(id).apply {
+        val updatedMember = memberQueryService.getMemberByIdOrThrow(memberId).apply {
             email = newEmail
             nickname = newNickname
         }
