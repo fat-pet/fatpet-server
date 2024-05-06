@@ -10,6 +10,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
 import jakarta.persistence.FetchType
+import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 
@@ -33,11 +34,11 @@ class Member(
     val role: Role = Role.MEMBER,
 
     @OneToMany(
-        mappedBy = "member",
         cascade = [CascadeType.ALL],
         orphanRemoval = true,
         fetch = FetchType.LAZY
     )
+    @JoinColumn(name = "member_id")
     val pets: List<Pet> = listOf(),
 
     @OneToMany(
