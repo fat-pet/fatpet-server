@@ -17,5 +17,13 @@ data class PostDetailResponse(
     @Schema(example = "content")
     val content: String,
 
+    @Schema(
+        example = """
+            [
+                {"id": 1, "createdDate": "2024-05-03T11:15:30", "content": "content", "member": {"email" : "email", "loginId": "loginId", "nickname": "nickname"}, "children": [{"id": 3, "createdDate": "2024-05-03T11:30:00", "content": "content", "member": {"email" : "email", "loginId": "loginId", "nickname": "nickname"}, "children": []}]},
+                {"id": 2, "createdDate": "2024-05-03T11:20:00", "content": "content", "member": {"email" : "email", "loginId": "loginId", "nickname": "nickname"}, "children": []}
+            ]
+        """
+    )
     val comments: List<CommentInfo>,
 )
