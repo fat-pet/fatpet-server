@@ -47,6 +47,6 @@ class DignosisController(
     @GetMapping("/test")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun test() {
-        diagnosisCommandService.test()
+        diagnosisCommandService.aiTest()
     }
 }

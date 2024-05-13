@@ -90,7 +90,12 @@ class DiagnosisCommandService(
             }
     }
 
-    fun test() {
+    fun delete(diagnosisId: Long) =
+        diagnosisQueryService.getDiagnosisByIdOrThrow(diagnosisId).let { diagnosis ->
+            diagnosisRepository.delete(diagnosis)
+        }
+
+    fun aiTest() {
         val webClient = WebClient.builder()
             .baseUrl(aiServerUrl)
             .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
@@ -103,9 +108,4 @@ class DiagnosisCommandService(
                 println("test: $response")
             }
     }
-
-    fun delete(diagnosisId: Long) =
-        diagnosisQueryService.getDiagnosisByIdOrThrow(diagnosisId).let { diagnosis ->
-            diagnosisRepository.delete(diagnosis)
-        }
 }
