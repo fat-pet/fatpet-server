@@ -39,3 +39,7 @@ springdoc:
 jwt:
   issuer: ${JWT_ISSUER}
   secret: ${JWT_SECRET}
+
+ai:
+  server:
+    url: ${AI_SERVER_URL}

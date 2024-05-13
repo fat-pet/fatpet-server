@@ -13,6 +13,8 @@ import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
+import java.time.LocalDate
+import java.time.Period
 import java.time.YearMonth
 
 @Entity
@@ -45,4 +47,11 @@ class Pet(
         fetch = FetchType.LAZY,
     )
     val diagnosises: List<Diagnosis> = listOf(),
-) : BaseEntity()
+) : BaseEntity() {
+
+    val age: Int
+        get() = Period.between(
+            LocalDate.of(birthDate.year, birthDate.month.value, 1),
+            LocalDate.now()
+        ).years
+}

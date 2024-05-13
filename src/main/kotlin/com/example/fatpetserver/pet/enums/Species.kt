@@ -1,6 +1,6 @@
 package com.example.fatpetserver.pet.enums
 
-enum class Species {
-    DOG,
-    CAT,
+enum class Species(val value: Int) {
+    DOG(0),
+    CAT(1),
 }

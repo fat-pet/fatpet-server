@@ -43,4 +43,10 @@ class DignosisController(
     override fun delete(@PathVariable diagnosisId: Long) {
         diagnosisCommandService.delete(diagnosisId)
     }
+
+    @GetMapping("/test")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun test() {
+        diagnosisCommandService.test()
+    }
 }

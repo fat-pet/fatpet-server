@@ -23,12 +23,16 @@ repositories {
 val jwtVersion = "0.12.5"
 val junitVersion = "5.10.2"
 
+fun isAppleSilicon() =
+    System.getProperty("os.name") == "Mac OS X" && System.getProperty("os.arch") == "aarch64"
+
 dependencies {
     // spring
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
     // kotlin
@@ -55,6 +59,11 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-api:${jwtVersion}")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:${jwtVersion}")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:${jwtVersion}")
+
+    // etc
+    if (isAppleSilicon()) {
+        runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.109.Final:osx-aarch_64")
+    }
 }
 
 tasks.withType<KotlinCompile> {
