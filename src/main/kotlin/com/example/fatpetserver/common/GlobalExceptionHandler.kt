@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
-
 @RestControllerAdvice
 class GlobalExceptionHandler {
 
@@ -28,7 +27,7 @@ class GlobalExceptionHandler {
         val message = exception.bindingResult.allErrors.map {
             it.defaultMessage
         }.joinToString(" ")
-        
+
         logger.warn { message }
 
         return ApiResponse.error(message)
