@@ -32,9 +32,9 @@ class DiagnosisCommandService(
             speciesCode = breeds.species.code,
         )
 
-        val gptSolution = diagnosisQueryService.apiTest()
-
         val der = pet.getDer(weight, bcs)
+
+        val gptSolution = diagnosisQueryService.apiTest()
 
         diagnosisRepository.save(
             Diagnosis(
