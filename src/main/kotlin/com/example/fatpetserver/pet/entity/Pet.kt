@@ -3,6 +3,7 @@ package com.example.fatpetserver.pet.entity
 import com.example.fatpetserver.common.entity.BaseEntity
 import com.example.fatpetserver.common.entity.YearMonthConverter
 import com.example.fatpetserver.diagnosis.entity.Diagnosis
+import com.example.fatpetserver.diagnosis.enums.Bcs
 import com.example.fatpetserver.member.entity.Member
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
@@ -49,9 +50,38 @@ class Pet(
     val diagnosises: List<Diagnosis> = listOf(),
 ) : BaseEntity() {
 
+    private val period = Period.between(
+        LocalDate.of(birthDate.year, birthDate.month.value, 1),
+        LocalDate.now()
+    )
+
     val age: Int
-        get() = Period.between(
-            LocalDate.of(birthDate.year, birthDate.month.value, 1),
-            LocalDate.now()
-        ).years
+        get() = period.years
+
+    private val ageInMonth: Int
+        get() = period.years * 12 + period.months
+
+    private fun getRer(weight: Float): Float = weight * 30 + 70
+
+    fun getDer(weight: Float, bcs: Bcs): Float {
+        val rer = getRer(weight)
+
+        if (ageInMonth < 4) {
+            return rer * 3F
+        }
+
+        if (ageInMonth < 18) {
+            return rer * 2F
+        }
+
+        if (bcs == Bcs.OVER) {
+            rer * 1.2F
+        }
+
+        return if (neutered) {
+            rer * 1.6F
+        } else {
+            rer * 1.8F
+        }
+    }
 }
