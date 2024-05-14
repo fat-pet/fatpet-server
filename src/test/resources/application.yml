@@ -29,3 +29,7 @@ logging:
 jwt:
   issuer: isssuer
   secret: qgucFMsHimRmRO2CI5go7f0lolTXS1KIoV5z8OS20K4=
+
+ai:
+  server:
+    url: localhost:8000

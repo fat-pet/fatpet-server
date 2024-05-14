@@ -55,11 +55,11 @@ class Pet(
         LocalDate.now()
     )
 
-    val age: Int
-        get() = period.years
-
     private val ageInMonth: Int
         get() = period.years * 12 + period.months
+
+    val age: Int
+        get() = period.years
 
     private fun getRer(weight: Float): Float = weight * 30 + 70
 
@@ -75,7 +75,7 @@ class Pet(
         }
 
         if (bcs == Bcs.OVER) {
-            rer * 1.2F
+            return rer * 1.2F
         }
 
         return if (neutered) {

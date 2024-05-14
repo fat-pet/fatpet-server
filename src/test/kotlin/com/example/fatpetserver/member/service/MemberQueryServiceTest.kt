@@ -5,7 +5,6 @@ import com.example.fatpetserver.member.dto.SigninQuery
 import com.example.fatpetserver.member.dto.SigninResponse
 import com.example.fatpetserver.member.entity.Member
 import com.example.fatpetserver.member.repository.MemberRepository
-import org.apache.coyote.BadRequestException
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.catchThrowable
 import org.junit.jupiter.api.AfterAll
@@ -36,7 +35,7 @@ class MemberQueryServiceTest @Autowired constructor(
         val throwable = catchThrowable { memberQueryService.signin(query) }
 
         // then
-        assertThat(throwable).isInstanceOf(BadRequestException::class.java)
+        assertThat(throwable).isInstanceOf(IllegalArgumentException::class.java)
     }
 
     @Test
@@ -52,7 +51,7 @@ class MemberQueryServiceTest @Autowired constructor(
         val throwable = catchThrowable { memberQueryService.signin(query) }
 
         // then
-        assertThat(throwable).isInstanceOf(BadRequestException::class.java)
+        assertThat(throwable).isInstanceOf(IllegalArgumentException::class.java)
     }
 
     @Test

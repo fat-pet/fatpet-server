@@ -2,6 +2,7 @@ package com.example.fatpetserver.diagnosis.controller
 
 import com.example.fatpetserver.common.ApiResponse
 import com.example.fatpetserver.diagnosis.dto.CreateDiagnosisCommand
+import com.example.fatpetserver.diagnosis.dto.DiagnoseResponse
 import com.example.fatpetserver.diagnosis.repository.DiagnosisInfo
 import com.example.fatpetserver.diagnosis.service.DiagnosisCommandService
 import com.example.fatpetserver.diagnosis.service.DiagnosisQueryService
@@ -34,8 +35,8 @@ class DignosisController(
     @ResponseStatus(HttpStatus.CREATED)
     override fun diagnose(
         @Valid @RequestBody command: CreateDiagnosisCommand,
-    ) {
-        diagnosisCommandService.diagnose(command)
+    ): ApiResponse<DiagnoseResponse> {
+        return ApiResponse.success(diagnosisCommandService.diagnose(command))
     }
 
     @DeleteMapping("/{diagnosisId}")

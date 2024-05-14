@@ -68,17 +68,18 @@ class DiagnosisQueryService(
         }
     }
 
-    fun apiTest() {
+    fun apiTest(): String {
         val webClient = WebClient.builder()
             .baseUrl(aiServerUrl)
             .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .build()
 
-        webClient.get()
+        return webClient.get()
             .retrieve()
             .bodyToMono(String::class.java)
             .subscribe { response ->
                 println("test: $response")
             }
+            .toString()
     }
 }
