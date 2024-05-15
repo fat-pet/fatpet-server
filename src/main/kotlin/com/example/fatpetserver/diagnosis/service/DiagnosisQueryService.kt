@@ -1,5 +1,8 @@
 package com.example.fatpetserver.diagnosis.service
 
+import com.example.fatpetserver.diagnosis.dto.ChatMessage
+import com.example.fatpetserver.diagnosis.dto.ChatRequest
+import com.example.fatpetserver.diagnosis.dto.ChatResponse
 import com.example.fatpetserver.diagnosis.entity.Diagnosis
 import com.example.fatpetserver.diagnosis.enums.Bcs
 import com.example.fatpetserver.diagnosis.repository.DiagnosisInfo
@@ -11,6 +14,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.reactive.function.BodyInserters
 import org.springframework.web.reactive.function.client.WebClient
 
 @Service
@@ -19,7 +23,12 @@ class DiagnosisQueryService(
     private val diagnosisRepository: DiagnosisRepository,
     @Value("\${ai.server.url}")
     private val aiServerUrl: String,
+    @Value("\${openai.key}")
+    private val key: String,
 ) {
+
+    private val chatGptUrl = "https://api.openai.com/v1/chat/completions"
+    private val gptModel = "gpt-4o"
 
     fun getAllByPet(petId: Long): List<DiagnosisInfo> = diagnosisRepository.findAllByPetId(petId)
 
@@ -68,18 +77,46 @@ class DiagnosisQueryService(
         }
     }
 
-    fun apiTest(): String {
+    fun getGptSolution(): String {
         val webClient = WebClient.builder()
-            .baseUrl(aiServerUrl)
+            .baseUrl(chatGptUrl)
             .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+            .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer $key")
             .build()
 
-        return webClient.get()
+        val request = ChatRequest(
+            model = gptModel,
+            messages = listOf(
+                ChatMessage(role = "system", content = ""),
+                ChatMessage(role = "user", content = "hello")
+            )
+        )
+
+        val result = webClient.post()
+            .body(BodyInserters.fromValue(request))
             .retrieve()
-            .bodyToMono(String::class.java)
-            .subscribe { response ->
-                println("test: $response")
-            }
-            .toString()
+            .bodyToMono(ChatResponse::class.java)
+            .block()
+
+        return result?.run {
+            choices[0].message.content
+        } ?: throw BadRequestException()
+    }
+
+    fun apiTest(): String {
+        return getGptSolution()
+
+//        val webClient = WebClient.builder()
+//            .baseUrl(aiServerUrl)
+//            .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+//            .build()
+//
+//        return webClient.get()
+//            .retrieve()
+//            .bodyToMono(String::class.java)
+//            .subscribe { response ->
+//                println("test: $response")
+//            }
+//            .toString()
     }
 }

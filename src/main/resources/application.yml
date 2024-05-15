@@ -43,3 +43,6 @@ jwt:
 ai:
   server:
     url: ${AI_SERVER_URL}
+
+openai:
+  key: ${OPENAI_KEY}

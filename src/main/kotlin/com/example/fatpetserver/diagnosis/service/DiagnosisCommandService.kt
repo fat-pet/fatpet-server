@@ -34,7 +34,7 @@ class DiagnosisCommandService(
 
         val der = pet.getDer(weight, bcs)
 
-        val gptSolution = diagnosisQueryService.apiTest()
+        val gptSolution = diagnosisQueryService.getGptSolution()
 
         diagnosisRepository.save(
             Diagnosis(

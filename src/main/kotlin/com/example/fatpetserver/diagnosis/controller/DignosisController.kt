@@ -46,8 +46,8 @@ class DignosisController(
     }
 
     @GetMapping("/test")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun test() {
-        diagnosisQueryService.apiTest()
+    @ResponseStatus(HttpStatus.OK)
+    fun test(): String {
+        return diagnosisQueryService.apiTest()
     }
 }

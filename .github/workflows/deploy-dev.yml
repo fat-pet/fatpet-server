@@ -41,6 +41,7 @@ jobs:
             JWT_SECRET=${{ secrets.JWT_ISSUER }}
             JWT_SECRET=${{ secrets.JWT_SECRET }}
             AI_SERVER_URL=${{ secrets.AI_SERVER_URL }}
+            OPENAI_KEY=${{ secrets.OPENAI_KEY }}
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/fatpet-server-dev:latest
 
       - name: Configure AWS Credentials
