@@ -1,8 +1,8 @@
-package com.example.fatpetserver.pet.entity
+package com.example.fatpetserver.breeds.entity
 
+import com.example.fatpetserver.breeds.enums.Sex
+import com.example.fatpetserver.breeds.enums.Species
 import com.example.fatpetserver.common.entity.IdEntity
-import com.example.fatpetserver.pet.enums.Sex
-import com.example.fatpetserver.pet.enums.Species
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
@@ -20,15 +20,15 @@ class Breeds(
     val name: String,
 
     @Column(nullable = false)
-    val code: Int,
+    var code: Int,
 
     @Column
     @Enumerated(EnumType.STRING)
     val sex: Sex,
 
     @Column
-    val avgWeightLow: Int,
+    var avgWeightLow: Int,
 
     @Column
-    val avgWeightHigh: Int,
+    var avgWeightHigh: Int,
 ) : IdEntity()

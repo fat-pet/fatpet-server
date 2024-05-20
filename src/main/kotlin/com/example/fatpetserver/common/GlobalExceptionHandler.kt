@@ -1,5 +1,6 @@
 package com.example.fatpetserver.common
 
+import com.example.fatpetserver.common.dto.ApiResponse
 import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.persistence.EntityNotFoundException
 import org.springframework.http.HttpStatus

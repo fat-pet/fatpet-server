@@ -1,7 +1,7 @@
 package com.example.fatpetserver.pet.controller
 
-import com.example.fatpetserver.common.ApiResponse
 import com.example.fatpetserver.common.auth.UserDetails
+import com.example.fatpetserver.common.dto.ApiResponse
 import com.example.fatpetserver.pet.dto.CreatePetCommand
 import com.example.fatpetserver.pet.dto.UpdatePetCommand
 import com.example.fatpetserver.pet.repository.PetInfo

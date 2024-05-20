@@ -1,7 +1,7 @@
 package com.example.fatpetserver.member.controller
 
-import com.example.fatpetserver.common.ApiResponse
 import com.example.fatpetserver.common.auth.UserDetails
+import com.example.fatpetserver.common.dto.ApiResponse
 import com.example.fatpetserver.member.dto.SigninQuery
 import com.example.fatpetserver.member.dto.SigninResponse
 import com.example.fatpetserver.member.dto.SignupCommand
