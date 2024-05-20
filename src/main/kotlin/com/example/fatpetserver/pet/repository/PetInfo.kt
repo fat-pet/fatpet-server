@@ -1,5 +1,6 @@
 package com.example.fatpetserver.pet.repository
 
+import com.example.fatpetserver.breeds.repository.BreedsInfo
 import java.time.YearMonth
 
 interface PetInfo {

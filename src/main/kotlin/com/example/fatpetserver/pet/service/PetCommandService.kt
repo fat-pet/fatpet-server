@@ -1,5 +1,6 @@
 package com.example.fatpetserver.pet.service
 
+import com.example.fatpetserver.breeds.service.BreedsQueryService
 import com.example.fatpetserver.member.service.MemberQueryService
 import com.example.fatpetserver.pet.dto.CreatePetCommand
 import com.example.fatpetserver.pet.dto.UpdatePetCommand

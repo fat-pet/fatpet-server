@@ -17,8 +17,8 @@ import jakarta.persistence.Table
 @Entity
 @Table(name = "member")
 class Member(
-    @Column(nullable = false)
-    var email: String,
+    @Column(nullable = true)
+    var email: String? = null,
 
     @Column(nullable = false, unique = true)
     val loginId: String,
@@ -26,8 +26,8 @@ class Member(
     @Column(nullable = false)
     val password: String,
 
-    @Column(nullable = false, unique = true)
-    var nickname: String,
+    @Column(nullable = true, unique = true)
+    var nickname: String? = null,
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

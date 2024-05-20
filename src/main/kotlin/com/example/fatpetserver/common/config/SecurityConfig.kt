@@ -27,7 +27,6 @@ class SecurityConfig(
             "/api/members/signup",
             "/api/members/signin",
             "/api/members/check",
-            "/api/diagnoses/test",
         )
 
     @Bean

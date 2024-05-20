@@ -1,4 +1,4 @@
-package com.example.fatpetserver.pet.enums
+package com.example.fatpetserver.breeds.enums
 
 enum class Species(val code: Int) {
     DOG(0),

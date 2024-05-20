@@ -1,6 +1,6 @@
 package com.example.fatpetserver.diagnosis.controller
 
-import com.example.fatpetserver.common.ApiResponse
+import com.example.fatpetserver.common.dto.ApiResponse
 import com.example.fatpetserver.diagnosis.dto.CreateDiagnosisCommand
 import com.example.fatpetserver.diagnosis.dto.DiagnoseResponse
 import com.example.fatpetserver.diagnosis.repository.DiagnosisInfo

@@ -1,7 +1,7 @@
 package com.example.fatpetserver.post.controller
 
-import com.example.fatpetserver.common.ApiResponse
 import com.example.fatpetserver.common.auth.UserDetails
+import com.example.fatpetserver.common.dto.ApiResponse
 import com.example.fatpetserver.post.dto.CreateCommentCommand
 import com.example.fatpetserver.post.dto.CreatePostCommand
 import com.example.fatpetserver.post.dto.PostDetailResponse

@@ -26,7 +26,7 @@ class PostQueryService(
             PostDetailResponse(
                 id = id,
                 createdDate = createdDate,
-                nickname = member.nickname,
+                nickname = member.nickname!!,
                 title = title,
                 content = content,
                 comments = comments

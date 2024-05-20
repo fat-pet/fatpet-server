@@ -1,10 +1,10 @@
 package com.example.fatpetserver.pet.service
 
+import com.example.fatpetserver.breeds.repository.BreedsRepository
 import com.example.fatpetserver.member.TestMember
 import com.example.fatpetserver.member.entity.Member
 import com.example.fatpetserver.member.repository.MemberRepository
 import com.example.fatpetserver.pet.entity.Pet
-import com.example.fatpetserver.pet.repository.BreedsRepository
 import com.example.fatpetserver.pet.repository.PetRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterAll
