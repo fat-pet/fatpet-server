@@ -5,7 +5,6 @@ import com.example.fatpetserver.common.auth.JwtTokenProvider
 import com.example.fatpetserver.member.enums.Role
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
@@ -37,8 +36,7 @@ class SecurityConfig(
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .authorizeHttpRequests {
                 it.requestMatchers(*allowedRequests).permitAll()
-                it.requestMatchers(HttpMethod.GET, "/api/posts").permitAll()
-                it.requestMatchers("/api/admin/**").hasAuthority(Role.ADMIN.name)
+                it.requestMatchers("/api/admin/**", "/api/breeds/**").hasAuthority(Role.ADMIN.name)
                 it.anyRequest().hasAuthority(Role.MEMBER.name)
             }
             .formLogin { it.disable() }

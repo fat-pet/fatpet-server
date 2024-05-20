@@ -1,6 +1,6 @@
 package com.example.fatpetserver.pet.entity
 
-import com.example.fatpetserver.breeds.entity.Breeds
+import com.example.fatpetserver.breed.entity.Breed
 import com.example.fatpetserver.common.entity.BaseEntity
 import com.example.fatpetserver.common.entity.YearMonthConverter
 import com.example.fatpetserver.diagnosis.entity.Diagnosis
@@ -39,8 +39,8 @@ class Pet(
     val member: Member,
 
     @ManyToOne
-    @JoinColumn(name = "breeds_id", nullable = false, updatable = false)
-    val breeds: Breeds,
+    @JoinColumn(name = "breed_id", nullable = false, updatable = false)
+    val breed: Breed,
 
     @OneToMany(
         mappedBy = "pet",

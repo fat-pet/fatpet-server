@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface PetRepository : JpaRepository<Pet, Long> {
 
-    fun findAllByMemberId(id: Long): List<PetInfo>
+    fun findAllByMemberId(memberId: Long): List<PetInfo>
 }

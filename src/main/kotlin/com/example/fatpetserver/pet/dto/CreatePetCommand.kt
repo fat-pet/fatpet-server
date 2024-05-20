@@ -1,7 +1,7 @@
 package com.example.fatpetserver.pet.dto
 
-import com.example.fatpetserver.breeds.enums.Sex
-import com.example.fatpetserver.breeds.enums.Species
+import com.example.fatpetserver.breed.enums.Sex
+import com.example.fatpetserver.breed.enums.Species
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotBlank
@@ -25,7 +25,7 @@ data class CreatePetCommand(
 
     @Schema(example = "BEA")
     @field:NotBlank(message = "품종은 필수 입력값입니다.")
-    val breedsName: String = "",
+    val breedName: String = "",
 
     @Schema(example = "2024-04")
     @field:NotNull(message = "출생일은 필수 입력값입니다.")
