@@ -1,6 +1,6 @@
 package com.example.fatpetserver.pet.service
 
-import com.example.fatpetserver.breeds.service.BreedsQueryService
+import com.example.fatpetserver.breed.service.BreedQueryService
 import com.example.fatpetserver.member.service.MemberQueryService
 import com.example.fatpetserver.pet.dto.CreatePetCommand
 import com.example.fatpetserver.pet.dto.UpdatePetCommand
@@ -15,15 +15,15 @@ class PetCommandService(
     private val petRepository: PetRepository,
     private val petQueryService: PetQueryService,
     private val memberQueryService: MemberQueryService,
-    private val breedsQueryService: BreedsQueryService,
+    private val breedQueryService: BreedQueryService,
 ) {
 
     fun create(memberId: Long, command: CreatePetCommand): Pet {
-        val (sex, name, species, breedsName, birthDate, neutered, feedCalories) = command
+        val (sex, name, species, breedName, birthDate, neutered, feedCalories) = command
 
         val member = memberQueryService.getMemberByIdOrThrow(memberId)
 
-        val breeds = breedsQueryService.getBreedsOrThrow(sex!!, species!!, breedsName)
+        val breed = breedQueryService.getBreedOrThrow(sex!!, species!!, breedName)
 
         return petRepository.save(
             Pet(
@@ -32,7 +32,7 @@ class PetCommandService(
                 neutered = neutered!!,
                 feedCalories = feedCalories,
                 member = member,
-                breeds = breeds,
+                breed = breed,
             )
         )
     }

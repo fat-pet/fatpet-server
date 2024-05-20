@@ -1,12 +1,12 @@
 package com.example.fatpetserver.pet.repository
 
-import com.example.fatpetserver.breeds.repository.BreedsInfo
+import com.example.fatpetserver.breed.repository.BreedInfo
 import java.time.YearMonth
 
 interface PetInfo {
     val id: Long
     val name: String
-    val breeds: BreedsInfo
+    val breed: BreedInfo
     val birthDate: YearMonth
     val neutered: Boolean
     val feedCalories: Int

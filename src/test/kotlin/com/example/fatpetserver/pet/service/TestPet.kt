@@ -1,7 +1,7 @@
 package com.example.fatpetserver.pet.service
 
-import com.example.fatpetserver.breeds.enums.Sex
-import com.example.fatpetserver.breeds.enums.Species
+import com.example.fatpetserver.breed.enums.Sex
+import com.example.fatpetserver.breed.enums.Species
 import java.time.YearMonth
 
 object TestPet {

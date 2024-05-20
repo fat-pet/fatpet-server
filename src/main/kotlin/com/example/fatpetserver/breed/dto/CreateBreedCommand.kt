@@ -1,13 +1,13 @@
-package com.example.fatpetserver.breeds.dto
+package com.example.fatpetserver.breed.dto
 
-import com.example.fatpetserver.breeds.enums.Sex
-import com.example.fatpetserver.breeds.enums.Species
+import com.example.fatpetserver.breed.enums.Sex
+import com.example.fatpetserver.breed.enums.Species
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 
-data class CreateBreedsCommand(
+data class CreateBreedCommand(
     @Schema(example = "DOG")
     @field:NotNull(message = "종은 필수 입력값입니다.")
     val species: Species,

@@ -1,6 +1,6 @@
 package com.example.fatpetserver.pet.service
 
-import com.example.fatpetserver.breeds.repository.BreedsRepository
+import com.example.fatpetserver.breed.repository.BreedRepository
 import com.example.fatpetserver.member.TestMember
 import com.example.fatpetserver.member.entity.Member
 import com.example.fatpetserver.member.repository.MemberRepository
@@ -43,7 +43,7 @@ class PetQueryServiceTest @Autowired constructor(
         @BeforeAll
         fun setup(
             @Autowired memberRepository: MemberRepository,
-            @Autowired breedsRepository: BreedsRepository,
+            @Autowired breedRepository: BreedRepository,
             @Autowired petRepository: PetRepository,
         ) {
             val memberEntity = Member(
@@ -55,7 +55,7 @@ class PetQueryServiceTest @Autowired constructor(
 
             MEMBER = memberRepository.save(memberEntity)
 
-            val breeds = breedsRepository.findBySexAndSpeciesAndName(
+            val breeds = breedRepository.findBySexAndSpeciesAndName(
                 TestPet.SEX,
                 TestPet.SPECIES,
                 TestPet.BREEDS_NAME,
@@ -67,7 +67,7 @@ class PetQueryServiceTest @Autowired constructor(
                 neutered = TestPet.NEUTERED,
                 feedCalories = TestPet.FEED_CALORIES,
                 member = MEMBER,
-                breeds = breeds!!,
+                breed = breeds!!,
             )
 
             PET_ID = petRepository.save(petEntity).id

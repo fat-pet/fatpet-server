@@ -1,7 +1,7 @@
 package com.example.fatpetserver.pet.service
 
-import com.example.fatpetserver.breeds.entity.Breeds
-import com.example.fatpetserver.breeds.repository.BreedsRepository
+import com.example.fatpetserver.breed.entity.Breed
+import com.example.fatpetserver.breed.repository.BreedRepository
 import com.example.fatpetserver.member.TestMember
 import com.example.fatpetserver.member.entity.Member
 import com.example.fatpetserver.member.repository.MemberRepository
@@ -36,7 +36,7 @@ class PetCommandServiceTest @Autowired constructor(
             neutered = TestPet.NEUTERED,
             feedCalories = TestPet.FEED_CALORIES,
             member = MEMBER,
-            breeds = BREEDS,
+            breed = Breed,
         )
 
         PET_ID = petRepository.save(petEntity).id
@@ -57,7 +57,7 @@ class PetCommandServiceTest @Autowired constructor(
             sex = TestPet.SEX,
             name = TestPet.NAME,
             species = TestPet.SPECIES,
-            breedsName = "wrong_breeds",
+            breedName = "wrong_breeds",
             birthDate = TestPet.BIRTH_DATE,
             neutered = TestPet.NEUTERED,
             feedCalories = TestPet.FEED_CALORIES,
@@ -81,7 +81,7 @@ class PetCommandServiceTest @Autowired constructor(
             sex = TestPet.SEX,
             name = TestPet.NAME,
             species = TestPet.SPECIES,
-            breedsName = TestPet.BREEDS_NAME,
+            breedName = TestPet.BREEDS_NAME,
             birthDate = TestPet.BIRTH_DATE,
             neutered = TestPet.NEUTERED,
             feedCalories = TestPet.FEED_CALORIES
@@ -163,14 +163,14 @@ class PetCommandServiceTest @Autowired constructor(
 
     companion object {
         private lateinit var MEMBER: Member
-        private lateinit var BREEDS: Breeds
+        private lateinit var Breed: Breed
         private var PET_ID = 0L
 
         @JvmStatic
         @BeforeAll
         fun setup(
             @Autowired memberRepository: MemberRepository,
-            @Autowired breedsRepository: BreedsRepository,
+            @Autowired breedRepository: BreedRepository,
         ) {
             val memberEntity = Member(
                 email = TestMember.EMAIL,
@@ -181,7 +181,7 @@ class PetCommandServiceTest @Autowired constructor(
 
             MEMBER = memberRepository.save(memberEntity)
 
-            BREEDS = breedsRepository.findBySexAndSpeciesAndName(
+            Breed = breedRepository.findBySexAndSpeciesAndName(
                 TestPet.SEX,
                 TestPet.SPECIES,
                 TestPet.BREEDS_NAME,

@@ -1,7 +1,7 @@
-package com.example.fatpetserver.breeds.entity
+package com.example.fatpetserver.breed.entity
 
-import com.example.fatpetserver.breeds.enums.Sex
-import com.example.fatpetserver.breeds.enums.Species
+import com.example.fatpetserver.breed.enums.Sex
+import com.example.fatpetserver.breed.enums.Species
 import com.example.fatpetserver.common.entity.IdEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -10,8 +10,8 @@ import jakarta.persistence.Enumerated
 import jakarta.persistence.Table
 
 @Entity
-@Table(name = "breeds")
-class Breeds(
+@Table(name = "breed")
+class Breed(
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     val species: Species,

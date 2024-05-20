@@ -20,7 +20,7 @@ class DiagnosisCommandService(
         val (petId, weight, neckCirc, chestCirc, feedAmount) = command
 
         val pet = petQueryService.getPetByIdOrThrow(petId)
-        val breeds = pet.breeds
+        val breeds = pet.breed
 
         val bcs = diagnosisQueryService.predictBcs(
             age = pet.age,
