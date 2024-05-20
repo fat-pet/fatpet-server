@@ -59,7 +59,8 @@ jobs:
           username: ${{ secrets.DEV_EC2_USERNAME }}
           port: ${{ secrets.DEV_EC2_PORT }}
           script: |
-            sudo docker rm -f $(sudo docker ps -aq)
-            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/fatpet-server-dev:latest
             sudo docker stop $(sudo docker ps -aq)
+            sudo docker rm -f $(sudo docker ps -aq)
+            sudo docker rmi $(docker images -aq)
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/fatpet-server-dev:latest
             sudo docker run -d -p 80:8080 ${{ secrets.DOCKERHUB_USERNAME }}/fatpet-server-dev:latest
