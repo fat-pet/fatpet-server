@@ -55,10 +55,10 @@ class PetQueryServiceTest @Autowired constructor(
 
             MEMBER = memberRepository.save(memberEntity)
 
-            val breeds = breedRepository.findBySexAndSpeciesAndName(
+            val breed = breedRepository.findBySexAndSpeciesAndName(
                 TestPet.SEX,
                 TestPet.SPECIES,
-                TestPet.BREEDS_NAME,
+                TestPet.BREED_NAME,
             )
 
             val petEntity = Pet(
@@ -67,7 +67,7 @@ class PetQueryServiceTest @Autowired constructor(
                 neutered = TestPet.NEUTERED,
                 feedCalories = TestPet.FEED_CALORIES,
                 member = MEMBER,
-                breed = breeds!!,
+                breed = breed!!,
             )
 
             PET_ID = petRepository.save(petEntity).id

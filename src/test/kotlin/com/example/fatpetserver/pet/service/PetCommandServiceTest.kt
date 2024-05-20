@@ -36,7 +36,7 @@ class PetCommandServiceTest @Autowired constructor(
             neutered = TestPet.NEUTERED,
             feedCalories = TestPet.FEED_CALORIES,
             member = MEMBER,
-            breed = Breed,
+            breed = BREED,
         )
 
         PET_ID = petRepository.save(petEntity).id
@@ -81,7 +81,7 @@ class PetCommandServiceTest @Autowired constructor(
             sex = TestPet.SEX,
             name = TestPet.NAME,
             species = TestPet.SPECIES,
-            breedName = TestPet.BREEDS_NAME,
+            breedName = TestPet.BREED_NAME,
             birthDate = TestPet.BIRTH_DATE,
             neutered = TestPet.NEUTERED,
             feedCalories = TestPet.FEED_CALORIES
@@ -163,7 +163,7 @@ class PetCommandServiceTest @Autowired constructor(
 
     companion object {
         private lateinit var MEMBER: Member
-        private lateinit var Breed: Breed
+        private lateinit var BREED: Breed
         private var PET_ID = 0L
 
         @JvmStatic
@@ -181,10 +181,10 @@ class PetCommandServiceTest @Autowired constructor(
 
             MEMBER = memberRepository.save(memberEntity)
 
-            Breed = breedRepository.findBySexAndSpeciesAndName(
+            BREED = breedRepository.findBySexAndSpeciesAndName(
                 TestPet.SEX,
                 TestPet.SPECIES,
-                TestPet.BREEDS_NAME,
+                TestPet.BREED_NAME,
             )!!
         }
 
