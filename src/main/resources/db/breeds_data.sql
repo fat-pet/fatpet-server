@@ -1,4 +1,4 @@
-INSERT INTO breeds (species, name, code, sex, avg_weight_low, avg_weight_high)
+INSERT INTO breed (species, name, code, sex, avg_weight_low, avg_weight_high)
 VALUES ('DOG', 'BEA', 0, 'MALE', 22, 24),
        ('DOG', 'BEA', 0, 'FEMALE', 20, 22),
        ('DOG', 'BIC', 1, 'MALE', 12, 18),
