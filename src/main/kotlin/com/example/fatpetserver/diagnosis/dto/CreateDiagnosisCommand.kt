@@ -18,8 +18,4 @@ data class CreateDiagnosisCommand(
     @Schema(example = "25")
     @field:Min(value = 1, message = "가슴 둘레는 0보다 커야 합니다.")
     val chestCirc: Float = 0F,
-
-    @Schema(example = "150")
-    @field:Min(value = 1, message = "사료 급여량은 0보다 커야 합니다.")
-    val feedAmount: Int = 0,
 )

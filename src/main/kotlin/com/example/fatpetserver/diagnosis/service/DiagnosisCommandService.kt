@@ -17,24 +17,31 @@ class DiagnosisCommandService(
 ) {
 
     fun diagnose(command: CreateDiagnosisCommand): DiagnoseResponse {
-        val (petId, weight, neckCirc, chestCirc, feedAmount) = command
+        val (petId, weight, neckCirc, chestCirc) = command
 
         val pet = petQueryService.getPetByIdOrThrow(petId)
-        val breeds = pet.breed
+        val breed = pet.breed
 
         val bcs = diagnosisQueryService.predictBcs(
             age = pet.age,
             weight = weight,
             neckCirc = neckCirc,
             chestCirc = chestCirc,
-            feedAmount = feedAmount,
-            breedsCode = breeds.code,
-            speciesCode = breeds.species.code,
+            breedsCode = breed.code,
+            speciesCode = breed.species.code,
         )
 
         val der = pet.getDer(weight, bcs)
 
-        val gptSolution = diagnosisQueryService.getGptSolution()
+        val gptSolution = diagnosisQueryService.getGptSolution(
+            pet = pet,
+            breed = breed,
+            weight = weight,
+            neckCirc = neckCirc,
+            chestCirc = chestCirc,
+            bcs = bcs,
+            der = der,
+        )
 
         diagnosisRepository.save(
             Diagnosis(
@@ -48,8 +55,8 @@ class DiagnosisCommandService(
         )
 
         return DiagnoseResponse(
-            avgWeightLow = breeds.avgWeightLow,
-            avgWeightHigh = breeds.avgWeightHigh,
+            avgWeightLow = breed.avgWeightLow,
+            avgWeightHigh = breed.avgWeightHigh,
             bcs = bcs,
             der = der,
             gptSolution = gptSolution,
