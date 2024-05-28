@@ -27,7 +27,7 @@ class DiagnosisCommandService(
             weight = weight,
             neckCirc = neckCirc,
             chestCirc = chestCirc,
-            breedsCode = breed.code,
+            breedCode = breed.code,
             speciesCode = breed.species.code,
         )
 

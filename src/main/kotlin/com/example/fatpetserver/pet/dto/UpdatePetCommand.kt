@@ -17,6 +17,6 @@ data class UpdatePetCommand(
     val neutered: Boolean? = null,
 
     @Schema(example = "300")
-    @field:Min(value = 0, message = "사료 열량은 0보다 커야 합니다.")
+    @field:Min(value = 0, message = "사료의 칼로리는 0보다 커야 합니다.")
     val feedCalories: Int = 0,
 )

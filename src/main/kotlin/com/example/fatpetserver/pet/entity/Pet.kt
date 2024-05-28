@@ -51,11 +51,11 @@ class Pet(
     val diagnosises: List<Diagnosis> = listOf(),
 ) : BaseEntity() {
 
-    @Transient
-    private val period = Period.between(
-        LocalDate.of(birthDate.year, birthDate.month.value, 1),
-        LocalDate.now()
-    )
+    private val period: Period
+        get() = Period.between(
+            LocalDate.of(birthDate.year, birthDate.month, 1),
+            LocalDate.now()
+        )
 
     val ageInMonth: Int
         get() = period.years * 12 + period.months
@@ -76,7 +76,7 @@ class Pet(
             return rer * 2F
         }
 
-        if (bcs == Bcs.OVER_WEIGHT) {
+        if (bcs == Bcs.OVER) {
             return rer * 1.2F
         }
 
