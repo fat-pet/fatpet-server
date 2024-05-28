@@ -1,7 +1,7 @@
 package com.example.fatpetserver.diagnosis.enums
 
 enum class Bcs {
-    UNDER,
+    UNDER_WEIGHT,
     IDEAL,
-    OVER,
+    OVER_WEIGHT,
 }

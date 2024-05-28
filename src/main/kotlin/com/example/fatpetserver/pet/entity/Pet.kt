@@ -29,7 +29,7 @@ class Pet(
     @Convert(converter = YearMonthConverter::class)
     val birthDate: YearMonth,
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "is_neutered")
     var neutered: Boolean,
 
     @Column(nullable = false)
@@ -50,13 +50,14 @@ class Pet(
     )
     val diagnosises: List<Diagnosis> = listOf(),
 ) : BaseEntity() {
+
     @Transient
     private val period = Period.between(
         LocalDate.of(birthDate.year, birthDate.month.value, 1),
         LocalDate.now()
     )
 
-    private val ageInMonth: Int
+    val ageInMonth: Int
         get() = period.years * 12 + period.months
 
     val age: Int
@@ -75,7 +76,7 @@ class Pet(
             return rer * 2F
         }
 
-        if (bcs == Bcs.OVER) {
+        if (bcs == Bcs.OVER_WEIGHT) {
             return rer * 1.2F
         }
 
