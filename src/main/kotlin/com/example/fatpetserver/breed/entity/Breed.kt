@@ -20,6 +20,9 @@ class Breed(
     val name: String,
 
     @Column(nullable = false)
+    val nameKor: String,
+
+    @Column(nullable = false)
     var code: Int,
 
     @Column

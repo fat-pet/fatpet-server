@@ -15,12 +15,13 @@ class BreedCommandService(
 ) {
 
     fun create(command: CreateBreedCommand): Breed {
-        val (species, name, code, sex, avgWeightLow, avgWeightHigh) = command
+        val (species, name, nameKor, code, sex, avgWeightLow, avgWeightHigh) = command
 
         return breedRepository.save(
             Breed(
                 species = species,
                 name = name,
+                nameKor = nameKor,
                 code = code!!,
                 sex = sex!!,
                 avgWeightLow = avgWeightLow,

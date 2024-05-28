@@ -16,6 +16,10 @@ data class CreateBreedCommand(
     @field:NotBlank(message = "품종은 필수 입력값입니다.")
     val name: String,
 
+    @Schema(example = "비글")
+    @field:NotBlank(message = "한글명 품종은 필수 입력값입니다.")
+    val nameKor: String,
+
     @Schema(example = "1")
     @field:NotNull(message = "코드는 필수 입력값입니다.")
     val code: Int? = null,
