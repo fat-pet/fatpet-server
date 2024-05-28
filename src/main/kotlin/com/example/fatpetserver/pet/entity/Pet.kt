@@ -50,7 +50,7 @@ class Pet(
     )
     val diagnosises: List<Diagnosis> = listOf(),
 ) : BaseEntity() {
-
+    @Transient
     private val period = Period.between(
         LocalDate.of(birthDate.year, birthDate.month.value, 1),
         LocalDate.now()

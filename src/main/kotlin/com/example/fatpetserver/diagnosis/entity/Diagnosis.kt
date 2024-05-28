@@ -25,9 +25,6 @@ class Diagnosis(
     val chestCirc: Float,
 
     @Column(nullable = false)
-    val feedAmount: Int,
-
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     val bcs: Bcs,
 

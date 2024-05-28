@@ -8,7 +8,6 @@ interface DiagnosisInfo {
     val weight: Float
     val neckCirc: Float
     val chestCirc: Float
-    val feedAmount: Int
     val bcs: Bcs
     val der: Float
     val createdDate: LocalDateTime

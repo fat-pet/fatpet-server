@@ -41,7 +41,6 @@ class DiagnosisCommandService(
                 weight = weight,
                 neckCirc = neckCirc,
                 chestCirc = chestCirc,
-                feedAmount = feedAmount,
                 bcs = bcs,
                 der = der,
                 pet = pet,

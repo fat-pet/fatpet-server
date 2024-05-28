@@ -87,8 +87,8 @@ class DiagnosisQueryService(
         val request = ChatRequest(
             model = gptModel,
             messages = listOf(
-                ChatMessage(role = "system", content = ""),
-                ChatMessage(role = "user", content = "hello")
+                ChatMessage(role = "system", content = "너는 강아지와 고양이의 비만을 전문적으로 관리하는 수의사야."),
+                ChatMessage(role = "user", content = "")
             )
         )
 
