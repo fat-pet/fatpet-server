@@ -1,5 +1,6 @@
 package com.example.fatpetserver.diagnosis.service
 
+import com.example.fatpetserver.breed.enums.Sex
 import com.example.fatpetserver.diagnosis.dto.CreateDiagnosisCommand
 import com.example.fatpetserver.diagnosis.dto.DiagnoseResponse
 import com.example.fatpetserver.diagnosis.entity.Diagnosis
@@ -22,8 +23,23 @@ class DiagnosisCommandService(
         val pet = petQueryService.getPetByIdOrThrow(petId)
         val breed = pet.breed
 
+        val sex = if (pet.neutered) {
+            if (breed.sex == Sex.MALE) {
+                0
+            } else {
+                3
+            }
+        } else {
+            if (breed.sex == Sex.MALE) {
+                2
+            } else {
+                1
+            }
+        }
+
         val bcs = diagnosisQueryService.predictBcs(
             age = pet.age,
+            sex = sex,
             weight = weight,
             neckCirc = neckCirc,
             chestCirc = chestCirc,

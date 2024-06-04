@@ -40,6 +40,7 @@ class DiagnosisQueryService(
 
     fun predictBcs(
         age: Int,
+        sex: Int,
         weight: Float,
         neckCirc: Float,
         chestCirc: Float,
@@ -56,6 +57,7 @@ class DiagnosisQueryService(
                 uriBuilder
                     .path("/api/predict")
                     .queryParam("age", age)
+                    .queryParam("sex", sex)
                     .queryParam("weight", weight)
                     .queryParam("neck_circ", neckCirc)
                     .queryParam("chest_circ", chestCirc)
