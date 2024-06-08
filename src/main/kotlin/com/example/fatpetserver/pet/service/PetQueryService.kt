@@ -12,9 +12,7 @@ import org.springframework.transaction.annotation.Transactional
 class PetQueryService(
     private val petRepository: PetRepository,
 ) {
-
-    fun getAllByMember(memberId: Long): List<PetInfo> =
-        petRepository.findAllByMemberId(memberId)
+    fun getAllByMember(memberId: Long): List<PetInfo> = petRepository.findAllByMemberId(memberId)
 
     fun getPetByIdOrThrow(petId: Long): Pet =
         petRepository.findByIdOrNull(petId)

@@ -14,7 +14,6 @@ abstract class IdEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = DEFAULT_ID,
 ) {
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         other as BaseEntity
@@ -22,9 +21,7 @@ abstract class IdEntity(
         return id == other.id
     }
 
-    override fun hashCode(): Int {
-        return id.hashCode()
-    }
+    override fun hashCode(): Int = id.hashCode()
 
     companion object {
         const val DEFAULT_ID = 0L

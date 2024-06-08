@@ -15,8 +15,10 @@ class PostCommandService(
     private val postQueryService: PostQueryService,
     private val memberQueryService: MemberQueryService,
 ) {
-
-    fun create(memberId: Long, command: CreatePostCommand): Post {
+    fun create(
+        memberId: Long,
+        command: CreatePostCommand,
+    ): Post {
         val (title, content) = command
 
         val member = memberQueryService.getMemberByIdOrThrow(memberId)
@@ -26,17 +28,21 @@ class PostCommandService(
                 title = title,
                 content = content,
                 member = member,
-            )
+            ),
         )
     }
 
-    fun update(postId: Long, command: UpdatePostCommand) {
+    fun update(
+        postId: Long,
+        command: UpdatePostCommand,
+    ) {
         val (newTitle, newContent) = command
 
-        val updatedPost = postQueryService.getPostByIdOrThrow(postId).apply {
-            title = newTitle
-            content = newContent
-        }
+        val updatedPost =
+            postQueryService.getPostByIdOrThrow(postId).apply {
+                title = newTitle
+                content = newContent
+            }
 
         postRepository.save(updatedPost)
     }

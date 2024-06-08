@@ -6,7 +6,6 @@ import com.example.fatpetserver.breed.enums.Species
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface BreedRepository : JpaRepository<Breed, Long> {
-
     fun findBySexAndSpeciesAndName(
         sex: Sex,
         species: Species,

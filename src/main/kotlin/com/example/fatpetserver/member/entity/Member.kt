@@ -19,33 +19,27 @@ import jakarta.persistence.Table
 class Member(
     @Column(nullable = true)
     var email: String? = null,
-
     @Column(nullable = false, unique = true)
     val loginId: String,
-
     @Column(nullable = false)
     val password: String,
-
     @Column(nullable = true, unique = true)
     var nickname: String? = null,
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     val role: Role = Role.MEMBER,
-
     @OneToMany(
         cascade = [CascadeType.ALL],
         orphanRemoval = true,
-        fetch = FetchType.LAZY
+        fetch = FetchType.LAZY,
     )
     @JoinColumn(name = "member_id")
     val pets: List<Pet> = listOf(),
-
     @OneToMany(
         mappedBy = "member",
         cascade = [CascadeType.ALL],
         orphanRemoval = true,
-        fetch = FetchType.LAZY
+        fetch = FetchType.LAZY,
     )
     val posts: List<Post> = listOf(),
 ) : BaseEntity()

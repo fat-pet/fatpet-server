@@ -18,7 +18,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 class SecurityConfig(
     private val jwtTokenProvider: JwtTokenProvider,
 ) {
-
     private val allowedRequests =
         arrayOf(
             "/v3/api-docs/**",
@@ -39,8 +38,7 @@ class SecurityConfig(
                 it.requestMatchers(*allowedRequests).permitAll()
                 it.requestMatchers("/api/admin/**", "/api/breeds/**").hasAuthority(Role.ADMIN.name)
                 it.anyRequest().hasAuthority(Role.MEMBER.name)
-            }
-            .formLogin { it.disable() }
+            }.formLogin { it.disable() }
             .addFilterBefore(
                 JwtAuthFilter(jwtTokenProvider),
                 UsernamePasswordAuthenticationFilter::class.java,

@@ -17,8 +17,10 @@ class PetCommandService(
     private val memberQueryService: MemberQueryService,
     private val breedQueryService: BreedQueryService,
 ) {
-
-    fun create(memberId: Long, command: CreatePetCommand): Pet {
+    fun create(
+        memberId: Long,
+        command: CreatePetCommand,
+    ): Pet {
         val (sex, name, species, breedName, birthDate, neutered, feedCalories) = command
 
         val member = memberQueryService.getMemberByIdOrThrow(memberId)
@@ -33,18 +35,22 @@ class PetCommandService(
                 feedCalories = feedCalories,
                 member = member,
                 breed = breed,
-            )
+            ),
         )
     }
 
-    fun update(petId: Long, command: UpdatePetCommand) {
+    fun update(
+        petId: Long,
+        command: UpdatePetCommand,
+    ) {
         val (newName, newNeutered, newFeedCalories) = command
 
-        val updatedPet = petQueryService.getPetByIdOrThrow(petId).apply {
-            name = newName
-            neutered = newNeutered!!
-            feedCalories = newFeedCalories
-        }
+        val updatedPet =
+            petQueryService.getPetByIdOrThrow(petId).apply {
+                name = newName
+                neutered = newNeutered!!
+                feedCalories = newFeedCalories
+            }
 
         petRepository.save(updatedPet)
     }

@@ -13,14 +13,17 @@ import org.springframework.transaction.annotation.Transactional
 class BreedQueryService(
     private val breedRepository: BreedRepository,
 ) {
-
     fun getAll(): List<Breed> = breedRepository.findAll()
 
     fun getBreedByIdOrThrow(breedId: Long): Breed =
         breedRepository.findByIdOrNull(breedId)
             ?: throw IllegalArgumentException("존재하지 않는 품종입니다.")
 
-    fun getBreedOrThrow(sex: Sex, species: Species, breedsName: String): Breed =
+    fun getBreedOrThrow(
+        sex: Sex,
+        species: Species,
+        breedsName: String,
+    ): Breed =
         breedRepository.findBySexAndSpeciesAndName(sex, species, breedsName)
             ?: throw IllegalArgumentException("존재하지 않는 품종입니다.")
 }

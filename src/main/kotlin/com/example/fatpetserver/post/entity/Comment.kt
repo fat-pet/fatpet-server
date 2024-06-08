@@ -16,27 +16,22 @@ import jakarta.persistence.Table
 class Comment(
     @Column(nullable = false)
     var content: String,
-
     @ManyToOne(fetch = FetchType.LAZY)
     val post: Post,
-
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = true, updatable = false)
     val member: Member,
-
     @ManyToOne
     @JoinColumn(name = "parent_id", nullable = true, updatable = false)
     val parent: Comment?,
-
     @OneToMany(
         mappedBy = "parent",
         cascade = [CascadeType.ALL],
         orphanRemoval = true,
-        fetch = FetchType.EAGER
+        fetch = FetchType.EAGER,
     )
     val children: MutableList<Comment> = mutableListOf(),
 ) : BaseEntity() {
-
     fun delete() {
         parent?.children.let { child ->
             child?.removeIf { it == this }

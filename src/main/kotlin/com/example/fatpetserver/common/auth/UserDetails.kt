@@ -7,7 +7,6 @@ data class UserDetails(
     private val _id: String,
     private val _authorities: List<SimpleGrantedAuthority>,
 ) : UserDetails {
-
     val id = _id.toLong()
 
     override fun getAuthorities() = _authorities

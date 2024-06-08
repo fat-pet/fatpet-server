@@ -6,9 +6,11 @@ import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class PetQueryServiceTest @Autowired constructor(
-    private val petQueryService: PetQueryService,
-) {
+class PetQueryServiceTest
+    @Autowired
+    constructor(
+        private val petQueryService: PetQueryService,
+    ) {
 //
 //    @Test
 //    @DisplayName("내 펫 목록 조회")
@@ -68,4 +70,4 @@ class PetQueryServiceTest @Autowired constructor(
 //            memberRepository.deleteAll()
 //        }
 //    }
-}
+    }

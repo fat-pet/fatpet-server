@@ -12,7 +12,6 @@ import java.util.*
 
 @Service
 class JwtTokenProvider {
-
     @Value("\${jwt.issuer}")
     lateinit var issuer: String
 
@@ -23,13 +22,23 @@ class JwtTokenProvider {
         Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret))
     }
 
-    fun createToken(id: String, role: String): String {
+    fun createToken(
+        id: String,
+        role: String,
+    ): String {
         val now = Date()
         val expirationDate = Date(now.time + EXPIRATION_MILLISECONDS)
         val claims = mapOf("role" to role)
 
-        return Jwts.builder().subject(id).claims(claims).issuedAt(now).issuer(issuer)
-            .expiration(expirationDate).signWith(key).compact()
+        return Jwts
+            .builder()
+            .subject(id)
+            .claims(claims)
+            .issuedAt(now)
+            .issuer(issuer)
+            .expiration(expirationDate)
+            .signWith(key)
+            .compact()
     }
 
     fun validateToken(token: String): Boolean = kotlin.runCatching { getClaims(token) }.isSuccess
@@ -39,9 +48,11 @@ class JwtTokenProvider {
         val id = claims.subject
         val role = claims["role"] as String
         val authorities = listOf(SimpleGrantedAuthority(role))
-        val principal = UserDetails(
-            _id = id, _authorities = authorities
-        )
+        val principal =
+            UserDetails(
+                _id = id,
+                _authorities = authorities,
+            )
 
         return AuthenticationToken(
             principal = principal,
@@ -50,7 +61,12 @@ class JwtTokenProvider {
     }
 
     private fun getClaims(token: String): Claims =
-        Jwts.parser().verifyWith(key).build().parseSignedClaims(token).payload
+        Jwts
+            .parser()
+            .verifyWith(key)
+            .build()
+            .parseSignedClaims(token)
+            .payload
 
     companion object {
         private const val EXPIRATION_MILLISECONDS = 1000L * 60 * 60 * 24 * 30

@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.tags.Tag
 
 @Tag(name = "Member API")
 interface MemberApi {
-
     @Operation(summary = "회원 정보 조회")
     fun getMemberInfo(userDetails: UserDetails): ApiResponse<MemberInfo>
 
@@ -26,8 +25,14 @@ interface MemberApi {
     fun delete(userDetails: UserDetails)
 
     @Operation(summary = "회원 정보 수정")
-    fun update(userDetails: UserDetails, command: UpdateMemberCommand)
+    fun update(
+        userDetails: UserDetails,
+        command: UpdateMemberCommand,
+    )
 
     @Operation(summary = "아이디/닉네임 중복 확인")
-    fun checkDuplicate(loginId: String?, nickname: String?): ApiResponse<Boolean>
+    fun checkDuplicate(
+        loginId: String?,
+        nickname: String?,
+    ): ApiResponse<Boolean>
 }

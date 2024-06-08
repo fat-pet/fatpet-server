@@ -6,4 +6,3 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 data class ChatResponse(
     val choices: List<Choice>,
 )
-

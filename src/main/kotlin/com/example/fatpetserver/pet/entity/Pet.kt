@@ -24,24 +24,18 @@ import java.time.YearMonth
 class Pet(
     @Column(nullable = false)
     var name: String,
-
     @Column(nullable = false)
     @Convert(converter = YearMonthConverter::class)
     val birthDate: YearMonth,
-
     @Column(nullable = false, name = "is_neutered")
     var neutered: Boolean,
-
     @Column(nullable = false)
     var feedCalories: Int,
-
     @ManyToOne(fetch = FetchType.LAZY)
     val member: Member,
-
     @ManyToOne
     @JoinColumn(name = "breed_id", nullable = false, updatable = false)
     val breed: Breed,
-
     @OneToMany(
         mappedBy = "pet",
         cascade = [CascadeType.ALL],
@@ -50,12 +44,12 @@ class Pet(
     )
     val diagnosises: List<Diagnosis> = listOf(),
 ) : BaseEntity() {
-
     private val period: Period
-        get() = Period.between(
-            LocalDate.of(birthDate.year, birthDate.month, 1),
-            LocalDate.now()
-        )
+        get() =
+            Period.between(
+                LocalDate.of(birthDate.year, birthDate.month, 1),
+                LocalDate.now(),
+            )
 
     val ageInMonth: Int
         get() = period.years * 12 + period.months
@@ -65,7 +59,10 @@ class Pet(
 
     private fun getRer(weight: Float): Float = weight * 30 + 70
 
-    fun getDer(weight: Float, bcs: Bcs): Float {
+    fun getDer(
+        weight: Float,
+        bcs: Bcs,
+    ): Float {
         val rer = getRer(weight)
 
         if (ageInMonth < 4) {

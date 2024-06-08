@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.tags.Tag
 
 @Tag(name = "Post API")
 interface PostApi {
-
     @Operation(summary = "전체 게시글 목록 조회")
     fun getAll(): ApiResponse<List<PostInfo>>
 
@@ -20,18 +19,27 @@ interface PostApi {
     fun getPostDetail(postId: Long): ApiResponse<PostDetailResponse>
 
     @Operation(summary = "게시글 생성")
-    fun create(userDetails: UserDetails, command: CreatePostCommand)
+    fun create(
+        userDetails: UserDetails,
+        command: CreatePostCommand,
+    )
 
     @Operation(summary = "게시글 수정")
-    fun update(postId: Long, command: UpdatePostCommand)
+    fun update(
+        postId: Long,
+        command: UpdatePostCommand,
+    )
 
     @Operation(summary = "게시글 삭제")
     fun delete(postId: Long)
 
     @Operation(summary = "댓글 생성")
-    fun createComment(userDetails: UserDetails, postId: Long, command: CreateCommentCommand)
+    fun createComment(
+        userDetails: UserDetails,
+        postId: Long,
+        command: CreateCommentCommand,
+    )
 
     @Operation(summary = "댓글 삭제")
     fun deleteComment(commentId: Long)
 }
-

@@ -15,12 +15,12 @@ class MemberCommandService(
     private val memberQueryService: MemberQueryService,
     private val passwordEncoder: PasswordEncoder,
 ) {
-
     fun signup(command: SignupCommand): Member {
-        val (email, loginId, password, nickname) = command.apply {
-            memberQueryService.checkLoginId(loginId)
-            memberQueryService.checkNickname(nickname)
-        }
+        val (email, loginId, password, nickname) =
+            command.apply {
+                memberQueryService.checkLoginId(loginId)
+                memberQueryService.checkNickname(nickname)
+            }
 
         val encodedPassword = passwordEncoder.encode(password)
 
@@ -30,7 +30,7 @@ class MemberCommandService(
                 loginId = loginId,
                 password = encodedPassword,
                 nickname = nickname,
-            )
+            ),
         )
     }
 
@@ -39,15 +39,20 @@ class MemberCommandService(
             memberRepository.delete(member)
         }
 
-    fun update(memberId: Long, command: UpdateMemberCommand) {
-        val (newEmail, newNickname) = command.apply {
-            memberQueryService.checkNickname(nickname)
-        }
+    fun update(
+        memberId: Long,
+        command: UpdateMemberCommand,
+    ) {
+        val (newEmail, newNickname) =
+            command.apply {
+                memberQueryService.checkNickname(nickname)
+            }
 
-        val updatedMember = memberQueryService.getMemberByIdOrThrow(memberId).apply {
-            email = newEmail
-            nickname = newNickname
-        }
+        val updatedMember =
+            memberQueryService.getMemberByIdOrThrow(memberId).apply {
+                email = newEmail
+                nickname = newNickname
+            }
 
         memberRepository.save(updatedMember)
     }

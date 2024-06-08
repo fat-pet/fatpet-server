@@ -24,16 +24,15 @@ class BreedController(
     private val breedCommandService: BreedCommandService,
     private val breedQueryService: BreedQueryService,
 ) : BreedApi {
-
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    override fun getAll(): ApiResponse<List<Breed>> {
-        return ApiResponse.success(breedQueryService.getAll())
-    }
+    override fun getAll(): ApiResponse<List<Breed>> = ApiResponse.success(breedQueryService.getAll())
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    override fun create(@Valid @RequestBody command: CreateBreedCommand) {
+    override fun create(
+        @Valid @RequestBody command: CreateBreedCommand,
+    ) {
         breedCommandService.create(command)
     }
 
@@ -48,7 +47,9 @@ class BreedController(
 
     @DeleteMapping("/{breedId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    override fun delete(@PathVariable breedId: Long) {
+    override fun delete(
+        @PathVariable breedId: Long,
+    ) {
         breedCommandService.delete(breedId)
     }
 }

@@ -6,9 +6,11 @@ import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class MemberQueryServiceTest @Autowired constructor(
-    private val memberQueryService: MemberQueryService,
-) {
+class MemberQueryServiceTest
+    @Autowired
+    constructor(
+        private val memberQueryService: MemberQueryService,
+    ) {
 //
 //    @Test
 //    @DisplayName("로그인 - 아이디 불일치")
@@ -82,4 +84,4 @@ class MemberQueryServiceTest @Autowired constructor(
 //            memberRepository.deleteAll()
 //        }
 //    }
-}
+    }

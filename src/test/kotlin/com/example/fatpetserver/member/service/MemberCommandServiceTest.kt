@@ -7,10 +7,12 @@ import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class MemberCommandServiceTest @Autowired constructor(
-    private val memberRepository: MemberRepository,
-    private val memberCommandService: MemberCommandService,
-) {
+class MemberCommandServiceTest
+    @Autowired
+    constructor(
+        private val memberRepository: MemberRepository,
+        private val memberCommandService: MemberCommandService,
+    ) {
 //
 //    @BeforeEach
 //    fun setup() {
@@ -171,4 +173,4 @@ class MemberCommandServiceTest @Autowired constructor(
 //    companion object {
 //        private lateinit var MEMBER: Member
 //    }
-}
+    }

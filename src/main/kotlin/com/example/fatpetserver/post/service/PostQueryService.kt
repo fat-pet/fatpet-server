@@ -15,7 +15,6 @@ class PostQueryService(
     private val postRepository: PostRepository,
     private val commentRepository: CommentRepository,
 ) {
-
     fun getAll(): List<PostInfo> = postRepository.findAllByOrderByCreatedDateDesc()
 
     fun getPostDetail(postId: Long): PostDetailResponse {
@@ -29,7 +28,7 @@ class PostQueryService(
                 nickname = member.nickname!!,
                 title = title,
                 content = content,
-                comments = comments
+                comments = comments,
             )
         }
     }

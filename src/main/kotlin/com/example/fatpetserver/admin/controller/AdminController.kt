@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.RestController
 class AdminController(
     private val adminCommandService: AdminCommandService,
 ) : AdminApi {
-
     @PostMapping("/signup")
     @ResponseStatus(value = HttpStatus.CREATED)
-    override fun signup(@Valid @RequestBody command: SignupAdminCommand) {
+    override fun signup(
+        @Valid @RequestBody command: SignupAdminCommand,
+    ) {
         adminCommandService.signup(command)
     }
 }

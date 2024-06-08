@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.tags.Tag
 
 @Tag(name = "Breed API")
 interface BreedApi {
-
     @Operation(summary = "품종 목록 조회")
     fun getAll(): ApiResponse<List<Breed>>
 
@@ -17,7 +16,10 @@ interface BreedApi {
     fun create(command: CreateBreedCommand)
 
     @Operation(summary = "품종 정보 수정")
-    fun update(breedId: Long, command: UpdateBreedCommand)
+    fun update(
+        breedId: Long,
+        command: UpdateBreedCommand,
+    )
 
     @Operation(summary = "품종 삭제")
     fun delete(breedId: Long)

@@ -30,18 +30,15 @@ class PostController(
     private val postQueryService: PostQueryService,
     private val commentCommandService: CommentCommandService,
 ) : PostApi {
-
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    override fun getAll(): ApiResponse<List<PostInfo>> {
-        return ApiResponse.success(postQueryService.getAll())
-    }
+    override fun getAll(): ApiResponse<List<PostInfo>> = ApiResponse.success(postQueryService.getAll())
 
     @GetMapping("/{postId}")
     @ResponseStatus(value = HttpStatus.OK)
-    override fun getPostDetail(@PathVariable postId: Long): ApiResponse<PostDetailResponse> {
-        return ApiResponse.success(postQueryService.getPostDetail(postId))
-    }
+    override fun getPostDetail(
+        @PathVariable postId: Long,
+    ): ApiResponse<PostDetailResponse> = ApiResponse.success(postQueryService.getPostDetail(postId))
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -63,7 +60,9 @@ class PostController(
 
     @DeleteMapping("/{postId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    override fun delete(@PathVariable postId: Long) {
+    override fun delete(
+        @PathVariable postId: Long,
+    ) {
         postCommandService.delete(postId)
     }
 
@@ -79,7 +78,9 @@ class PostController(
 
     @DeleteMapping("/comments/{commentId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    override fun deleteComment(@PathVariable commentId: Long) {
+    override fun deleteComment(
+        @PathVariable commentId: Long,
+    ) {
         commentCommandService.delete(commentId)
     }
 }

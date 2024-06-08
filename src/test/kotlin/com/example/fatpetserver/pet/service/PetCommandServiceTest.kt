@@ -7,10 +7,12 @@ import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class PetCommandServiceTest @Autowired constructor(
-    private val petRepository: PetRepository,
-    private val petCommandService: PetCommandService,
-) {
+class PetCommandServiceTest
+    @Autowired
+    constructor(
+        private val petRepository: PetRepository,
+        private val petCommandService: PetCommandService,
+    ) {
 //
 //    @BeforeEach
 //    fun setup() {
@@ -178,4 +180,4 @@ class PetCommandServiceTest @Autowired constructor(
 //            memberRepository.deleteAll()
 //        }
 //    }
-}
+    }

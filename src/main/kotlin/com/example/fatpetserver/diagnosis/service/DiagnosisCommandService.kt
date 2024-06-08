@@ -16,48 +16,50 @@ class DiagnosisCommandService(
     private val diagnosisQueryService: DiagnosisQueryService,
     private val petQueryService: PetQueryService,
 ) {
-
     fun diagnose(command: CreateDiagnosisCommand): DiagnoseResponse {
         val (petId, weight, neckCirc, chestCirc) = command
 
         val pet = petQueryService.getPetByIdOrThrow(petId)
         val breed = pet.breed
 
-        val sex = if (pet.neutered) {
-            if (breed.sex == Sex.MALE) {
-                0
+        val sex =
+            if (pet.neutered) {
+                if (breed.sex == Sex.MALE) {
+                    0
+                } else {
+                    3
+                }
             } else {
-                3
+                if (breed.sex == Sex.MALE) {
+                    2
+                } else {
+                    1
+                }
             }
-        } else {
-            if (breed.sex == Sex.MALE) {
-                2
-            } else {
-                1
-            }
-        }
 
-        val bcs = diagnosisQueryService.predictBcs(
-            age = pet.age,
-            sex = sex,
-            weight = weight,
-            neckCirc = neckCirc,
-            chestCirc = chestCirc,
-            breedCode = breed.code,
-            speciesCode = breed.species.code,
-        )
+        val bcs =
+            diagnosisQueryService.predictBcs(
+                age = pet.age,
+                sex = sex,
+                weight = weight,
+                neckCirc = neckCirc,
+                chestCirc = chestCirc,
+                breedCode = breed.code,
+                speciesCode = breed.species.code,
+            )
 
         val der = pet.getDer(weight, bcs)
 
-        val gptSolution = diagnosisQueryService.getGptSolution(
-            pet = pet,
-            breed = breed,
-            weight = weight,
-            neckCirc = neckCirc,
-            chestCirc = chestCirc,
-            bcs = bcs,
-            der = der,
-        )
+        val gptSolution =
+            diagnosisQueryService.getGptSolution(
+                pet = pet,
+                breed = breed,
+                weight = weight,
+                neckCirc = neckCirc,
+                chestCirc = chestCirc,
+                bcs = bcs,
+                der = der,
+            )
 
         diagnosisRepository.save(
             Diagnosis(
@@ -67,7 +69,7 @@ class DiagnosisCommandService(
                 bcs = bcs,
                 der = der,
                 pet = pet,
-            )
+            ),
         )
 
         return DiagnoseResponse(

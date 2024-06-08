@@ -17,20 +17,15 @@ import jakarta.persistence.Table
 class Diagnosis(
     @Column(nullable = false)
     val weight: Float,
-
     @Column(nullable = false)
     val neckCirc: Float,
-
     @Column(nullable = false)
     val chestCirc: Float,
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     val bcs: Bcs,
-
     @Column(nullable = false)
     val der: Float,
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pet_id", nullable = false, updatable = false)
     val pet: Pet,

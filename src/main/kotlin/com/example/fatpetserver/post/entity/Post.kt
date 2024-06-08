@@ -16,18 +16,15 @@ import jakarta.persistence.Table
 class Post(
     @Column(nullable = false)
     var title: String,
-
     @Column(nullable = false, columnDefinition = "VARCHAR(1023)")
     var content: String,
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false, updatable = false)
     val member: Member,
-
     @OneToMany(
         cascade = [CascadeType.ALL],
         orphanRemoval = true,
-        fetch = FetchType.LAZY
+        fetch = FetchType.LAZY,
     )
     @JoinColumn(name = "post_id")
     val comments: List<Comment> = listOf(),

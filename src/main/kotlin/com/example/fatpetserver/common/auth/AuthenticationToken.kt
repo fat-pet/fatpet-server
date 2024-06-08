@@ -7,7 +7,6 @@ class AuthenticationToken(
     private val principal: UserDetails,
     authorities: Collection<GrantedAuthority>,
 ) : AbstractAuthenticationToken(authorities) {
-
     override fun getCredentials(): Any? = null
 
     override fun getPrincipal() = principal

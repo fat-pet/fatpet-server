@@ -15,23 +15,17 @@ class Breed(
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     val species: Species,
-
     @Column(nullable = false)
     val name: String,
-
     @Column(nullable = false)
     val nameKor: String,
-
     @Column(nullable = false)
     var code: Int,
-
     @Column
     @Enumerated(EnumType.STRING)
     val sex: Sex,
-
     @Column
     var avgWeightLow: Int,
-
     @Column
     var avgWeightHigh: Int,
 ) : IdEntity()

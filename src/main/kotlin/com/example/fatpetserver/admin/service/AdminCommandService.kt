@@ -14,7 +14,6 @@ class AdminCommandService(
     private val memberRepository: MemberRepository,
     private val passwordEncoder: PasswordEncoder,
 ) {
-
     fun signup(command: SignupAdminCommand): Member {
         val (loginId, password) = command
 
@@ -25,7 +24,7 @@ class AdminCommandService(
                 loginId = loginId,
                 password = encodedPassword,
                 role = Role.ADMIN,
-            )
+            ),
         )
     }
 }

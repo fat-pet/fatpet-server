@@ -28,28 +28,31 @@ class MemberController(
     private val memberCommandService: MemberCommandService,
     private val memberQueryService: MemberQueryService,
 ) : MemberApi {
-
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    override fun getMemberInfo(@AuthenticationPrincipal userDetails: UserDetails): ApiResponse<MemberInfo> {
-        return ApiResponse.success(memberQueryService.getMemberInfo(userDetails.id))
-    }
+    override fun getMemberInfo(
+        @AuthenticationPrincipal userDetails: UserDetails,
+    ): ApiResponse<MemberInfo> = ApiResponse.success(memberQueryService.getMemberInfo(userDetails.id))
 
     @PostMapping("/signup")
     @ResponseStatus(value = HttpStatus.CREATED)
-    override fun signup(@Valid @RequestBody command: SignupCommand) {
+    override fun signup(
+        @Valid @RequestBody command: SignupCommand,
+    ) {
         memberCommandService.signup(command)
     }
 
     @PostMapping("/signin")
     @ResponseStatus(value = HttpStatus.OK)
-    override fun signin(@Valid @RequestBody query: SigninQuery): ApiResponse<SigninResponse> {
-        return ApiResponse.success(memberQueryService.signin(query))
-    }
+    override fun signin(
+        @Valid @RequestBody query: SigninQuery,
+    ): ApiResponse<SigninResponse> = ApiResponse.success(memberQueryService.signin(query))
 
     @DeleteMapping
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    override fun delete(@AuthenticationPrincipal userDetails: UserDetails) {
+    override fun delete(
+        @AuthenticationPrincipal userDetails: UserDetails,
+    ) {
         memberCommandService.delete(userDetails.id)
     }
 
@@ -67,9 +70,8 @@ class MemberController(
     override fun checkDuplicate(
         @RequestParam(required = false) loginId: String?,
         @RequestParam(required = false) nickname: String?,
-    ): ApiResponse<Boolean> {
-        return ApiResponse.success(
-            memberQueryService.checkDuplicate(loginId, nickname)
+    ): ApiResponse<Boolean> =
+        ApiResponse.success(
+            memberQueryService.checkDuplicate(loginId, nickname),
         )
-    }
 }

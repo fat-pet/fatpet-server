@@ -15,23 +15,27 @@ class CommentCommandService(
     private val memberQueryService: MemberQueryService,
     private val postQueryService: PostQueryService,
 ) {
-
-    fun create(memberId: Long, postId: Long, command: CreateCommentCommand): Comment {
+    fun create(
+        memberId: Long,
+        postId: Long,
+        command: CreateCommentCommand,
+    ): Comment {
         val (content, parentId) = command
 
         val member = memberQueryService.getMemberByIdOrThrow(memberId)
         val post = postQueryService.getPostByIdOrThrow(postId)
-        val parent = parentId?.let {
-            commentQueryService.getCommentByIdOrThrow(parentId)
-        }
+        val parent =
+            parentId?.let {
+                commentQueryService.getCommentByIdOrThrow(parentId)
+            }
 
         return commentRepository.save(
             Comment(
                 content = content,
                 post = post,
                 member = member,
-                parent = parent
-            )
+                parent = parent,
+            ),
         )
     }
 

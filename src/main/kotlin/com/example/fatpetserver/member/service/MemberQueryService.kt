@@ -17,7 +17,6 @@ class MemberQueryService(
     private val passwordEncoder: PasswordEncoder,
     private val jwtTokenProvider: JwtTokenProvider,
 ) {
-
     fun getMemberInfo(memberId: Long) =
         memberRepository.findMemberById(memberId)
             ?: throw IllegalArgumentException("존재하지 않는 사용자입니다.")
@@ -25,14 +24,16 @@ class MemberQueryService(
     fun signin(query: SigninQuery): SigninResponse {
         val (loginId, password) = query
 
-        val member = memberRepository.findByLoginId(loginId)?.takeIf { member ->
-            passwordEncoder.matches(password, member.password)
-        } ?: throw IllegalArgumentException("아이디 또는 비밀번호를 다시 확인해 주세요.")
+        val member =
+            memberRepository.findByLoginId(loginId)?.takeIf { member ->
+                passwordEncoder.matches(password, member.password)
+            } ?: throw IllegalArgumentException("아이디 또는 비밀번호를 다시 확인해 주세요.")
 
-        val token = jwtTokenProvider.createToken(
-            id = member.id.toString(),
-            role = member.role.toString(),
-        )
+        val token =
+            jwtTokenProvider.createToken(
+                id = member.id.toString(),
+                role = member.role.toString(),
+            )
 
         return SigninResponse(member.role, token)
     }
@@ -41,7 +42,10 @@ class MemberQueryService(
         memberRepository.findByIdOrNull(memberId)
             ?: throw IllegalArgumentException("존재하지 않는 사용자입니다.")
 
-    fun checkDuplicate(loginId: String?, nickname: String?): Boolean {
+    fun checkDuplicate(
+        loginId: String?,
+        nickname: String?,
+    ): Boolean {
         loginId?.let {
             return runCatching { checkLoginId(loginId) }.isFailure
         }
@@ -53,9 +57,7 @@ class MemberQueryService(
         throw IllegalArgumentException("쿼리 파라미터 값을 입력해 주세요.")
     }
 
-    fun checkLoginId(loginId: String) =
-        require(memberRepository.existsByLoginId(loginId).not()) { "이미 사용 중인 아이디입니다." }
+    fun checkLoginId(loginId: String) = require(memberRepository.existsByLoginId(loginId).not()) { "이미 사용 중인 아이디입니다." }
 
-    fun checkNickname(nickname: String) =
-        require(memberRepository.existsByNickname(nickname).not()) { "이미 사용 중인 닉네임입니다." }
+    fun checkNickname(nickname: String) = require(memberRepository.existsByNickname(nickname).not()) { "이미 사용 중인 닉네임입니다." }
 }

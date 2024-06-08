@@ -13,7 +13,6 @@ class BreedCommandService(
     private val breedRepository: BreedRepository,
     private val breedsQueryService: BreedQueryService,
 ) {
-
     fun create(command: CreateBreedCommand): Breed {
         val (species, name, nameKor, code, sex, avgWeightLow, avgWeightHigh) = command
 
@@ -25,19 +24,23 @@ class BreedCommandService(
                 code = code!!,
                 sex = sex!!,
                 avgWeightLow = avgWeightLow,
-                avgWeightHigh = avgWeightHigh
-            )
+                avgWeightHigh = avgWeightHigh,
+            ),
         )
     }
 
-    fun update(breedId: Long, command: UpdateBreedCommand) {
+    fun update(
+        breedId: Long,
+        command: UpdateBreedCommand,
+    ) {
         val (newCode, newAvgWeightLow, newAvgWeightHigh) = command
 
-        val updatedBreeds = breedsQueryService.getBreedByIdOrThrow(breedId).apply {
-            code = newCode!!
-            avgWeightLow = newAvgWeightLow
-            avgWeightHigh = newAvgWeightHigh
-        }
+        val updatedBreeds =
+            breedsQueryService.getBreedByIdOrThrow(breedId).apply {
+                code = newCode!!
+                avgWeightLow = newAvgWeightLow
+                avgWeightHigh = newAvgWeightHigh
+            }
 
         breedRepository.save(updatedBreeds)
     }

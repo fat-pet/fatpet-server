@@ -24,30 +24,27 @@ class DignosisController(
     private val diagnosisCommandService: DiagnosisCommandService,
     private val diagnosisQueryService: DiagnosisQueryService,
 ) : DiagnosisApi {
-
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    override fun getAllByPet(@RequestParam petId: Long): ApiResponse<List<DiagnosisInfo>> {
-        return ApiResponse.success(diagnosisQueryService.getAllByPet(petId))
-    }
+    override fun getAllByPet(
+        @RequestParam petId: Long,
+    ): ApiResponse<List<DiagnosisInfo>> = ApiResponse.success(diagnosisQueryService.getAllByPet(petId))
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     override fun diagnose(
         @Valid @RequestBody command: CreateDiagnosisCommand,
-    ): ApiResponse<DiagnoseResponse> {
-        return ApiResponse.success(diagnosisCommandService.diagnose(command))
-    }
+    ): ApiResponse<DiagnoseResponse> = ApiResponse.success(diagnosisCommandService.diagnose(command))
 
     @DeleteMapping("/{diagnosisId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    override fun delete(@PathVariable diagnosisId: Long) {
+    override fun delete(
+        @PathVariable diagnosisId: Long,
+    ) {
         diagnosisCommandService.delete(diagnosisId)
     }
 
     @GetMapping("/test")
     @ResponseStatus(HttpStatus.OK)
-    fun test(): String {
-        return diagnosisQueryService.apiTest()
-    }
+    fun test(): String = diagnosisQueryService.apiTest()
 }

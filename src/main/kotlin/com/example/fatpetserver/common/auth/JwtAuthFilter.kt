@@ -10,7 +10,6 @@ import org.springframework.web.filter.GenericFilterBean
 class JwtAuthFilter(
     private val jwtTokenProvider: JwtTokenProvider,
 ) : GenericFilterBean() {
-
     override fun doFilter(
         request: ServletRequest,
         response: ServletResponse,
@@ -27,7 +26,9 @@ class JwtAuthFilter(
     }
 
     private fun resolveToken(request: HttpServletRequest): String? =
-        request.getHeader("Authorization")?.takeIf {
-            it.startsWith("Bearer ")
-        }?.replace("Bearer ", "")
+        request
+            .getHeader("Authorization")
+            ?.takeIf {
+                it.startsWith("Bearer ")
+            }?.replace("Bearer ", "")
 }

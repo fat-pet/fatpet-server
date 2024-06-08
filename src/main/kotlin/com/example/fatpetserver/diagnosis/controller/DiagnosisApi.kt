@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.tags.Tag
 
 @Tag(name = "Diagnosis API")
 interface DiagnosisApi {
-
     @Operation(summary = "펫 진단 목록 조회")
     fun getAllByPet(petId: Long): ApiResponse<List<DiagnosisInfo>>
 

@@ -26,12 +26,11 @@ class PetController(
     private val petCommandService: PetCommandService,
     private val petQueryService: PetQueryService,
 ) : PetApi {
-
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    override fun getAllByMember(@AuthenticationPrincipal userDetails: UserDetails): ApiResponse<List<PetInfo>> {
-        return ApiResponse.success(petQueryService.getAllByMember(userDetails.id))
-    }
+    override fun getAllByMember(
+        @AuthenticationPrincipal userDetails: UserDetails,
+    ): ApiResponse<List<PetInfo>> = ApiResponse.success(petQueryService.getAllByMember(userDetails.id))
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -53,7 +52,9 @@ class PetController(
 
     @DeleteMapping("/{petId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    override fun delete(@PathVariable petId: Long) {
+    override fun delete(
+        @PathVariable petId: Long,
+    ) {
         petCommandService.delete(petId)
     }
 }
