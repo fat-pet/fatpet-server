@@ -102,40 +102,45 @@ class DiagnosisQueryService(
             ChatRequest(
                 model = gptModel,
                 messages =
-                    listOf(
-                        ChatMessage(role = "system", content = "너는 강아지와 고양이의 비만을 전문적으로 관리하는 수의사야."),
-                        ChatMessage(
-                            role = "user",
-                            content =
-                                "- 반려동물 정보\n" +
-                                    "종: ${breed.species}\n" +
-                                    "품종: ${breed.nameKor}\n" +
-                                    "나이: ${pet.ageInMonth}개월\n" +
-                                    "중성화: ${pet.neutered}\n" +
-                                    "체중: ${weight}kg\n" +
-                                    "목 둘레: ${neckCirc}cm\n" +
-                                    "가슴 둘레: ${chestCirc}cm\n" +
-                                    "BCS: $bcs\n" +
-                                    "(UNDER: 저체중, IDEAL: 정상, OVER: 과체중)\n" +
-                                    "DER(daily energy requirement): ${der}kcal\n" +
-                                    "사료 칼로리: ${pet.feedCalories}kcal / 100g\n" +
-                                    "이 반려동물에 대한 비만 관리 솔루션을 제공\n" +
-                                    "답변에 ** 같은 굵은 글자 사용 X, 입력한 반려동물의 신체정보를 그대로 출력 X\n" +
-                                    "아래와 같은 형식으로만 대답\n" +
-                                    "\n" +
-                                    "- AI 진단\n" +
-                                    "(BCS에 대한 간단한 설명과 현재 이 반려동물의 비만 상태, 주의해야할 건강 문제, 검진 내용 등 종합적인 진단)\n" +
-                                    "\n" +
-                                    "- 식습관\n" +
-                                    "(DER, 사료 칼로리를 기반으로 사료 급여량 조절 등 식습관 솔루션 제공)\n" +
-                                    "\n" +
-                                    "- 운동\n" +
-                                    "(BCS 수준에 따른 운동 솔루션 제공)]\n" +
-                                    "\n" +
-                                    "- 사료 추천\n" +
-                                    "(BCS 수준과 종, 품종, 나이 등에 따라 한국에서 구매 가능한 사료로 3가지 추천)",
-                        ),
+                listOf(
+                    ChatMessage(
+                        role = "system",
+                        content = "당신의 작업은 강아지와 고양이의 비만을 전문적으로 관리하는 수의사 역할을 하는 것이다. " +
+                                "자연스러운, 인간적인 방식으로 대답해. 단계별로 생각해. 결과가 편향되지 않고 편견에 의존하지 않도록 주의해."
                     ),
+                    ChatMessage(
+                        role = "user",
+                        content =
+                        "- 반려동물 정보\n" +
+                                "종: ${breed.species}\n" +
+                                "품종: ${breed.nameKor}\n" +
+                                "나이: ${pet.ageInMonth}개월\n" +
+                                "중성화: ${pet.neutered}\n" +
+                                "체중: ${weight}kg\n" +
+                                "목 둘레: ${neckCirc}cm\n" +
+                                "가슴 둘레: ${chestCirc}cm\n" +
+                                "BCS: $bcs\n" +
+                                "(UNDER: 저체중, IDEAL: 정상, OVER: 과체중)\n" +
+                                "DER(daily energy requirement): ${der}kcal\n" +
+                                "이 반려동물에 대한 비만 관리 솔루션을 제공해.\n" +
+                                "답변에 ** 같은 굵은 글자 사용하지마.\n" +
+                                "입력한 반려동물의 신체정보를 그대로 출력하지마.\n" +
+                                "### 지시 ###\n" +
+                                "아래와 같은 형식으로만 대답\n" +
+                                "\n" +
+                                "- AI 진단\n" +
+                                "BCS에 대한 간단한 설명과 현재 이 반려동물의 비만 상태, 주의해야할 건강 문제, 검진 내용 등 종합적인 진단 내용을 포함시켜.\n" +
+                                "\n" +
+                                "- 식습관\n" +
+                                "DER을 기반으로 사료 급여량 조절 등 식습관 솔루션 제공해.\n" +
+                                "\n" +
+                                "- 운동\n" +
+                                "BCS 수준에 따른 운동 솔루션 제공해.\n" +
+                                "\n" +
+                                "- 사료 추천\n" +
+                                "BCS 수준과 종, 품종, 나이 등에 따라 한국에서 구매 가능한 사료로 3가지 추천해. 제품명과 간단한 설명을 포함시켜."
+                    ),
+                ),
             )
 
         val result =
